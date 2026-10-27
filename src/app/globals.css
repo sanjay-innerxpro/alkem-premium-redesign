@@ -514,11 +514,10 @@ html:has(.np) {
 .np-hero {
   position: relative;
   isolation: isolate;
-  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 130px 0 90px;
+  padding: 120px 0 64px;
   color: #fff;
   background: radial-gradient(120% 90% at 70% 0%, #0b2440 0%, var(--np-deep) 60%);
   overflow: hidden;
@@ -566,14 +565,14 @@ html:has(.np) {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin-top: 36px;
+  margin-top: 28px;
 }
 .np-hero__facts {
   display: flex;
   flex-wrap: wrap;
   gap: 18px 40px;
-  margin: 48px 0 0;
-  padding-top: 26px;
+  margin: 32px 0 0;
+  padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .np-hero__facts dt {
@@ -613,7 +612,7 @@ html:has(.np) {
 /* Hero orbit art */
 .np-orbit {
   position: relative;
-  width: min(100%, 560px);
+  width: min(100%, 480px);
   aspect-ratio: 1;
   justify-self: center;
   animation: np-fade 1.4s var(--np-ease) 0.2s both;
@@ -788,7 +787,7 @@ html:has(.np) {
 /* Sections */
 .np-section {
   position: relative;
-  padding: clamp(80px, 10vw, 140px) 0;
+  padding: clamp(48px, 6vw, 84px) 0;
 }
 .np-section--tint {
   background: var(--np-surface);
@@ -807,7 +806,7 @@ html:has(.np) {
   grid-template-columns: 1.1fr 0.9fr;
   align-items: end;
   gap: 32px 64px;
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: clamp(28px, 3.5vw, 44px);
 }
 .np-head__side {
   display: grid;
@@ -824,7 +823,7 @@ html:has(.np) {
 
 /* Metrics */
 .np-metrics {
-  padding: clamp(56px, 7vw, 90px) 0;
+  padding: clamp(36px, 4.5vw, 56px) 0;
   border-bottom: 1px solid var(--np-line);
 }
 .np-metrics__grid {
@@ -858,14 +857,14 @@ html:has(.np) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: clamp(40px, 7vw, 100px);
+  gap: clamp(32px, 5vw, 64px);
 }
 .np-about__visual {
   position: relative;
 }
 .np-about__frame {
   position: relative;
-  aspect-ratio: 4 / 4.4;
+  aspect-ratio: 1;
   border-radius: 36px;
   overflow: hidden;
   background: linear-gradient(160deg, #e6fbf8 0%, #e0f2fe 55%, #ede9fe 100%);
@@ -903,12 +902,12 @@ html:has(.np) {
   color: var(--np-muted);
 }
 .np-about__copy .np-lead {
-  margin: 22px 0 34px;
+  margin: 18px 0 24px;
 }
 .np-pillars {
   display: grid;
   gap: 14px;
-  margin: 0 0 36px;
+  margin: 0 0 24px;
   padding: 0;
   list-style: none;
 }
@@ -916,8 +915,8 @@ html:has(.np) {
   display: flex;
   align-items: center;
   gap: 18px;
-  padding: 16px;
-  border-radius: 20px;
+  padding: 12px 14px;
+  border-radius: 18px;
   border: 1px solid var(--np-line);
   transition:
     border-color 0.3s,
@@ -949,8 +948,8 @@ html:has(.np) {
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  min-height: 300px;
-  padding: 30px;
+  min-height: 220px;
+  padding: 26px;
   border-radius: var(--np-radius);
   background: #fff;
   border: 1px solid var(--np-line);
@@ -1039,7 +1038,7 @@ html:has(.np) {
 }
 .np-bento__body {
   margin-top: auto;
-  padding-top: 36px;
+  padding-top: 20px;
   padding-right: 48px;
 }
 .np-bento__body h3 {
@@ -1079,14 +1078,14 @@ html:has(.np) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 56px;
+  gap: 40px;
 }
 .np-innovate__copy .np-lead {
   margin: 22px 0 34px;
 }
 .np-innovate__visual {
   position: relative;
-  aspect-ratio: 1.2;
+  aspect-ratio: 1.45;
   border-radius: 36px;
   overflow: hidden;
   background: radial-gradient(circle at 50% 40%, rgba(45, 212, 191, 0.16), rgba(255, 255, 255, 0.02) 70%);
@@ -1102,7 +1101,7 @@ html:has(.np) {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  margin: clamp(56px, 7vw, 96px) 0 0;
+  margin: clamp(36px, 4.5vw, 56px) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -1120,8 +1119,8 @@ html:has(.np) {
   display: grid;
   justify-items: start;
   gap: 12px;
-  padding: 28px;
-  border-radius: 24px;
+  padding: 22px;
+  border-radius: 22px;
   background: rgba(255, 255, 255, 0.035);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -1223,8 +1222,8 @@ html:has(.np) {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  min-height: 460px;
-  padding: clamp(28px, 4vw, 52px);
+  min-height: 380px;
+  padding: clamp(24px, 3.5vw, 44px);
   border-radius: 32px;
   color: #fff;
   background: linear-gradient(150deg, #0b2440 0%, var(--np-deep) 100%);
@@ -1296,8 +1295,8 @@ html:has(.np) {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  min-height: 520px;
-  padding: clamp(28px, 4vw, 48px);
+  min-height: 400px;
+  padding: clamp(24px, 3.5vw, 40px);
   border-radius: 32px;
   color: #fff;
   overflow: hidden;
@@ -1356,8 +1355,8 @@ html:has(.np) {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
-  gap: 40px;
-  padding: clamp(32px, 5vw, 72px);
+  gap: 32px;
+  padding: clamp(28px, 4vw, 52px);
   border-radius: 40px;
   background: linear-gradient(135deg, #ecfdf9 0%, #e0f2fe 50%, #ede9fe 100%);
   overflow: hidden;
@@ -1369,7 +1368,7 @@ html:has(.np) {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 340px;
+  min-height: 250px;
 }
 .np-careers__art strong {
   font-size: clamp(44px, 5.5vw, 76px);
@@ -1400,8 +1399,8 @@ html:has(.np) {
   height: 84px;
 }
 .np-careers__bubble--2 {
-  right: 6%;
-  top: 22%;
+  right: 0;
+  top: 0;
   width: 64px;
   height: 64px;
   color: #6d5df0;
@@ -1476,7 +1475,7 @@ html:has(.np) {
   isolation: isolate;
   display: grid;
   justify-items: center;
-  padding: clamp(56px, 8vw, 110px) clamp(24px, 5vw, 64px);
+  padding: clamp(44px, 5.5vw, 72px) clamp(24px, 5vw, 64px);
   border-radius: 40px;
   color: #fff;
   text-align: center;
@@ -1494,7 +1493,7 @@ html:has(.np) {
 }
 .np-cta p {
   max-width: 560px;
-  margin: 20px 0 36px;
+  margin: 16px 0 28px;
   color: #b6c6d8;
   font-size: 18px;
 }
@@ -1509,7 +1508,7 @@ html:has(.np) {
 .np-footer {
   position: relative;
   isolation: isolate;
-  padding: 90px 0 32px;
+  padding: 64px 0 28px;
   color: #c3d0de;
   background: var(--np-deep);
   overflow: hidden;
@@ -1582,8 +1581,8 @@ html:has(.np) {
   transform: translateX(4px);
 }
 .np-footer__word {
-  margin: 56px 0 8px;
-  font-size: clamp(64px, 17vw, 240px);
+  margin: 36px 0 4px;
+  font-size: clamp(56px, 13vw, 180px);
   font-weight: 800;
   line-height: 0.8;
   letter-spacing: -0.06em;
@@ -1617,7 +1616,7 @@ html:has(.np) {
 .np-banner {
   position: relative;
   isolation: isolate;
-  padding: 170px 0 clamp(70px, 9vw, 120px);
+  padding: 130px 0 clamp(44px, 5.5vw, 72px);
   color: #fff;
   background: radial-gradient(120% 100% at 80% 0%, #0b2440 0%, var(--np-deep) 65%);
   overflow: hidden;
@@ -1641,8 +1640,8 @@ html:has(.np) {
 }
 .np-banner h1 {
   max-width: 920px;
-  margin: 24px 0 18px;
-  font-size: clamp(38px, 5.6vw, 76px);
+  margin: 18px 0 14px;
+  font-size: clamp(34px, 4.8vw, 64px);
   line-height: 1.02;
   letter-spacing: -0.045em;
 }
@@ -1661,7 +1660,7 @@ html:has(.np) {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
   font-size: 14px;
   color: #8ea2b8;
 }
@@ -1732,7 +1731,7 @@ html:has(.np) {
 }
 .np-detail__main {
   display: grid;
-  gap: 40px;
+  gap: 28px;
 }
 .np-detail__image {
   width: 100%;
@@ -1741,8 +1740,8 @@ html:has(.np) {
 .np-detail__hero {
   display: grid;
   place-items: center;
-  height: 280px;
-  border-radius: 32px;
+  height: 200px;
+  border-radius: 28px;
   color: #0d9488;
   background:
     radial-gradient(circle at 30% 30%, rgba(45, 212, 191, 0.25), transparent 50%),
@@ -1793,7 +1792,7 @@ html:has(.np) {
   align-items: center;
   gap: 12px;
   max-width: 640px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   padding: 8px 8px 8px 22px;
   border-radius: 999px;
   border: 1px solid var(--np-line);
@@ -2202,10 +2201,10 @@ a.np-channel:hover {
     right: 16px;
   }
   .np-therapy__panel {
-    min-height: 420px;
+    min-height: 340px;
   }
   .np-duo__card {
-    min-height: 440px;
+    min-height: 340px;
   }
   .np-stories {
     grid-template-columns: 1fr;
@@ -2216,7 +2215,7 @@ a.np-channel:hover {
     aspect-ratio: 16 / 10;
   }
   .np-careers__art {
-    min-height: 260px;
+    min-height: 200px;
   }
 }
 @media (max-width: 600px) {
@@ -2237,7 +2236,7 @@ a.np-channel:hover {
     letter-spacing: 0.14em;
   }
   .np-hero {
-    padding: 110px 0 80px;
+    padding: 100px 0 44px;
   }
   .np-hero__ctas .np-btn {
     flex: 1 1 100%;
@@ -2296,7 +2295,13 @@ a.np-channel:hover {
     flex: 1 1 100%;
   }
   .np-banner {
-    padding-top: 130px;
+    padding-top: 108px;
+  }
+  .np-orbit {
+    width: min(100%, 340px);
+  }
+  .np-hero__inner {
+    gap: 36px;
   }
   .np-about__badge {
     position: relative;
