@@ -8,6 +8,21 @@ try {
   await conn.execute("INSERT IGNORE INTO settings(id,data) VALUES (1,?)", [
     JSON.stringify(defaultSettings),
   ]);
+  // Fill contact details and social links only where they are still blank,
+  // so values an admin has saved are never overwritten.
+  for (const key of ["contactEmail", "contactPhone"])
+    await conn.execute(
+      `UPDATE settings SET data=JSON_SET(data,'$.${key}',?) WHERE id=1 AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(data,'$.${key}')),'')=''`,
+      [defaultSettings[key]],
+    );
+  await conn.execute(
+    "UPDATE settings SET data=JSON_SET(data,'$.social',JSON_OBJECT()) WHERE id=1 AND JSON_EXTRACT(data,'$.social') IS NULL",
+  );
+  for (const [network, url] of Object.entries(defaultSettings.social))
+    await conn.execute(
+      `UPDATE settings SET data=JSON_SET(data,'$.social.${network}',?) WHERE id=1 AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(data,'$.social.${network}')),'')=''`,
+      [url],
+    );
   for (const item of defaultContent)
     await conn.execute(
       "INSERT IGNORE INTO content(id,collection,slug,title,data,published,sort_order) VALUES (?,?,?,?,?,?,?)",

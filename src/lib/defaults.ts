@@ -23,10 +23,17 @@ export const defaultSettings: Settings = {
   purpose: "Healthier lives, everywhere",
   footerText:
     "Quality, affordable medicines for healthier lives — built on science, made with care and delivered with integrity.",
-  contactEmail: "",
-  contactPhone: "",
+  // Placeholder contact details and social links; replace them in Website settings.
+  contactEmail: "info@nexpharm.smartsoch.store",
+  contactPhone: "+91 00000 00000",
   contactAddress: "",
-  social: { linkedin: "", instagram: "", facebook: "", x: "", youtube: "" },
+  social: {
+    linkedin: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    facebook: "https://www.facebook.com/",
+    x: "https://x.com/",
+    youtube: "https://www.youtube.com/",
+  },
   metrics: [
     { value: "5+", label: "Therapeutic areas" },
     { value: "100+", label: "Quality formulations" },
