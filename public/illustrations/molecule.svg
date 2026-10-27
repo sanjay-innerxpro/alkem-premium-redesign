@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500">
   <defs>
     <radialGradient id="n1"><stop offset="0" stop-color="#99F6E4"/><stop offset="1" stop-color="#0D9488"/></radialGradient>
-    <radialGradient id="n2"><stop offset="0" stop-color="#DDD6FE"/><stop offset="1" stop-color="#6D5DF0"/></radialGradient>
+    <radialGradient id="n2"><stop offset="0" stop-color="#D6E4F2"/><stop offset="1" stop-color="#4F7CA8"/></radialGradient>
     <radialGradient id="n3"><stop offset="0" stop-color="#BAE6FD"/><stop offset="1" stop-color="#0284C7"/></radialGradient>
-    <radialGradient id="halo"><stop offset="0" stop-color="#2DD4BF" stop-opacity=".35"/><stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/></radialGradient>
+    <radialGradient id="halo"><stop offset="0" stop-color="#22B3A0" stop-opacity=".35"/><stop offset="1" stop-color="#22B3A0" stop-opacity="0"/></radialGradient>
   </defs>
   <circle cx="300" cy="250" r="230" fill="url(#halo)"/>
   <g stroke="#5EEAD4" stroke-opacity=".5" stroke-width="3" fill="none">

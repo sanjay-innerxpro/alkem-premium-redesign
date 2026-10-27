@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 660">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6FBF8"/><stop offset=".55" stop-color="#E0F2FE"/><stop offset="1" stop-color="#EDE9FE"/></linearGradient>
-    <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
-    <linearGradient id="liq2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#6D5DF0"/></linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6FBF8"/><stop offset=".55" stop-color="#E0F2FE"/><stop offset="1" stop-color="#eaf0f6"/></linearGradient>
+    <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22B3A0"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+    <linearGradient id="liq2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93B4D6"/><stop offset="1" stop-color="#4F7CA8"/></linearGradient>
     <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/></linearGradient>
   </defs>
   <rect width="600" height="660" fill="url(#bg)"/>
   <path d="M0 110h600M0 220h600M0 330h600M0 440h600M0 550h600M100 0v660M200 0v660M300 0v660M400 0v660M500 0v660" stroke="#0A1A2F" stroke-opacity=".05"/>
-  <circle cx="420" cy="170" r="120" fill="#7C6CF6" opacity=".12"/>
+  <circle cx="420" cy="170" r="120" fill="#2F7FA3" opacity=".12"/>
   <circle cx="160" cy="470" r="150" fill="#14B8A6" opacity=".12"/>
   <rect x="70" y="526" width="460" height="14" rx="7" fill="#0A1A2F" opacity=".08"/>
   <g>
@@ -26,14 +26,14 @@
   </g>
   <g transform="rotate(-30 470 560)">
     <rect x="410" y="540" width="120" height="44" rx="22" fill="#fff"/>
-    <path d="M470 540h38a22 22 0 0 1 0 44h-38Z" fill="#38BDF8"/>
+    <path d="M470 540h38a22 22 0 0 1 0 44h-38Z" fill="#1F9BB5"/>
   </g>
   <g stroke="#0D9488" stroke-width="4" fill="#fff">
     <path d="M110 120l50 30M160 150v58M160 150l52-26" fill="none"/>
     <circle cx="110" cy="120" r="14"/>
-    <circle cx="160" cy="150" r="18" fill="#2DD4BF"/>
+    <circle cx="160" cy="150" r="18" fill="#22B3A0"/>
     <circle cx="160" cy="208" r="12"/>
-    <circle cx="212" cy="124" r="12" stroke="#6D5DF0"/>
+    <circle cx="212" cy="124" r="12" stroke="#4F7CA8"/>
   </g>
   <g>
     <rect x="360" y="70" width="190" height="104" rx="22" fill="#fff"/>

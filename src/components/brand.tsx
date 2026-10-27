@@ -4,9 +4,9 @@ export function Mark({ size = 40 }: { size?: number }) {
     <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true">
       <defs>
         <linearGradient id="np-mark" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#2DD4BF" />
-          <stop offset=".55" stopColor="#38BDF8" />
-          <stop offset="1" stopColor="#7C6CF6" />
+          <stop offset="0" stopColor="#22B3A0" />
+          <stop offset=".55" stopColor="#1F9BB5" />
+          <stop offset="1" stopColor="#2F7FA3" />
         </linearGradient>
       </defs>
       <rect width="40" height="40" rx="12" fill="url(#np-mark)" />

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
   <defs>
     <radialGradient id="sph" cx=".35" cy=".3"><stop offset="0" stop-color="#14B8A6" stop-opacity=".45"/><stop offset=".6" stop-color="#0B2440" stop-opacity=".2"/><stop offset="1" stop-color="#050F1C" stop-opacity="0"/></radialGradient>
-    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#A78BFA"/></linearGradient>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#93B4D6"/></linearGradient>
     <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="#5EEAD4" opacity=".55"/></pattern>
     <clipPath id="c"><circle cx="250" cy="250" r="190"/></clipPath>
   </defs>
@@ -24,7 +24,7 @@
   </g>
   <circle cx="170" cy="210" r="8" fill="#5EEAD4"/>
   <circle cx="170" cy="210" r="8" fill="none" stroke="#5EEAD4" stroke-width="2"><animate attributeName="r" values="8;22" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2s" repeatCount="indefinite"/></circle>
-  <circle cx="360" cy="160" r="7" fill="#A78BFA"/>
-  <circle cx="370" cy="340" r="7" fill="#38BDF8"/>
+  <circle cx="360" cy="160" r="7" fill="#93B4D6"/>
+  <circle cx="370" cy="340" r="7" fill="#1F9BB5"/>
   <circle cx="240" cy="360" r="7" fill="#5EEAD4"/>
 </svg>

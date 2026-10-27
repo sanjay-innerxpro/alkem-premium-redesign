@@ -10,7 +10,7 @@
   --a-teal: #0d9488;
   --a-teal-soft: #e6faf7;
   --a-navy: #071526;
-  --a-grad: linear-gradient(135deg, #0d9488 0%, #0284c7 55%, #6d5df0 100%);
+  --a-grad: linear-gradient(135deg, #0f766e 0%, #155e75 100%);
   --a-radius: 18px;
   --a-shadow: 0 1px 2px rgba(10, 26, 47, 0.04), 0 8px 24px -12px rgba(10, 26, 47, 0.12);
   color: var(--a-ink);
@@ -304,7 +304,7 @@
 }
 .studio-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 26px -12px rgba(109, 93, 240, 0.7);
+  box-shadow: 0 14px 26px -12px rgba(21, 94, 117, 0.6);
 }
 .studio-button:disabled {
   opacity: 0.6;
@@ -441,7 +441,7 @@
   border-radius: var(--a-radius);
   color: #fff;
   background:
-    radial-gradient(circle at 85% 20%, rgba(109, 93, 240, 0.45), transparent 50%),
+    radial-gradient(circle at 85% 20%, rgba(59, 91, 138, 0.4), transparent 50%),
     radial-gradient(circle at 10% 100%, rgba(13, 148, 136, 0.55), transparent 55%),
     var(--a-navy);
   overflow: hidden;
@@ -883,7 +883,7 @@
   padding: 40px 48px;
   color: #fff;
   background:
-    radial-gradient(circle at 80% 15%, rgba(109, 93, 240, 0.5), transparent 45%),
+    radial-gradient(circle at 80% 15%, rgba(59, 91, 138, 0.45), transparent 45%),
     radial-gradient(circle at 15% 90%, rgba(13, 148, 136, 0.6), transparent 50%),
     var(--a-navy);
   overflow: hidden;

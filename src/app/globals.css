@@ -1,30 +1,30 @@
 /* NexPharm public site. Every rule is scoped to .np / np-* so the admin studio
    (admin/admin.css) never inherits it, and vice versa. */
 :root {
-  --np-ink: #0a1a2f;
-  --np-ink-2: #2b3c52;
-  --np-muted: #5b6b80;
-  --np-deep: #050f1c;
-  --np-navy: #071526;
-  --np-line: #e3eaf2;
-  --np-surface: #f4f8fb;
+  --np-ink: #1b2a3a;
+  --np-ink-2: #3d4b5c;
+  --np-muted: #637083;
+  --np-deep: #0f2335;
+  --np-navy: #12293d;
+  --np-line: #e8e5de;
+  --np-surface: #f6f4ef;
   --np-white: #fff;
   --np-teal: #14b8a6;
   --np-mint: #5eead4;
   --np-cyan: #38bdf8;
-  --np-violet: #7c6cf6;
+  --np-violet: #8f9bd6;
   --np-green: #10b981;
-  --np-grad: linear-gradient(115deg, #2dd4bf 0%, #38bdf8 48%, #7c6cf6 100%);
-  --np-grad-deep: linear-gradient(135deg, #0d9488 0%, #0284c7 55%, #6d5df0 100%);
+  --np-grad: linear-gradient(115deg, #7fe0d2 0%, #a9d6f0 100%);
+  --np-grad-deep: linear-gradient(135deg, #0f766e 0%, #155e75 100%);
   --np-radius: 28px;
-  --np-shadow: 0 24px 60px -24px rgba(7, 21, 38, 0.25);
+  --np-shadow: 0 18px 44px -26px rgba(27, 42, 58, 0.22);
   --np-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --np-sans: var(--font-sans), "Segoe UI", system-ui, sans-serif;
   --np-serif: var(--font-serif), Georgia, serif;
 }
 body {
   margin: 0;
-  background: var(--np-white);
+  background: #fcfbf8;
 }
 .np,
 .np *,
@@ -36,8 +36,8 @@ body {
   min-height: 100vh;
   color: var(--np-ink);
   font-family: var(--np-sans);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
@@ -123,8 +123,8 @@ html:has(.np) {
 /* Type */
 .np-h2 {
   font-size: clamp(32px, 4.2vw, 56px);
-  line-height: 1.06;
-  letter-spacing: -0.035em;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
   font-weight: 700;
 }
 .np-h3 {
@@ -192,7 +192,7 @@ html:has(.np) {
   inset: -5px;
   border-radius: 50%;
   border: 2px solid var(--np-mint);
-  animation: np-ping 2.2s var(--np-ease) infinite;
+  animation: np-ping 2.2s var(--np-ease) 3;
 }
 .np-tag {
   display: inline-block;
@@ -243,11 +243,11 @@ html:has(.np) {
   color: #fff;
   background: var(--np-grad-deep);
   background-size: 160% 100%;
-  box-shadow: 0 14px 30px -12px rgba(13, 148, 136, 0.7);
+  box-shadow: 0 10px 24px -14px rgba(15, 118, 110, 0.7);
 }
 .np-btn--primary:hover {
   background-position: 100% 0;
-  box-shadow: 0 18px 36px -12px rgba(109, 93, 240, 0.65);
+  box-shadow: 0 14px 28px -14px rgba(21, 94, 117, 0.7);
 }
 .np-btn--light {
   color: var(--np-ink);
@@ -473,9 +473,8 @@ html:has(.np) {
   height: 46vmax;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.55;
-  mix-blend-mode: screen;
-  animation: np-drift 18s ease-in-out infinite alternate;
+  opacity: 0.3;
+  animation: np-drift 32s ease-in-out infinite alternate;
 }
 .np-aurora span:nth-child(1) {
   top: -18vmax;
@@ -485,19 +484,19 @@ html:has(.np) {
 .np-aurora span:nth-child(2) {
   top: -10vmax;
   right: -16vmax;
-  background: radial-gradient(circle, #6d5df0 0%, transparent 65%);
-  animation-duration: 22s;
+  background: radial-gradient(circle, #3b5b8a 0%, transparent 65%);
+  animation-duration: 38s;
   animation-delay: -6s;
 }
 .np-aurora span:nth-child(3) {
   bottom: -26vmax;
   left: 28%;
-  background: radial-gradient(circle, #0284c7 0%, transparent 65%);
-  animation-duration: 26s;
+  background: radial-gradient(circle, #0e7490 0%, transparent 65%);
+  animation-duration: 44s;
   animation-delay: -12s;
 }
 .np-aurora--soft span {
-  opacity: 0.35;
+  opacity: 0.22;
 }
 .np-hero__grid {
   position: absolute;
@@ -519,7 +518,7 @@ html:has(.np) {
   justify-content: center;
   padding: 150px 0 56px;
   color: #fff;
-  background: radial-gradient(120% 90% at 70% 0%, #0b2440 0%, var(--np-deep) 60%);
+  background: radial-gradient(120% 90% at 70% 0%, #17344d 0%, var(--np-deep) 62%);
   overflow: hidden;
 }
 .np-hero__inner {
@@ -547,8 +546,8 @@ html:has(.np) {
 .np-hero__title {
   margin: 26px 0 24px;
   font-size: clamp(44px, 6.6vw, 94px);
-  line-height: 0.98;
-  letter-spacing: -0.045em;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
   font-weight: 700;
 }
 .np-hero__title em {
@@ -559,7 +558,7 @@ html:has(.np) {
 .np-hero__lead {
   max-width: 540px;
   font-size: clamp(16px, 1.4vw, 19px);
-  color: #b6c6d8;
+  color: #c3d0dc;
 }
 .np-hero__ctas {
   display: flex;
@@ -621,7 +620,7 @@ html:has(.np) {
   position: absolute;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  animation: np-spin 40s linear infinite;
+  animation: np-spin 90s linear infinite;
 }
 .np-orbit__ring--1 {
   inset: 0;
@@ -652,7 +651,7 @@ html:has(.np) {
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.16),
     0 0 30px rgba(45, 212, 191, 0.35);
-  animation: np-spin 40s linear infinite reverse;
+  animation: np-spin 90s linear infinite reverse;
 }
 .np-orbit__ring--2 .np-orbit__node {
   top: auto;
@@ -682,12 +681,12 @@ html:has(.np) {
   border-radius: 50%;
   background: conic-gradient(from 0deg, transparent, rgba(45, 212, 191, 0.5), transparent 30%);
   mask: radial-gradient(circle, transparent 64%, #000 65%, #000 66%, transparent 67%);
-  animation: np-spin 6s linear infinite;
+  animation: np-spin 16s linear infinite;
 }
 .np-orbit__core img {
   width: 130%;
   max-width: none;
-  animation: np-float 7s ease-in-out infinite;
+  animation: np-float 10s ease-in-out infinite;
   filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45));
 }
 .np-float {
@@ -761,27 +760,29 @@ html:has(.np) {
 .np-ticker {
   position: relative;
   overflow: hidden;
-  padding: 22px 0;
-  color: #fff;
-  background: var(--np-grad-deep);
+  padding: 16px 0;
+  color: var(--np-ink-2);
+  background: #edf5f2;
+  border-bottom: 1px solid #dceee8;
 }
 .np-ticker__track {
   display: flex;
   width: max-content;
-  animation: np-marquee 40s linear infinite;
+  animation: np-marquee 80s linear infinite;
 }
 .np-ticker span {
   display: inline-flex;
   align-items: center;
   gap: 28px;
   padding-right: 28px;
-  font-size: clamp(18px, 2vw, 24px);
-  font-weight: 700;
+  font-size: clamp(16px, 1.6vw, 19px);
+  font-weight: 600;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
 .np-ticker svg {
-  opacity: 0.7;
+  color: #0f766e;
+  opacity: 0.6;
 }
 
 /* Sections */
@@ -867,7 +868,7 @@ html:has(.np) {
   aspect-ratio: 1;
   border-radius: 36px;
   overflow: hidden;
-  background: linear-gradient(160deg, #e6fbf8 0%, #e0f2fe 55%, #ede9fe 100%);
+  background: linear-gradient(160deg, #e6fbf8 0%, #e0f2fe 55%, #eaf0f6 100%);
   box-shadow: var(--np-shadow);
 }
 .np-about__frame img {
@@ -1189,8 +1190,8 @@ html:has(.np) {
 .np-therapy__tabs button[aria-selected="true"] {
   color: #fff;
   border-color: transparent;
-  background: var(--np-ink);
-  box-shadow: 0 20px 40px -20px rgba(7, 21, 38, 0.6);
+  background: var(--np-grad-deep);
+  box-shadow: 0 14px 30px -18px rgba(15, 118, 110, 0.6);
 }
 .np-therapy__tabicon {
   display: grid;
@@ -1225,8 +1226,9 @@ html:has(.np) {
   min-height: 380px;
   padding: clamp(24px, 3.5vw, 44px);
   border-radius: 32px;
-  color: #fff;
-  background: linear-gradient(150deg, #0b2440 0%, var(--np-deep) 100%);
+  color: var(--np-ink);
+  background: linear-gradient(150deg, #eef6f3 0%, #eef2f7 100%);
+  border: 1px solid var(--np-line);
   overflow: hidden;
   animation: np-fade 0.6s var(--np-ease);
 }
@@ -1238,7 +1240,7 @@ html:has(.np) {
   width: 80%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(13, 148, 136, 0.6), rgba(109, 93, 240, 0.25) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(15, 118, 110, 0.14), rgba(21, 94, 117, 0.06) 45%, transparent 70%);
   animation: np-drift 14s ease-in-out infinite alternate;
 }
 .np-therapy__meta {
@@ -1252,7 +1254,7 @@ html:has(.np) {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--np-mint);
+  color: #0f766e;
 }
 .np-therapy__icon {
   position: absolute;
@@ -1263,10 +1265,9 @@ html:has(.np) {
   width: clamp(120px, 14vw, 170px);
   aspect-ratio: 1;
   border-radius: 40px;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
+  color: #0f766e;
+  background: #fff;
+  box-shadow: 0 18px 40px -24px rgba(27, 42, 58, 0.35);
   transform: translateY(-70%) rotate(-6deg);
   animation: np-float 6s ease-in-out infinite;
 }
@@ -1275,10 +1276,14 @@ html:has(.np) {
   line-height: 1;
   letter-spacing: -0.04em;
 }
+.np-therapy__panel p,
+.np-therapy__panel h3 {
+  max-width: min(460px, 60%);
+}
 .np-therapy__panel p {
-  max-width: 460px;
+  max-width: min(460px, 60%);
   margin: 14px 0 28px;
-  color: #b6c6d8;
+  color: var(--np-muted);
   font-size: 17px;
 }
 
@@ -1358,7 +1363,7 @@ html:has(.np) {
   gap: 32px;
   padding: clamp(28px, 4vw, 52px);
   border-radius: 40px;
-  background: linear-gradient(135deg, #ecfdf9 0%, #e0f2fe 50%, #ede9fe 100%);
+  background: linear-gradient(135deg, #ecfdf9 0%, #e0f2fe 50%, #eaf0f6 100%);
   overflow: hidden;
 }
 .np-careers__copy .np-lead {
@@ -1403,7 +1408,7 @@ html:has(.np) {
   top: 0;
   width: 64px;
   height: 64px;
-  color: #6d5df0;
+  color: #3b6a96;
   animation-delay: -2s;
 }
 .np-careers__bubble--3 {
@@ -1439,7 +1444,7 @@ html:has(.np) {
 .np-story__media {
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: linear-gradient(135deg, #e6fbf8, #ede9fe);
+  background: linear-gradient(135deg, #e6fbf8, #eaf0f6);
 }
 .np-story__media img {
   width: 100%;
@@ -1618,7 +1623,7 @@ html:has(.np) {
   isolation: isolate;
   padding: 150px 0 clamp(36px, 4.5vw, 60px);
   color: #fff;
-  background: radial-gradient(120% 100% at 80% 0%, #0b2440 0%, var(--np-deep) 65%);
+  background: radial-gradient(120% 100% at 80% 0%, #17344d 0%, var(--np-deep) 65%);
   overflow: hidden;
 }
 .np-banner__inner {
@@ -1696,7 +1701,7 @@ html:has(.np) {
   aspect-ratio: 1;
   border-radius: 36px;
   overflow: hidden;
-  background: linear-gradient(160deg, #e6fbf8 0%, #e0f2fe 55%, #ede9fe 100%);
+  background: linear-gradient(160deg, #e6fbf8 0%, #e0f2fe 55%, #eaf0f6 100%);
   box-shadow: var(--np-shadow);
 }
 .np-article__visual img {
@@ -2152,15 +2157,15 @@ a.np-channel:hover {
   --tone-bg: linear-gradient(135deg, #e0f2fe, #dbeafe);
 }
 .np-product--violet {
-  --tone: #6d5df0;
-  --tone-bg: linear-gradient(135deg, #ede9fe, #e0e7ff);
+  --tone: #3b6a96;
+  --tone-bg: linear-gradient(135deg, #eaf0f6, #e6eef6);
 }
 .np-product--mint {
   --tone: #059669;
   --tone-bg: linear-gradient(135deg, #d1fae5, #ecfccb);
 }
 .np-product--rose {
-  --tone: #db2777;
+  --tone: #b45372;
   --tone-bg: linear-gradient(135deg, #fce7f3, #ffe4e6);
 }
 .np-product__media {
@@ -2281,7 +2286,7 @@ a.np-channel:hover {
 .np-chips a[aria-current] {
   color: #fff;
   border-color: transparent;
-  background: var(--np-ink);
+  background: #0f766e;
 }
 .np-chips span {
   padding: 1px 7px;
@@ -2377,6 +2382,20 @@ a.np-channel:hover {
 }
 
 
+/* Calm, readable gradient text on light sections */
+.np-metrics .np-gradient-text,
+.np-contact .np-gradient-text,
+.np-section:not(.np-dark) .np-head .np-gradient-text {
+  background: linear-gradient(115deg, #0f766e 0%, #1d6f8c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.np-careers__art em {
+  background: linear-gradient(115deg, #0f766e 0%, #1d6f8c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 @keyframes np-rise {
   from {
     opacity: 0;
@@ -2396,7 +2415,7 @@ a.np-channel:hover {
 }
 @keyframes np-float {
   50% {
-    translate: 0 -12px;
+    translate: 0 -6px;
   }
 }
 @keyframes np-drift {
@@ -2642,6 +2661,10 @@ a.np-channel:hover {
   .np-therapy__icon svg {
     width: 44px;
     height: 44px;
+  }
+  .np-therapy__panel p,
+  .np-therapy__panel h3 {
+    max-width: none;
   }
   .np-job {
     padding: 22px;

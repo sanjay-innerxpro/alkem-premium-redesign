@@ -69,7 +69,7 @@ export function TherapyExplorer({ items }: { items: Content[] }) {
         </div>
         <h3>{selected.title}</h3>
         <p>{selected.summary}</p>
-        <Link className="np-btn np-btn--light" href={"/therapies/" + selected.slug}>
+        <Link className="np-btn np-btn--primary" href={"/therapies/" + selected.slug}>
           Explore {selected.title} <Icon name="arrow" size={18} />
         </Link>
       </div>
