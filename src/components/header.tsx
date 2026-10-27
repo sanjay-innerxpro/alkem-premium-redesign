@@ -5,12 +5,12 @@ import { usePathname } from "next/navigation";
 import { Brand } from "./brand";
 import { Icon, SocialLinks } from "./icons";
 const links = [
-  ["/about", "About"],
-  ["/products", "Products"],
-  ["/therapies", "Therapies"],
-  ["/offerings", "Offerings"],
-  ["/innovation", "Innovation"],
-  ["/careers", "Careers"],
+  ["/about", "About", "sparkle"],
+  ["/products", "Products", "pill"],
+  ["/therapies", "Therapies", "heart"],
+  ["/offerings", "Offerings", "award"],
+  ["/innovation", "Innovation", "flask"],
+  ["/careers", "Careers", "users"],
 ];
 export function Header({
   name,
@@ -34,6 +34,10 @@ export function Header({
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+  // Keep the page from scrolling behind the open menu.
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }, [open]);
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -136,21 +140,55 @@ export function Header({
           inert={!open}
           aria-label="Mobile navigation"
         >
-          {[...links, ["/contact", "Contact us"]].map(([href, label], i) => (
+          <div className="np-mobile__grid">
+            {links.map(([href, label, icon], i) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                aria-current={pathname.startsWith(href) ? "page" : undefined}
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                <span className="np-mobile__icon">
+                  <Icon name={icon} size={18} />
+                </span>
+                {label}
+              </Link>
+            ))}
+          </div>
+          <div className="np-mobile__foot">
             <Link
-              key={href}
-              href={href}
+              className="np-btn np-btn--primary"
+              href="/contact"
               onClick={() => setOpen(false)}
-              style={{ "--i": i } as React.CSSProperties}
             >
-              <span>{String(i + 1).padStart(2, "0")}</span>
-              {label}
-              <Icon name="arrow" size={22} />
+              Contact us <Icon name="arrow" size={16} />
             </Link>
-          ))}
-          {hasSocial && <SocialLinks links={social} className="np-social np-social--menu" />}
+            {(phone || email) && (
+              <div className="np-mobile__contact">
+                {phone && (
+                  <a href={"tel:" + phone.replace(/\s/g, "")}>
+                    <Icon name="phone" size={15} /> {phone}
+                  </a>
+                )}
+                {email && (
+                  <a href={"mailto:" + email}>
+                    <Icon name="mail" size={15} /> {email}
+                  </a>
+                )}
+              </div>
+            )}
+            {hasSocial && (
+              <SocialLinks links={social} className="np-social np-social--menu" />
+            )}
+          </div>
         </nav>
       </header>
+      <div
+        className={"np-scrim" + (open ? " np-scrim--on" : "")}
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
     </>
   );
 }

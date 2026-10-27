@@ -2396,6 +2396,86 @@ a.np-channel:hover {
   background-clip: text;
 }
 
+/* Dims the page behind the mobile menu */
+.np-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(15, 35, 53, 0.35);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s,
+    visibility 0.3s;
+}
+.np-scrim--on {
+  opacity: 1;
+  visibility: visible;
+}
+@media (max-width: 600px) {
+  .np-topbar__inner {
+    height: 32px;
+  }
+  .np-topbar__icon {
+    width: 22px;
+    height: 22px;
+  }
+  .np-topbar .np-social {
+    gap: 6px;
+  }
+  .np-topbar .np-social a {
+    width: 22px;
+    height: 22px;
+  }
+  .np-topbar .np-social svg {
+    width: 12px;
+    height: 12px;
+  }
+  .np-header__bar,
+  .np-header--solid .np-header__bar {
+    height: 56px;
+  }
+  .np-brand {
+    gap: 10px;
+  }
+  .np-brand svg {
+    width: 34px;
+    height: 34px;
+  }
+  .np-brand__copy strong {
+    font-size: 18px;
+  }
+  .np-brand__copy small {
+    margin-top: 2px;
+    font-size: 7.5px;
+  }
+  .np-burger {
+    width: 40px;
+    height: 40px;
+  }
+  .np-burger span {
+    left: 12px;
+    right: 12px;
+  }
+  .np-burger span:first-child {
+    top: 15px;
+  }
+  .np-burger span:last-child {
+    top: 23px;
+  }
+  .np-burger[aria-expanded="true"] span:first-child,
+  .np-burger[aria-expanded="true"] span:last-child {
+    top: 19px;
+  }
+  .np-hero {
+    padding-top: 108px;
+  }
+  .np-banner {
+    padding-top: 112px;
+  }
+}
+
 @keyframes np-rise {
   from {
     opacity: 0;
@@ -2460,54 +2540,120 @@ a.np-channel:hover {
   .np-burger {
     display: block;
   }
+  /* Compact dropdown sheet instead of a full-screen menu */
   .np-mobile {
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    height: calc(100dvh - 100%);
+    top: calc(100% + 8px);
+    left: 12px;
+    right: 12px;
     display: grid;
-    align-content: start;
-    gap: 4px;
-    padding: 24px 16px 40px;
-    background: var(--np-deep);
+    gap: 14px;
+    max-height: calc(100dvh - 100% - 24px);
+    padding: 12px;
+    border: 1px solid var(--np-line);
+    border-radius: 22px;
+    color: var(--np-ink);
+    background: #fff;
+    box-shadow: 0 30px 60px -24px rgba(15, 35, 53, 0.45);
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-12px);
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top right;
     transition:
-      opacity 0.4s var(--np-ease),
-      transform 0.4s var(--np-ease),
-      visibility 0.4s;
+      opacity 0.3s var(--np-ease),
+      transform 0.3s var(--np-ease),
+      visibility 0.3s;
   }
   .np-mobile--open {
     opacity: 1;
     visibility: visible;
     transform: none;
   }
-  .np-mobile a {
+  .np-mobile__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .np-mobile__grid a {
     display: flex;
     align-items: center;
-    gap: 18px;
-    padding: 18px 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    color: #fff;
-    font-size: clamp(24px, 6vw, 34px);
-    font-weight: 700;
-    letter-spacing: -0.03em;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 14px;
+    background: var(--np-surface);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: background 0.2s;
   }
-  .np-mobile--open a {
-    animation: np-rise 0.6s var(--np-ease) both;
-    animation-delay: calc(var(--i) * 40ms);
+  .np-mobile--open .np-mobile__grid a {
+    animation: np-rise 0.45s var(--np-ease) both;
+    animation-delay: calc(var(--i) * 30ms);
   }
-  .np-mobile a span {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--np-mint);
+  .np-mobile__grid a:active,
+  .np-mobile__grid a[aria-current] {
+    background: #e3f2ee;
+    color: #0f766e;
   }
-  .np-mobile a svg {
-    margin-left: auto;
-    opacity: 0.5;
+  .np-mobile__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    color: #0f766e;
+    background: #fff;
+    box-shadow: 0 4px 10px -6px rgba(15, 35, 53, 0.3);
+  }
+  .np-mobile__foot {
+    display: grid;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--np-line);
+  }
+  .np-mobile__foot .np-btn {
+    min-height: 46px;
+  }
+  .np-mobile__contact {
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--np-ink-2);
+  }
+  .np-mobile__contact a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 2px;
+    word-break: break-all;
+  }
+  .np-mobile__contact svg {
+    flex: none;
+    color: #0f766e;
+  }
+  .np-social--menu {
+    margin: 0;
+    padding: 0;
+  }
+  .np-social--menu a {
+    width: 36px;
+    height: 36px;
+    color: var(--np-ink-2);
+    background: var(--np-surface);
+  }
+  .np-header--open {
+    color: var(--np-ink);
+    background: #fff;
+    box-shadow: 0 1px 0 var(--np-line);
+  }
+  .np-header--open .np-topbar {
+    max-height: 0;
+    opacity: 0;
+  }
+  .np-header--open .np-burger {
+    background: var(--np-surface);
   }
   .np-hero__inner {
     grid-template-columns: 1fr;
