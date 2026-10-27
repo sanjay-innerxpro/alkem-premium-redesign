@@ -197,6 +197,22 @@ export default async function Home() {
             <SectionHead section={sec.products} href="/products" />
             <ProductCards items={group("products").slice(0, 8)} />
             <div className="np-more">
+              <form action="/products" className="np-quick-search" role="search">
+                <Icon name="search" size={18} />
+                <label htmlFor="home-product-search" className="np-sr">
+                  Search products
+                </label>
+                <input
+                  id="home-product-search"
+                  name="q"
+                  maxLength={150}
+                  placeholder="Find a product or composition…"
+                  autoComplete="off"
+                />
+                <button aria-label="Search products">
+                  <Icon name="arrow" size={16} />
+                </button>
+              </form>
               <Link className="np-btn np-btn--primary" href="/products">
                 View all {group("products").length} products{" "}
                 <Icon name="arrow" size={18} />

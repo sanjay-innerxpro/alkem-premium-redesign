@@ -80,7 +80,13 @@ export function OfferingCards({ items }: { items: Content[] }) {
   );
 }
 const tones = ["teal", "sky", "violet", "mint", "rose"];
-export function ProductCards({ items }: { items: Content[] }) {
+export function ProductCards({
+  items,
+  reveal = true,
+}: {
+  items: Content[];
+  reveal?: boolean;
+}) {
   // A stable colour per therapy area keeps the grid varied but consistent.
   const areas = [...new Set(items.map((x) => x.category))];
   return (
@@ -93,7 +99,7 @@ export function ProductCards({ items }: { items: Content[] }) {
             "np-product np-product--" +
             tones[Math.max(0, areas.indexOf(x.category)) % tones.length]
           }
-          data-reveal
+          data-reveal={reveal || undefined}
           style={{ "--d": (i % 4) * 60 + "ms" } as React.CSSProperties}
         >
           <div className="np-product__media">

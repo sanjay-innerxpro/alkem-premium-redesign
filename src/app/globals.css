@@ -2476,6 +2476,297 @@ a.np-channel:hover {
   }
 }
 
+/* Glass scrollbars: thin, translucent and rounded across the site and admin. */
+@supports (-moz-appearance: none) {
+  html,
+  .np *,
+  .studio * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(15, 118, 110, 0.38) transparent;
+  }
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.1))
+      padding-box,
+    rgba(15, 118, 110, 0.35) padding-box;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05))
+      padding-box,
+    rgba(15, 118, 110, 0.6) padding-box;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.studio-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18) padding-box;
+}
+
+/* Product browser: a floating glass search panel over the banner */
+.np-banner:has(+ .np-section--browse) {
+  padding-bottom: calc(clamp(36px, 4.5vw, 60px) + 64px);
+}
+.np-section--browse {
+  padding-top: 0;
+}
+.np-glass-search {
+  position: sticky;
+  top: 76px;
+  z-index: 5;
+  display: grid;
+  gap: 10px;
+  margin-top: -64px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow:
+    0 24px 60px -30px rgba(15, 35, 53, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.np-glass-search__field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  padding: 0 14px 0 18px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--np-line);
+  transition: box-shadow 0.25s;
+}
+.np-glass-search__field:focus-within {
+  box-shadow:
+    inset 0 0 0 2px #0f766e,
+    0 0 0 4px rgba(15, 118, 110, 0.12);
+}
+.np-glass-search__field > svg {
+  flex: none;
+  color: #0f766e;
+}
+.np-glass-search__field input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--np-ink);
+  font-size: 17px;
+  font-weight: 500;
+}
+.np-glass-search__field input:focus-visible,
+.np-quick-search input:focus-visible {
+  outline: none;
+}
+.np-glass-search__field input::placeholder {
+  color: #94a0ae;
+}
+.np-glass-search kbd {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid var(--np-line);
+  color: var(--np-muted);
+  background: var(--np-surface);
+  font: 600 13px/1 var(--np-sans);
+}
+.np-glass-search__clear {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--np-ink-2);
+  background: var(--np-surface);
+  font-size: 20px;
+  line-height: 1;
+}
+.np-glass-search__filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.np-seg {
+  display: flex;
+  flex: 1;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.np-seg::-webkit-scrollbar {
+  display: none;
+}
+.np-seg button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--np-ink-2);
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.np-seg button:hover {
+  background: rgba(15, 118, 110, 0.08);
+}
+.np-seg button[aria-pressed="true"] {
+  color: #fff;
+  background: #0f766e;
+  box-shadow: 0 8px 18px -10px rgba(15, 118, 110, 0.8);
+}
+.np-seg span {
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(127, 127, 127, 0.14);
+  font-size: 12px;
+}
+.np-select select {
+  height: 36px;
+  padding: 0 32px 0 12px;
+  border: 1px solid var(--np-line);
+  border-radius: 999px;
+  color: var(--np-ink-2);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23637083' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+      no-repeat right 12px center,
+    #fff;
+  font: 600 14px var(--np-sans);
+  appearance: none;
+  cursor: pointer;
+}
+.np-browse__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 20px 2px 16px;
+  color: var(--np-muted);
+  font-size: 15px;
+}
+.np-browse__bar strong {
+  color: var(--np-ink);
+}
+.np-browse__bar button {
+  border: 0;
+  background: none;
+  color: #0f766e;
+  font-weight: 700;
+}
+
+/* Homepage quick search */
+.np-more {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.np-quick-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 360px);
+  height: 50px;
+  padding: 0 6px 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px -20px rgba(15, 35, 53, 0.4);
+  transition: box-shadow 0.25s;
+}
+.np-quick-search:focus-within {
+  box-shadow:
+    0 0 0 3px rgba(15, 118, 110, 0.15),
+    0 12px 30px -20px rgba(15, 35, 53, 0.4);
+}
+.np-quick-search > svg {
+  flex: none;
+  color: #0f766e;
+}
+.np-quick-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--np-ink);
+  font-size: 15px;
+}
+.np-quick-search button {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--np-grad-deep);
+}
+@media (max-width: 600px) {
+  .np-glass-search {
+    top: 64px;
+    margin-top: -56px;
+    padding: 8px;
+    border-radius: 22px;
+  }
+  .np-banner:has(+ .np-section--browse) {
+    padding-bottom: 92px;
+  }
+  .np-glass-search__field {
+    height: 50px;
+    padding: 0 10px 0 14px;
+    border-radius: 15px;
+  }
+  .np-glass-search__field input {
+    font-size: 16px;
+  }
+  .np-glass-search kbd {
+    display: none;
+  }
+  .np-glass-search__filters {
+    flex-wrap: wrap;
+  }
+  .np-seg {
+    flex-basis: 100%;
+  }
+  .np-select,
+  .np-select select {
+    width: 100%;
+  }
+  .np-quick-search {
+    width: 100%;
+  }
+  .np-more .np-btn {
+    width: 100%;
+  }
+}
+
 @keyframes np-rise {
   from {
     opacity: 0;
