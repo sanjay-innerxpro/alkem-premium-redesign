@@ -24,8 +24,10 @@ export async function rateLimit(
   try {
     await conn.beginTransaction();
     const bucket = digest(key);
+    // ON DUPLICATE KEY takes an exclusive row lock up front; INSERT IGNORE takes a shared
+    // lock that deadlocks when concurrent requests upgrade it via FOR UPDATE.
     await conn.execute(
-      "INSERT IGNORE INTO rate_limits(bucket,attempts,reset_at) VALUES (?,0,DATE_ADD(UTC_TIMESTAMP(), INTERVAL ? SECOND))",
+      "INSERT INTO rate_limits(bucket,attempts,reset_at) VALUES (?,0,DATE_ADD(UTC_TIMESTAMP(), INTERVAL ? SECOND)) ON DUPLICATE KEY UPDATE bucket=bucket",
       [bucket, windowSeconds],
     );
     const [rows] = await conn.execute<RowDataPacket[]>(

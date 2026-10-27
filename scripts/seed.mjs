@@ -1,5 +1,3 @@
-import { register } from "node:module";
-register("tsx/esm", import.meta.url);
 const { defaultSettings, defaultContent } =
   await import("../src/lib/defaults.ts");
 const { db } = await import("../src/lib/db.ts");

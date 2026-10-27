@@ -1,7 +1,5 @@
-import { register } from "node:module";
 import { createInterface } from "node:readline/promises";
 import { randomUUID } from "node:crypto";
-register("tsx/esm", import.meta.url);
 const { hashPassword } = await import("../src/lib/password.ts");
 const { db } = await import("../src/lib/db.ts");
 // Read a JSON object from stdin to keep passwords out of process arguments and shell history.

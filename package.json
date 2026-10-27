@@ -8,8 +8,8 @@
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
     "db:migrate": "node --env-file-if-exists=.env.local scripts/migrate.mjs",
-    "db:seed": "node --env-file-if-exists=.env.local scripts/seed.mjs",
-    "admin:create": "node --env-file-if-exists=.env.local scripts/create-admin.mjs",
+    "db:seed": "node --env-file-if-exists=.env.local --import tsx scripts/seed.mjs",
+    "admin:create": "node --env-file-if-exists=.env.local --import tsx scripts/create-admin.mjs",
     "test": "node --import tsx --test tests/*.test.ts",
     "test:integration": "node --env-file-if-exists=.env.local --import tsx --test tests/*.integration.ts"
   },
