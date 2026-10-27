@@ -1,303 +1,344 @@
 import Link from "next/link";
 import { getContent, getSettings } from "@/lib/content";
 import { Visual } from "@/components/visual";
-import { OfferingCards, SectionHead, StoryCards } from "@/components/cards";
+import {
+  Eyebrow,
+  OfferingCards,
+  SectionHead,
+  StoryCards,
+} from "@/components/cards";
 import { TherapyExplorer } from "@/components/therapy-explorer";
+import { Icon } from "@/components/icons";
 export async function generateMetadata() {
   const s = await getSettings();
   return { title: { absolute: s.seoTitle }, description: s.seoDescription };
 }
+const pillars = [
+  ["shield", "Quality without compromise", "Every batch checked against strict quality standards."],
+  ["users", "Patients at the centre", "Medicines shaped around real needs and real lives."],
+  ["award", "Integrity in everything", "Ethical practice and transparency with every partner."],
+];
+const steps = [
+  ["flask", "Research", "Understanding patient needs and the science behind them."],
+  ["dna", "Develop", "Formulating safe, effective and stable medicines."],
+  ["factory", "Manufacture", "Producing at scale under rigorous quality control."],
+  ["truck", "Deliver", "Reaching pharmacies, hospitals and doctors reliably."],
+];
 export default async function Home() {
   const [s, items] = await Promise.all([getSettings(), getContent()]);
   const sec = s.sections;
   const group = (name: string) => items.filter((x) => x.collection === name);
+  const therapies = group("therapies");
+  const ticker = [
+    ...therapies.map((x) => x.title),
+    "Quality assured",
+    "Affordable care",
+    "Trusted by professionals",
+  ];
   return (
     <main id="main">
-      <section className="hero">
-        <div className="hero-grain" />
-        <div className="hero-container page-container">
-          <div className="hero-content">
-            <div className="eyebrow">
-              <span className="eyebrow-dot" />
+      <section className="np-hero">
+        <div className="np-aurora" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="np-hero__grid" aria-hidden="true" />
+        <div className="np-wrap np-hero__inner">
+          <div className="np-hero__copy">
+            <span className="np-pill">
+              <i />
               {s.heroEyebrow}
-            </div>
-            <h1>
-              {s.heroTitle}
-              <br />
-              <span className="hero-text-gradient">{s.heroAccent}</span>
+            </span>
+            <h1 className="np-hero__title">
+              <span>{s.heroTitle}</span>{" "}
+              <em className="np-gradient-text">{s.heroAccent}</em>
             </h1>
-            <p className="hero-intro">{s.heroDescription}</p>
-            <div className="hero-ctas">
-              <Link className="button button-primary" href="/about">
-                {s.heroCta}
-                <span className="round-arrow">↗</span>
+            <p className="np-hero__lead">{s.heroDescription}</p>
+            <div className="np-hero__ctas">
+              <Link className="np-btn np-btn--primary np-btn--lg" href="/about">
+                {s.heroCta} <Icon name="arrow" size={18} />
               </Link>
-              <Link className="text-button" href="/innovation">
-                <span className="play-circle">↗</span>Explore our capabilities
+              <Link className="np-btn np-btn--ghost np-btn--lg" href="/offerings">
+                Our offerings
               </Link>
             </div>
-            <div className="hero-meta">
-              <span className="hero-meta-rule" />
+            <dl className="np-hero__facts">
+              {s.established && (
+                <div>
+                  <dt>Established</dt>
+                  <dd>{s.established}</dd>
+                </div>
+              )}
               <div>
-                <span className="tiny-label">ESTABLISHED</span>
-                <strong>{s.established}</strong>
+                <dt>Our purpose</dt>
+                <dd>{s.purpose}</dd>
               </div>
-              <div className="hero-meta-divider" />
-              <div>
-                <span className="tiny-label">OUR PURPOSE</span>
-                <strong>{s.purpose}</strong>
-              </div>
-            </div>
+            </dl>
           </div>
-          <div className="hero-art">
-            <div className="halo halo-one" />
-            <div className="halo halo-two" />
-            <div className="hero-mesh" />
-            <Visual
-              src={s.heroImage}
-              alt="An abstract illustration of medical science"
-              className="orbit-graphic"
-              fallback="/science.svg"
-            />
-            <div className="float-tag tag-top">
-              <span className="tag-icon">✳</span>
+          <div className="np-orbit" aria-hidden="true">
+            <div className="np-orbit__ring np-orbit__ring--1">
+              <span className="np-orbit__node">
+                <Icon name="pill" size={20} />
+              </span>
+            </div>
+            <div className="np-orbit__ring np-orbit__ring--2">
+              <span className="np-orbit__node">
+                <Icon name="heart" size={20} />
+              </span>
+            </div>
+            <div className="np-orbit__ring np-orbit__ring--3">
+              <span className="np-orbit__node">
+                <Icon name="dna" size={20} />
+              </span>
+            </div>
+            <div className="np-orbit__core">
+              <Visual
+                src={s.heroImage}
+                alt=""
+                fallback="/illustrations/capsule.svg"
+              />
+            </div>
+            {s.metrics[0] && (
+              <div className="np-float np-float--a">
+                <strong>{s.metrics[0].value}</strong>
+                <span>{s.metrics[0].label}</span>
+              </div>
+            )}
+            <div className="np-float np-float--b">
+              <span className="np-float__icon">
+                <Icon name="shield" size={20} />
+              </span>
               <div>
-                <strong>Purpose-led</strong>
-                <small>Better everyday health</small>
+                <strong>Quality assured</strong>
+                <span>Tested at every stage</span>
               </div>
             </div>
-            <div className="float-tag tag-bottom">
-              <div className="live-icon">
-                <i />
-                <i />
-                <i />
-                <i />
-                <i />
+            {s.metrics[1] && (
+              <div className="np-float np-float--c">
+                <strong>{s.metrics[1].value}</strong>
+                <span>{s.metrics[1].label}</span>
               </div>
-              <div>
-                <strong>{s.purpose}</strong>
-                <small>Science. Care. Possibility.</small>
-              </div>
-            </div>
+            )}
           </div>
         </div>
-        <div className="hero-scroll">
-          <span>SCROLL TO EXPLORE</span>
-          <span className="scroll-line" />
-          <span>↓</span>
-        </div>
+        <a className="np-hero__scroll" href="#np-glance" aria-label="Scroll to content">
+          <span />
+        </a>
       </section>
-      <section className="metrics" aria-label="At a glance">
-        <div className="metrics-shell page-container">
-          <div className="metrics-intro">
-            <span className="section-kicker">OUR REACH</span>
-            <p>
-              Big ambition.
-              <br />
-              Real-world impact.
-            </p>
-          </div>
+      <div className="np-ticker" aria-hidden="true">
+        <div className="np-ticker__track">
+          {[...ticker, ...ticker].map((t, i) => (
+            <span key={i}>
+              {t}
+              <Icon name="sparkle" size={18} />
+            </span>
+          ))}
+        </div>
+      </div>
+      <section className="np-section np-metrics" id="np-glance" aria-label="At a glance">
+        <div className="np-wrap np-metrics__grid">
           {s.metrics.map((m, i) => (
-            <div className="metric" key={i}>
-              <strong>{m.value}</strong>
+            <div
+              className="np-metric"
+              key={i}
+              data-reveal
+              style={{ "--d": i * 90 + "ms" } as React.CSSProperties}
+            >
+              <strong className="np-gradient-text">{m.value}</strong>
               <span>{m.label}</span>
             </div>
           ))}
         </div>
       </section>
-      <section className="section" id="about">
-        <div className="page-container about-grid">
-          <div className="about-visual">
-            <div className="about-picture">
-              <Visual
-                src={sec.about.imageUrl}
-                alt="Scientific research and discovery"
-              />
+      <section className="np-section">
+        <div className="np-wrap np-about">
+          <div className="np-about__visual" data-reveal>
+            <div className="np-about__frame">
+              <Visual src={sec.about.imageUrl} alt="Pharmaceutical research" />
             </div>
-            <div className="about-since">
-              <span>EST.</span>
-              <strong>{s.established}</strong>
-              <span>A LEGACY OF CARE</span>
-            </div>
-          </div>
-          <div className="about-copy">
-            <div className="section-label">
-              <span className="label-line" />
-              {sec.about.eyebrow}
-            </div>
-            <h2 className="section-title">{sec.about.title}</h2>
-            <p className="section-lede">{sec.about.description}</p>
-            <div className="about-feature-row">
-              <span className="about-feature-icon">✓</span>
+            <div className="np-about__badge">
+              <span className="np-icon-chip np-icon-chip--solid">
+                <Icon name="sparkle" size={22} />
+              </span>
               <div>
-                <strong>Quality at every step</strong>
-                <span>Science with people at its heart.</span>
+                <strong>{s.established ? "Since " + s.established : "Built on care"}</strong>
+                <span>{s.purpose}</span>
               </div>
             </div>
-            <Link className="inline-link" href="/about">
-              Discover our story <span>↗</span>
+          </div>
+          <div className="np-about__copy" data-reveal>
+            <Eyebrow>{sec.about.eyebrow}</Eyebrow>
+            <h2 className="np-h2">{sec.about.title}</h2>
+            <p className="np-lead">{sec.about.description}</p>
+            <ul className="np-pillars">
+              {pillars.map(([icon, title, text]) => (
+                <li key={title}>
+                  <span className="np-icon-chip">
+                    <Icon name={icon} size={22} />
+                  </span>
+                  <div>
+                    <strong>{title}</strong>
+                    <span>{text}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <Link className="np-link" href="/about">
+              Discover our story <Icon name="arrow" size={18} />
             </Link>
           </div>
         </div>
       </section>
-      <section className="section offerings-section">
-        <div className="page-container">
+      <section className="np-section np-section--tint">
+        <div className="np-wrap">
           <SectionHead section={sec.offerings} href="/offerings" />
           <OfferingCards items={group("offerings").slice(0, 4)} />
         </div>
       </section>
-      <section className="science-section">
-        <div className="science-pattern" />
-        <div className="page-container science-grid">
-          <div className="science-copy">
-            <div className="section-label section-label-light">
-              <span className="label-line" />
-              {sec.innovation.eyebrow}
-            </div>
-            <h2 className="section-title light">{sec.innovation.title}</h2>
-            <p>{sec.innovation.description}</p>
-            <Link className="button button-white" href="/innovation">
-              Explore our capabilities <span className="round-arrow">↗</span>
-            </Link>
-          </div>
-          <div className="science-visual">
-            <div className="science-image">
-              <Visual src={sec.innovation.imageUrl} alt="Research laboratory" />
-            </div>
-            <div className="science-caption">
-              <span>THE FUTURE OF HEALTHCARE</span>
-              <strong>BUILT ON DISCOVERY.</strong>
-              <span className="science-mini-star">✳</span>
-            </div>
-          </div>
+      <section className="np-section np-dark">
+        <div className="np-aurora np-aurora--soft" aria-hidden="true">
+          <span />
+          <span />
         </div>
-      </section>
-      <section className="section">
-        <div className="page-container">
-          <SectionHead section={sec.therapies} />
-          <TherapyExplorer items={group("therapies")} />
-          <div className="therapy-bottom">
-            <span>Explore our approach to care.</span>
-            <Link className="inline-link" href="/therapies">
-              View full portfolio <span>↗</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-      <section className="section footprint-section">
-        <div className="page-container footprint-layout">
-          <div className="footprint-text">
-            <div className="section-label">
-              <span className="label-line" />
-              {sec.impact.eyebrow}
-            </div>
-            <h2 className="section-title">{sec.impact.title}</h2>
-            <p>{sec.impact.description}</p>
-            <Link className="inline-link" href="/impact">
-              Explore our global presence <span>↗</span>
-            </Link>
-          </div>
-          <div className="footprint-art">
-            <div className="map-circle ring1" />
-            <div className="map-circle ring2" />
-            <Visual
-              src={sec.impact.imageUrl}
-              alt="An illustrated global healthcare network"
-              fallback="/world.svg"
-              className="world-art"
-            />
-          </div>
-        </div>
-      </section>
-      <section className="responsibility-section">
-        <div className="page-container">
-          <div className="responsibility-card">
-            <div className="responsibility-decor">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="responsibility-content">
-              <div className="section-label section-label-light">
-                {sec.sustainability.eyebrow}
-              </div>
-              <h2>{sec.sustainability.title}</h2>
-              <p>{sec.sustainability.description}</p>
-              <Link
-                className="button button-outline-white"
-                href="/sustainability"
-              >
-                Explore sustainability <span className="round-arrow">↗</span>
+        <div className="np-wrap">
+          <div className="np-innovate">
+            <div className="np-innovate__copy" data-reveal>
+              <Eyebrow light>{sec.innovation.eyebrow}</Eyebrow>
+              <h2 className="np-h2">{sec.innovation.title}</h2>
+              <p className="np-lead">{sec.innovation.description}</p>
+              <Link className="np-btn np-btn--light" href="/innovation">
+                Explore innovation <Icon name="arrow" size={18} />
               </Link>
             </div>
-            <div className="responsibility-icon" aria-hidden="true">
-              <svg viewBox="0 0 230 230">
-                <path
-                  d="M114 200V60m0 92c-52 0-76-44-75-84 47 1 76 37 75 84Zm0-25c0-62 38-96 80-101-1 55-26 101-80 101Z"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="6"
-                />
-              </svg>
+            <div className="np-innovate__visual" data-reveal>
+              <Visual
+                src={sec.innovation.imageUrl}
+                alt="Molecular research"
+                fallback="/illustrations/molecule.svg"
+              />
             </div>
           </div>
+          <ol className="np-steps">
+            {steps.map(([icon, title, text], i) => (
+              <li
+                key={title}
+                data-reveal
+                style={{ "--d": i * 100 + "ms" } as React.CSSProperties}
+              >
+                <span className="np-steps__num">0{i + 1}</span>
+                <span className="np-icon-chip np-icon-chip--glass">
+                  <Icon name={icon} size={22} />
+                </span>
+                <strong>{title}</strong>
+                <span>{text}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
-      <section className="section careers-section">
-        <div className="page-container careers-layout">
-          <div className="careers-copy">
-            <div className="section-label">
-              <span className="label-line" />
-              {sec.careers.eyebrow}
+      <section className="np-section">
+        <div className="np-wrap">
+          <SectionHead section={sec.therapies} href="/therapies" />
+          <TherapyExplorer items={therapies} />
+        </div>
+      </section>
+      <section className="np-section np-section--tint">
+        <div className="np-wrap np-duo">
+          <Link className="np-duo__card np-duo__card--impact" href="/impact" data-reveal>
+            <div className="np-duo__media">
+              <Visual
+                src={sec.impact.imageUrl}
+                alt=""
+                fallback="/illustrations/globe.svg"
+              />
             </div>
-            <h2 className="section-title">{sec.careers.title}</h2>
-            <p>{sec.careers.description}</p>
-            <Link className="button button-primary" href="/careers">
-              Explore careers <span className="round-arrow">↗</span>
-            </Link>
-          </div>
-          <div className="careers-poster">
-            <div className="careers-poster-inner">
-              <span>PEOPLE FIRST</span>
-              <strong>
-                BE PART OF
-                <br />
-                SOMETHING
-                <br />
-                <em>MEANINGFUL.</em>
-              </strong>
-              <span className="poster-footer">
-                DISCOVER YOUR POTENTIAL <span>✳</span>
+            <Eyebrow light>{sec.impact.eyebrow}</Eyebrow>
+            <h2>{sec.impact.title}</h2>
+            <p>{sec.impact.description}</p>
+            <span className="np-link np-link--light">
+              Our impact <Icon name="arrow" size={18} />
+            </span>
+          </Link>
+          <Link
+            className="np-duo__card np-duo__card--green"
+            href="/sustainability"
+            data-reveal
+            style={{ "--d": "120ms" } as React.CSSProperties}
+          >
+            <span className="np-duo__leaf" aria-hidden="true">
+              <Icon name="leaf" size={150} />
+            </span>
+            <Eyebrow light>{sec.sustainability.eyebrow}</Eyebrow>
+            <h2>{sec.sustainability.title}</h2>
+            <p>{sec.sustainability.description}</p>
+            <span className="np-link np-link--light">
+              Sustainability <Icon name="arrow" size={18} />
+            </span>
+          </Link>
+        </div>
+      </section>
+      <section className="np-section">
+        <div className="np-wrap">
+          <div className="np-careers" data-reveal>
+            <div className="np-careers__copy">
+              <Eyebrow>{sec.careers.eyebrow}</Eyebrow>
+              <h2 className="np-h2">{sec.careers.title}</h2>
+              <p className="np-lead">{sec.careers.description}</p>
+              <Link className="np-btn np-btn--primary" href="/careers">
+                Explore careers <Icon name="arrow" size={18} />
+              </Link>
+            </div>
+            <div className="np-careers__art" aria-hidden="true">
+              <span className="np-careers__bubble np-careers__bubble--1">
+                <Icon name="users" size={30} />
               </span>
+              <span className="np-careers__bubble np-careers__bubble--2">
+                <Icon name="flask" size={26} />
+              </span>
+              <span className="np-careers__bubble np-careers__bubble--3">
+                <Icon name="sparkle" size={24} />
+              </span>
+              <strong>
+                Grow with
+                <br />
+                <em>purpose.</em>
+              </strong>
             </div>
           </div>
         </div>
       </section>
       {group("news").length > 0 && (
-        <section className="section offerings-section">
-          <div className="page-container">
+        <section className="np-section np-section--tint">
+          <div className="np-wrap">
             <SectionHead section={sec.news} href="/news" />
             <StoryCards items={group("news").slice(0, 3)} />
           </div>
         </section>
       )}
-      <section className="contact-section">
-        <div className="page-container contact-inner">
-          <div>
-            <div className="section-label section-label-light">
-              {sec.contact.eyebrow}
+      <section className="np-section np-section--cta">
+        <div className="np-wrap">
+          <div className="np-cta" data-reveal>
+            <div className="np-aurora np-aurora--soft" aria-hidden="true">
+              <span />
+              <span />
             </div>
+            <Eyebrow light>{sec.contact.eyebrow}</Eyebrow>
             <h2>{sec.contact.title}</h2>
-          </div>
-          <div className="contact-actions">
-            <Link
-              className="contact-round-arrow"
-              href="/contact"
-              aria-label="Get in touch"
-            >
-              ↗
-            </Link>
-            <span>Start a conversation</span>
+            <p>{sec.contact.description}</p>
+            <div className="np-cta__actions">
+              <Link className="np-btn np-btn--light np-btn--lg" href="/contact">
+                Get in touch <Icon name="arrow" size={18} />
+              </Link>
+              {s.contactPhone && (
+                <a
+                  className="np-btn np-btn--ghost np-btn--lg"
+                  href={"tel:" + s.contactPhone.replace(/\s/g, "")}
+                >
+                  <Icon name="phone" size={18} /> {s.contactPhone}
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </section>

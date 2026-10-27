@@ -14,7 +14,7 @@ export default async function Login() {
     <main className="login-page">
       <section className="login-art">
         <Link className="login-brand" href="/">
-          ◇ ALKEM
+          ◇ NEXPHARM
         </Link>
         <div>
           <span className="section-label section-label-light">
@@ -29,7 +29,7 @@ export default async function Login() {
           </h1>
           <p>Shape the next chapter of your digital experience.</p>
         </div>
-        <span>INDEPENDENT DESIGN CONCEPT</span>
+        <span>NEXPHARM HEALTHCARE PRIVATE LIMITED</span>
       </section>
       <section className="login-content">
         <Link href="/" className="back-link">

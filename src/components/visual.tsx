@@ -4,7 +4,7 @@ export function Visual({
   src,
   alt,
   className = "",
-  fallback = "/laboratory.svg",
+  fallback = "/illustrations/lab.svg",
 }: {
   src: string;
   alt: string;

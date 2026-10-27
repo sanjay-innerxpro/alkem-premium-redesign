@@ -6,6 +6,8 @@ import { OfferingCards, StoryCards } from "@/components/cards";
 import { TherapyExplorer } from "@/components/therapy-explorer";
 import { Visual } from "@/components/visual";
 import { ContactForm } from "@/components/contact-form";
+import { Banner } from "@/components/banner";
+import { Icon } from "@/components/icons";
 export async function generateMetadata({
   params,
 }: {
@@ -17,6 +19,12 @@ export async function generateMetadata({
     title: page?.title || section.charAt(0).toUpperCase() + section.slice(1),
   };
 }
+const labels: Record<string, string> = {
+  offerings: "Offerings",
+  therapies: "Therapy areas",
+  news: "News & insights",
+  careers: "Careers",
+};
 export default async function SectionPage({
   params,
   searchParams,
@@ -26,79 +34,110 @@ export default async function SectionPage({
 }) {
   const { section } = await params;
   const s = await getSettings();
-  if (section === "contact")
+  if (section === "contact") {
+    const channels = [
+      s.contactEmail && ["mail", "Email us", s.contactEmail, "mailto:" + s.contactEmail],
+      s.contactPhone && [
+        "phone",
+        "Call us",
+        s.contactPhone,
+        "tel:" + s.contactPhone.replace(/\s/g, ""),
+      ],
+      s.contactAddress && ["pin", "Visit us", s.contactAddress, ""],
+    ].filter(Boolean) as string[][];
     return (
       <main id="main">
-        <div className="page-banner">
-          <div className="page-container">
-            <span className="section-label">{s.sections.contact.eyebrow}</span>
-            <h1>{s.sections.contact.title}</h1>
-            <p>{s.sections.contact.description}</p>
-          </div>
-        </div>
-        <section className="section">
-          <div className="page-container contact-layout">
-            <aside>
-              <span className="section-kicker">START A CONVERSATION</span>
-              <h2>
-                A little connection.
-                <br />A world of possibility.
+        <Banner
+          label="Contact"
+          title={s.sections.contact.title}
+          text={s.sections.contact.description}
+        />
+        <section className="np-section">
+          <div className="np-wrap np-contact">
+            <aside className="np-contact__info" data-reveal>
+              <h2 className="np-h3">
+                Let’s start a <em className="np-gradient-text">conversation.</em>
               </h2>
-              {s.contactEmail && (
-                <p>
-                  <a href={"mailto:" + s.contactEmail}>{s.contactEmail}</a>
-                </p>
-              )}
-              {s.contactPhone && (
-                <p>
-                  <a href={"tel:" + s.contactPhone}>{s.contactPhone}</a>
-                </p>
-              )}
-              {s.contactAddress && <p className="prose">{s.contactAddress}</p>}
-              <div className="notice">
-                This is an independent design concept. For official company
-                enquiries, visit{" "}
-                <a
-                  href="https://www.alkemlabs.com/contact-us/key-contacts"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Alkem’s official contact directory ↗
-                </a>
-                .
+              <p className="np-lead">
+                Whether you are a healthcare professional, distributor, partner
+                or job seeker, our team is here to help.
+              </p>
+              <div className="np-channels">
+                {channels.map(([icon, label, value, href]) => {
+                  const inner = (
+                    <>
+                      <span className="np-icon-chip">
+                        <Icon name={icon} size={22} />
+                      </span>
+                      <div>
+                        <small>{label}</small>
+                        <strong>{value}</strong>
+                      </div>
+                    </>
+                  );
+                  return href ? (
+                    <a className="np-channel" href={href} key={icon}>
+                      {inner}
+                    </a>
+                  ) : (
+                    <div className="np-channel" key={icon}>
+                      {inner}
+                    </div>
+                  );
+                })}
+                {!channels.length && (
+                  <div className="np-channel">
+                    <span className="np-icon-chip">
+                      <Icon name="mail" size={22} />
+                    </span>
+                    <div>
+                      <small>Write to us</small>
+                      <strong>Use the form and our team will respond.</strong>
+                    </div>
+                  </div>
+                )}
               </div>
             </aside>
-            <ContactForm />
+            <div className="np-card np-contact__form" data-reveal>
+              <ContactForm />
+            </div>
           </div>
         </section>
       </main>
     );
+  }
   if (section === "privacy")
     return (
-      <main id="main" className="page-container article-page">
-        <span className="section-label">YOUR PRIVACY</span>
-        <h1>Clear about your information.</h1>
-        <div className="prose">
-          <p>
-            This independent design concept stores the name, email, subject and
-            message you submit in its enquiry database. Authorised
-            administrators can read and delete these records to handle your
-            enquiry. Messages are not emailed automatically.
-          </p>
-          <p>
-            Administrator sign-in uses a necessary session cookie, valid for
-            eight hours. No analytics or advertising cookies are included.
-            Temporary hashed rate-limit records help prevent abuse.
-          </p>
-          <p>
-            Please avoid sending health details, identity documents or other
-            sensitive information. Use the contact form to request deletion of a
-            previous enquiry, providing the email address used. The site
-            operator must establish retention periods, a verified privacy
-            contact and any additional legal disclosures before accepting public
-            enquiries.
-          </p>
-        </div>
+      <main id="main">
+        <Banner
+          label="Privacy"
+          title="Clear about your information."
+          text={"How " + s.brand + " " + s.tagline + " handles what you share with us."}
+        />
+        <section className="np-section">
+          <div className="np-wrap np-article">
+            <div className="np-prose">
+              <p>
+                When you contact us through this website, we store the name,
+                email address, subject and message you submit so that our team
+                can respond. Authorised staff can read and delete these records.
+                Messages are not shared with third parties or sent to marketing
+                lists.
+              </p>
+              <p>
+                Staff sign-in uses a necessary session cookie, valid for eight
+                hours. This website does not use analytics or advertising
+                cookies. Temporary hashed records help prevent abuse of our
+                forms.
+              </p>
+              <p>
+                Please avoid sending health details, identity documents or other
+                sensitive information. To ask us to delete a previous enquiry,
+                use the contact form and include the email address you used.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
     );
   if (collections.includes(section as Collection) && section !== "pages") {
@@ -114,41 +153,46 @@ export default async function SectionPage({
       s.sections[section as "offerings" | "therapies" | "news" | "careers"];
     return (
       <main id="main">
-        <div className="page-banner">
-          <div className="page-container">
-            <span className="section-label">{head.eyebrow}</span>
-            <h1>{head.title}</h1>
-            <p>{head.description}</p>
-          </div>
-        </div>
-        <section className="section">
-          <div className="page-container">
-            <form className="search-form" role="search">
-              <label htmlFor="content-search">Search {section}</label>
-              <div>
-                <input
-                  id="content-search"
-                  name="q"
-                  defaultValue={q}
-                  maxLength={150}
-                  placeholder={"Find " + section + "…"}
-                />
-                <button className="small-button">Search ↗</button>
-                {q && <Link href={"/" + section}>Clear</Link>}
-              </div>
+        <Banner label={labels[section]} title={head.title} text={head.description} />
+        <section className="np-section">
+          <div className="np-wrap">
+            <form className="np-search" role="search">
+              <label htmlFor="content-search" className="np-sr">
+                Search {labels[section].toLowerCase()}
+              </label>
+              <Icon name="search" size={20} />
+              <input
+                id="content-search"
+                name="q"
+                defaultValue={q}
+                maxLength={150}
+                placeholder={"Search " + labels[section].toLowerCase() + "…"}
+              />
+              {q && (
+                <Link className="np-search__clear" href={"/" + section}>
+                  Clear
+                </Link>
+              )}
+              <button className="np-btn np-btn--primary np-btn--sm">Search</button>
             </form>
             {items.length === 0 ? (
-              <div className="empty-state">
-                <h2>
-                  {q ? "No matching results." : "More possibilities ahead."}
-                </h2>
+              <div className="np-empty">
+                <span className="np-icon-chip">
+                  <Icon name={q ? "search" : "sparkle"} size={24} />
+                </span>
+                <h2>{q ? "No matching results." : "More is on the way."}</h2>
                 <p>
                   {q
-                    ? "Try a different search."
+                    ? "Try a different search term."
                     : section === "careers"
-                      ? "There are no published vacancies at the moment. Please check back for new opportunities."
-                      : "Content will appear here when it is published."}
+                      ? "There are no open positions right now. Please check back soon, or send us your profile through the contact page."
+                      : "New content will appear here soon."}
                 </p>
+                {section === "careers" && !q && (
+                  <Link className="np-btn np-btn--primary" href="/contact">
+                    Contact us <Icon name="arrow" size={18} />
+                  </Link>
+                )}
               </div>
             ) : section === "offerings" ? (
               <OfferingCards items={items} />
@@ -157,17 +201,16 @@ export default async function SectionPage({
             ) : section === "news" ? (
               <StoryCards items={items} />
             ) : (
-              <div className="job-list">
+              <div className="np-jobs">
                 {items.map((x) => (
                   <Link
-                    className="job-card"
+                    className="np-job"
                     href={"/careers/" + x.slug}
                     key={x.id}
+                    data-reveal
                   >
                     <div>
-                      <span className="section-kicker">
-                        {x.category || "OPPORTUNITY"}
-                      </span>
+                      <span className="np-tag">{x.category || "Opportunity"}</span>
                       <h2>{x.title}</h2>
                       <p>
                         {[x.location, x.employmentType]
@@ -175,7 +218,9 @@ export default async function SectionPage({
                           .join(" · ")}
                       </p>
                     </div>
-                    <span className="round-arrow">↗</span>
+                    <span className="np-round">
+                      <Icon name="arrow" size={20} />
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -189,27 +234,20 @@ export default async function SectionPage({
   if (!page) notFound();
   return (
     <main id="main">
-      <div className="page-banner">
-        <div className="page-container">
-          <span className="section-label">{page.category || "OUR WORLD"}</span>
-          <h1>{page.title}</h1>
-          <p>{page.summary}</p>
-        </div>
-      </div>
-      <section className="section">
-        <div className="page-container article-layout">
+      <Banner label={page.category || "Our world"} title={page.title} text={page.summary} />
+      <section className="np-section">
+        <div className={"np-wrap np-article" + (page.imageUrl ? " np-article--media" : "")}>
           {page.imageUrl && (
-            <div className="article-visual">
+            <div className="np-article__visual" data-reveal>
               <Visual src={page.imageUrl} alt={page.title} />
             </div>
           )}
-          <div className="prose">
-            <h2>{page.title}</h2>
+          <div className="np-prose" data-reveal>
             {page.body.split(/\n\s*\n/).map((text, i) => (
               <p key={i}>{text}</p>
             ))}
-            <Link className="inline-link" href="/contact">
-              Let’s connect <span>↗</span>
+            <Link className="np-btn np-btn--primary" href="/contact">
+              Talk to our team <Icon name="arrow" size={18} />
             </Link>
           </div>
         </div>

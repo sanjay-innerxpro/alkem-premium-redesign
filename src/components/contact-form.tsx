@@ -1,5 +1,6 @@
 "use client";
 import { useState, type FormEvent } from "react";
+import { Icon } from "./icons";
 export function ContactForm({
   jobId,
   jobTitle,
@@ -26,7 +27,7 @@ export function ContactForm({
       if (!res.ok) throw new Error(data.error);
       setDone(true);
       form.reset();
-      setStatus("Your enquiry has been saved. Thank you for getting in touch.");
+      setStatus("Thank you — your message has reached our team. We’ll be in touch soon.");
     } catch (e) {
       setStatus(
         e instanceof Error ? e.message : "Unable to send. Please try again.",
@@ -36,8 +37,8 @@ export function ContactForm({
     }
   }
   return (
-    <form className="contact-form" onSubmit={submit}>
-      <div className="form-row">
+    <form className="np-form" onSubmit={submit}>
+      <div className="np-form__row">
         <label>
           Your name
           <input
@@ -87,22 +88,24 @@ export function ContactForm({
           }
         />
       </label>
-      <div className="honeypot" aria-hidden="true">
+      <div className="np-honeypot" aria-hidden="true">
         <label>
           Website
           <input name="website" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
-      <p className="form-note">
-        Please do not include health information or sensitive personal
-        documents. This independent concept is not an official company contact
-        channel.
+      <p className="np-form__note">
+        Please don’t include personal health information or sensitive documents.
+        For medical advice, consult a qualified healthcare professional.
       </p>
-      <button className="button button-primary" disabled={pending || done}>
-        {pending ? "Sending…" : done ? "Enquiry saved" : "Send enquiry"}
-        <span className="round-arrow">↗</span>
+      <button className="np-btn np-btn--primary" disabled={pending || done}>
+        {pending ? "Sending…" : done ? "Message sent" : "Send message"}
+        <Icon name="arrow" size={18} />
       </button>
-      <p role="status" className={done ? "success-message" : "error-message"}>
+      <p
+        role="status"
+        className={done ? "np-form__ok" : "np-form__error"}
+      >
         {status}
       </p>
     </form>

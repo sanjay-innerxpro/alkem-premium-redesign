@@ -4,7 +4,7 @@ import { requireAdmin } from "@/lib/auth";
 import { StudioNav } from "@/components/admin/nav";
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "Alkem Content Studio",
+  title: "NexPharm Content Studio",
   robots: { index: false, follow: false },
 };
 export default async function StudioLayout({
@@ -19,7 +19,7 @@ export default async function StudioLayout({
         <Link href="/admin" className="studio-logo">
           <span>◇</span>
           <div>
-            <strong>ALKEM</strong>
+            <strong>NEXPHARM</strong>
             <small>CONTENT STUDIO</small>
           </div>
         </Link>
@@ -50,7 +50,7 @@ export default async function StudioLayout({
           {children}
         </main>
         <footer className="studio-footer">
-          Independent design concept · Alkem Content Studio
+          NexPharm Healthcare Private Limited · Content Studio
         </footer>
       </div>
     </div>

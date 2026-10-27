@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <radialGradient id="sph" cx=".35" cy=".3"><stop offset="0" stop-color="#14B8A6" stop-opacity=".45"/><stop offset=".6" stop-color="#0B2440" stop-opacity=".2"/><stop offset="1" stop-color="#050F1C" stop-opacity="0"/></radialGradient>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#A78BFA"/></linearGradient>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="#5EEAD4" opacity=".55"/></pattern>
+    <clipPath id="c"><circle cx="250" cy="250" r="190"/></clipPath>
+  </defs>
+  <circle cx="250" cy="250" r="200" fill="url(#sph)"/>
+  <g clip-path="url(#c)" fill="url(#dots)">
+    <path d="M110 150c40-30 90-40 120-20s10 60 40 70 60-20 70 10-30 60-60 70-50 40-90 30-70-60-80-100 0-50 0-60Z"/>
+    <path d="M300 110c40-10 90 10 110 50s0 60-30 60-50-30-80-30-40-70 0-80Z"/>
+    <path d="M330 300c30-10 70 0 80 30s-20 70-60 70-50-30-50-60 0-35 30-40Z"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1.5">
+    <circle cx="250" cy="250" r="190"/>
+    <ellipse cx="250" cy="250" rx="80" ry="190"/>
+    <ellipse cx="250" cy="250" rx="150" ry="190"/>
+    <path d="M60 250h380M80 160h340M80 340h340"/>
+  </g>
+  <g fill="none" stroke="url(#arc)" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 8">
+    <path d="M170 210Q250 90 360 160"><animate attributeName="stroke-dashoffset" from="0" to="-56" dur="2s" repeatCount="indefinite"/></path>
+    <path d="M360 160Q430 260 370 340"><animate attributeName="stroke-dashoffset" from="0" to="-56" dur="2.4s" repeatCount="indefinite"/></path>
+    <path d="M170 210Q120 320 240 360"><animate attributeName="stroke-dashoffset" from="0" to="-56" dur="2.8s" repeatCount="indefinite"/></path>
+  </g>
+  <circle cx="170" cy="210" r="8" fill="#5EEAD4"/>
+  <circle cx="170" cy="210" r="8" fill="none" stroke="#5EEAD4" stroke-width="2"><animate attributeName="r" values="8;22" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2s" repeatCount="indefinite"/></circle>
+  <circle cx="360" cy="160" r="7" fill="#A78BFA"/>
+  <circle cx="370" cy="340" r="7" fill="#38BDF8"/>
+  <circle cx="240" cy="360" r="7" fill="#5EEAD4"/>
+</svg>

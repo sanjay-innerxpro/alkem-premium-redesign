@@ -2,21 +2,18 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import type { Content } from "@/lib/types";
+import { Icon, iconFor } from "./icons";
 export function TherapyExplorer({ items }: { items: Content[] }) {
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   if (!items.length)
     return (
-      <p className="empty-state">Therapeutic areas will be available soon.</p>
+      <p className="np-empty">Therapeutic areas will be available soon.</p>
     );
   const selected = items[active] || items[0];
   return (
-    <div className="therapy-explorer">
-      <div
-        role="tablist"
-        aria-label="Therapy areas"
-        className="therapy-controls"
-      >
+    <div className="np-therapy" data-reveal>
+      <div role="tablist" aria-label="Therapy areas" className="np-therapy__tabs">
         {items.map((x, i) => (
           <button
             key={x.id}
@@ -43,45 +40,37 @@ export function TherapyExplorer({ items }: { items: Content[] }) {
               refs.current[index]?.focus();
             }}
           >
+            <span className="np-therapy__tabicon">
+              <Icon name={iconFor(x.slug)} size={20} />
+            </span>
             {x.title}
-            <span>↗</span>
+            <Icon name="arrow" size={18} className="np-therapy__tabarrow" />
           </button>
         ))}
       </div>
       <div
-        className="therapy-display"
+        className="np-therapy__panel"
         role="tabpanel"
         id={"panel-" + selected.id}
         aria-labelledby={"tab-" + selected.id}
         tabIndex={0}
+        key={selected.id}
       >
-        <div className="therapy-topline">
-          <span>{selected.category || "THERAPEUTIC FOCUS"}</span>
+        <div className="np-therapy__glow" aria-hidden="true" />
+        <div className="np-therapy__meta">
+          <span>{selected.category || "Therapeutic focus"}</span>
           <span>
             {String(active + 1).padStart(2, "0")} /{" "}
             {String(items.length).padStart(2, "0")}
           </span>
         </div>
-        <div className="therapy-illustration" aria-hidden="true">
-          <svg viewBox="0 0 250 240">
-            <path
-              d="M125 204s-84-55-84-116a49 49 0 0 1 84-34 49 49 0 0 1 84 34c0 61-84 116-84 116Z"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-            />
-            <path
-              d="M50 119h46l14-30 24 61 21-40 12 9h32"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-            />
-          </svg>
+        <div className="np-therapy__icon" aria-hidden="true">
+          <Icon name={iconFor(selected.slug)} size={64} />
         </div>
         <h3>{selected.title}</h3>
         <p>{selected.summary}</p>
-        <Link href={"/therapies/" + selected.slug}>
-          Explore this area <span>↗</span>
+        <Link className="np-btn np-btn--light" href={"/therapies/" + selected.slug}>
+          Explore {selected.title} <Icon name="arrow" size={18} />
         </Link>
       </div>
     </div>

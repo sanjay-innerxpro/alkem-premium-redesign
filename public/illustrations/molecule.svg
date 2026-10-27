@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500">
+  <defs>
+    <radialGradient id="n1"><stop offset="0" stop-color="#99F6E4"/><stop offset="1" stop-color="#0D9488"/></radialGradient>
+    <radialGradient id="n2"><stop offset="0" stop-color="#DDD6FE"/><stop offset="1" stop-color="#6D5DF0"/></radialGradient>
+    <radialGradient id="n3"><stop offset="0" stop-color="#BAE6FD"/><stop offset="1" stop-color="#0284C7"/></radialGradient>
+    <radialGradient id="halo"><stop offset="0" stop-color="#2DD4BF" stop-opacity=".35"/><stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="300" cy="250" r="230" fill="url(#halo)"/>
+  <g stroke="#5EEAD4" stroke-opacity=".5" stroke-width="3" fill="none">
+    <path d="M300 160l78 45v90l-78 45-78-45v-90Z"/>
+    <path d="M378 205l90-40M378 295l86 46M222 205l-88-46M222 295l-90 42M300 340v86M300 160V74"/>
+    <path d="M468 165l50-60M132 337l-48 54"/>
+  </g>
+  <circle cx="300" cy="160" r="22" fill="url(#n1)"/>
+  <circle cx="378" cy="205" r="18" fill="url(#n3)"/>
+  <circle cx="378" cy="295" r="22" fill="url(#n2)"/>
+  <circle cx="300" cy="340" r="18" fill="url(#n1)"/>
+  <circle cx="222" cy="295" r="22" fill="url(#n3)"/>
+  <circle cx="222" cy="205" r="18" fill="url(#n2)"/>
+  <circle cx="468" cy="165" r="26" fill="url(#n1)"><animate attributeName="r" values="24;29;24" dur="4s" repeatCount="indefinite"/></circle>
+  <circle cx="464" cy="341" r="16" fill="url(#n3)"/>
+  <circle cx="134" cy="159" r="24" fill="url(#n2)"><animate attributeName="r" values="22;27;22" dur="5s" repeatCount="indefinite"/></circle>
+  <circle cx="132" cy="337" r="16" fill="url(#n1)"/>
+  <circle cx="300" cy="426" r="20" fill="url(#n2)"/>
+  <circle cx="300" cy="74" r="16" fill="url(#n3)"/>
+  <circle cx="518" cy="105" r="12" fill="url(#n2)"/>
+  <circle cx="84" cy="391" r="12" fill="url(#n3)"/>
+  <g fill="#fff" opacity=".9">
+    <circle cx="293" cy="152" r="6"/><circle cx="371" cy="287" r="6"/><circle cx="215" cy="287" r="6"/><circle cx="460" cy="156" r="7"/><circle cx="127" cy="151" r="6"/>
+  </g>
+  <circle cx="300" cy="250" r="200" fill="none" stroke="#fff" stroke-opacity=".1" stroke-dasharray="4 10" stroke-width="2"><animateTransform attributeName="transform" type="rotate" from="0 300 250" to="360 300 250" dur="60s" repeatCount="indefinite"/></circle>
+</svg>
