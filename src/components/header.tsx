@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Brand } from "./brand";
 import { Icon, SocialLinks } from "./icons";
-import { LangSwitch, useI18n } from "./i18n-provider";
+import { LangSelect, useI18n } from "./i18n-provider";
 import type { Dict } from "@/lib/i18n";
 const links: [string, keyof Dict, string][] = [
   ["/about", "nav_about", "sparkle"],
@@ -107,7 +107,7 @@ export function Header({
                   <SocialLinks links={social} />
                 </>
               )}
-              <LangSwitch />
+              <LangSelect />
             </div>
           </div>
         </div>
@@ -189,7 +189,7 @@ export function Header({
               {hasSocial && (
                 <SocialLinks links={social} className="np-social np-social--menu" />
               )}
-              <LangSwitch className="np-lang--menu" />
+              <LangSelect className="np-langdd--menu" />
             </div>
           </div>
         </nav>
