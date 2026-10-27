@@ -1,9 +1,12 @@
 "use client";
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
+import { Icon } from "@/components/icons";
 export function LoginForm() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [show, setShow] = useState(false);
+  const [caps, setCaps] = useState(false);
   const router = useRouter();
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,34 +28,68 @@ export function LoginForm() {
       setBusy(false);
     }
   }
+  const capsCheck = (e: KeyboardEvent<HTMLInputElement>) =>
+    setCaps(e.getModifierState("CapsLock"));
   return (
-    <form className="login-form" onSubmit={submit}>
-      <label className="field">
-        Email address
-        <input
-          name="email"
-          type="email"
-          autoComplete="username"
-          required
-          maxLength={254}
-          placeholder="you@company.com"
-        />
+    // method="post" keeps credentials out of the URL if the form is submitted
+    // before JavaScript has loaded.
+    <form className="login-form" method="post" onSubmit={submit}>
+      <label className="login-field">
+        <span>Email address</span>
+        <div>
+          <Icon name="mail" size={18} />
+          <input
+            name="email"
+            type="email"
+            autoComplete="username"
+            required
+            maxLength={254}
+            placeholder="you@company.com"
+            autoFocus
+          />
+        </div>
       </label>
-      <label className="field">
-        Password
-        <input
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          required
-          maxLength={200}
-        />
+      <label className="login-field">
+        <span>Password</span>
+        <div>
+          <Icon name="shield" size={18} />
+          <input
+            name="password"
+            type={show ? "text" : "password"}
+            autoComplete="current-password"
+            required
+            maxLength={200}
+            placeholder="Your password"
+            onKeyUp={capsCheck}
+            onKeyDown={capsCheck}
+          />
+          <button
+            type="button"
+            className="login-eye"
+            onClick={() => setShow(!show)}
+            aria-label={show ? "Hide password" : "Show password"}
+            aria-pressed={show}
+          >
+            {show ? "Hide" : "Show"}
+          </button>
+        </div>
       </label>
-      <p role="alert" className="error-message">
-        {error}
-      </p>
-      <button className="studio-button" disabled={busy}>
-        {busy ? "Signing in…" : "Sign in"}
+      {caps && <p className="login-caps">Caps Lock is on</p>}
+      {error && (
+        <p role="alert" className="login-error">
+          {error}
+        </p>
+      )}
+      <button className="login-submit" disabled={busy}>
+        {busy ? (
+          <>
+            <span className="login-spinner" aria-hidden="true" /> Signing in…
+          </>
+        ) : (
+          <>
+            Sign in <Icon name="arrow" size={18} />
+          </>
+        )}
       </button>
     </form>
   );

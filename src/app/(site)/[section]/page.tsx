@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getContent, getSettings, getItem } from "@/lib/content";
+import { getDict, siteContent, siteItem, siteSettings } from "@/lib/i18n-server";
 import { collections, type Collection } from "@/lib/types";
+import type { Dict } from "@/lib/i18n";
 import { OfferingCards, StoryCards } from "@/components/cards";
 import { ProductBrowser } from "@/components/product-browser";
 import { TherapyExplorer } from "@/components/therapy-explorer";
@@ -9,24 +10,28 @@ import { Visual } from "@/components/visual";
 import { ContactForm } from "@/components/contact-form";
 import { Banner } from "@/components/banner";
 import { Icon } from "@/components/icons";
+const labelKeys: Record<string, keyof Dict> = {
+  products: "lbl_products",
+  offerings: "lbl_offerings",
+  therapies: "lbl_therapies",
+  news: "lbl_news",
+  careers: "lbl_careers",
+  contact: "lbl_contact",
+  privacy: "lbl_privacy",
+};
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ section: string }>;
 }) {
   const { section } = await params;
-  const page = await getItem("pages", section);
+  const [page, t] = await Promise.all([siteItem("pages", section), getDict()]);
   return {
-    title: page?.title || section.charAt(0).toUpperCase() + section.slice(1),
+    title:
+      page?.title ||
+      (labelKeys[section] ? t[labelKeys[section]] : section),
   };
 }
-const labels: Record<string, string> = {
-  products: "Products",
-  offerings: "Offerings",
-  therapies: "Therapy areas",
-  news: "News & insights",
-  careers: "Careers",
-};
 export default async function SectionPage({
   params,
   searchParams,
@@ -35,22 +40,23 @@ export default async function SectionPage({
   searchParams: Promise<{ q?: string; cat?: string }>;
 }) {
   const { section } = await params;
-  const s = await getSettings();
+  const [s, t] = await Promise.all([siteSettings(), getDict()]);
   if (section === "contact") {
     const channels = [
-      s.contactEmail && ["mail", "Email us", s.contactEmail, "mailto:" + s.contactEmail],
+      s.contactEmail && ["mail", t.email_us, s.contactEmail, "mailto:" + s.contactEmail],
       s.contactPhone && [
         "phone",
-        "Call us",
+        t.call_us,
         s.contactPhone,
         "tel:" + s.contactPhone.replace(/\s/g, ""),
       ],
-      s.contactAddress && ["pin", "Visit us", s.contactAddress, ""],
+      s.contactAddress && ["pin", t.visit_us, s.contactAddress, ""],
     ].filter(Boolean) as string[][];
     return (
       <main id="main">
         <Banner
-          label="Contact"
+          label={t.lbl_contact}
+          home={t.home}
           title={s.sections.contact.title}
           text={s.sections.contact.description}
         />
@@ -58,12 +64,9 @@ export default async function SectionPage({
           <div className="np-wrap np-contact">
             <aside className="np-contact__info" data-reveal>
               <h2 className="np-h3">
-                Let’s start a <em className="np-gradient-text">conversation.</em>
+                {t.start_a} <em className="np-gradient-text">{t.conversation}</em>
               </h2>
-              <p className="np-lead">
-                Whether you are a healthcare professional, distributor, partner
-                or job seeker, our team is here to help.
-              </p>
+              <p className="np-lead">{t.contact_lead}</p>
               <div className="np-channels">
                 {channels.map(([icon, label, value, href]) => {
                   const inner = (
@@ -73,7 +76,9 @@ export default async function SectionPage({
                       </span>
                       <div>
                         <small>{label}</small>
-                        <strong>{value}</strong>
+                        <strong>
+                          <bdi>{value}</bdi>
+                        </strong>
                       </div>
                     </>
                   );
@@ -93,8 +98,8 @@ export default async function SectionPage({
                       <Icon name="mail" size={22} />
                     </span>
                     <div>
-                      <small>Write to us</small>
-                      <strong>Use the form and our team will respond.</strong>
+                      <small>{t.write_to_us}</small>
+                      <strong>{t.form_respond}</strong>
                     </div>
                   </div>
                 )}
@@ -112,31 +117,17 @@ export default async function SectionPage({
     return (
       <main id="main">
         <Banner
-          label="Privacy"
-          title="Clear about your information."
-          text={"How " + s.brand + " " + s.tagline + " handles what you share with us."}
+          label={t.lbl_privacy}
+          home={t.home}
+          title={t.privacy_title}
+          text={t.privacy_intro}
         />
         <section className="np-section">
           <div className="np-wrap np-article">
             <div className="np-prose">
-              <p>
-                When you contact us through this website, we store the name,
-                email address, subject and message you submit so that our team
-                can respond. Authorised staff can read and delete these records.
-                Messages are not shared with third parties or sent to marketing
-                lists.
-              </p>
-              <p>
-                Staff sign-in uses a necessary session cookie, valid for eight
-                hours. This website does not use analytics or advertising
-                cookies. Temporary hashed records help prevent abuse of our
-                forms.
-              </p>
-              <p>
-                Please avoid sending health details, identity documents or other
-                sensitive information. To ask us to delete a previous enquiry,
-                use the contact form and include the email address you used.
-              </p>
+              <p>{t.privacy_1}</p>
+              <p>{t.privacy_2}</p>
+              <p>{t.privacy_3}</p>
             </div>
           </div>
         </section>
@@ -144,17 +135,11 @@ export default async function SectionPage({
     );
   if (collections.includes(section as Collection) && section !== "pages") {
     const collection = section as Collection;
-    const params = await searchParams;
-    const q = (params.q || "").trim().slice(0, 150);
-    const cat = (params.cat || "").slice(0, 100);
-    const all = await getContent(collection);
-    const items = all.filter(
-      (x) =>
-        (!cat || x.category === cat) &&
-        (x.title + " " + x.summary + " " + x.location + " " + x.composition)
-          .toLowerCase()
-          .includes(q.toLowerCase()),
-    );
+    const label = t[labelKeys[section]];
+    const query = await searchParams;
+    const q = (query.q || "").trim().slice(0, 150);
+    const cat = (query.cat || "").slice(0, 100);
+    const all = await siteContent(collection);
     const head =
       s.sections[
         section as "products" | "offerings" | "therapies" | "news" | "careers"
@@ -163,7 +148,8 @@ export default async function SectionPage({
       return (
         <main id="main">
           <Banner
-            label={labels[section]}
+            label={label}
+            home={t.home}
             title={head.title}
             text={head.description}
           />
@@ -174,47 +160,51 @@ export default async function SectionPage({
           </section>
         </main>
       );
+    const items = all.filter((x) =>
+      (x.title + " " + x.summary + " " + x.location)
+        .toLowerCase()
+        .includes(q.toLowerCase()),
+    );
     return (
       <main id="main">
-        <Banner label={labels[section]} title={head.title} text={head.description} />
+        <Banner label={label} home={t.home} title={head.title} text={head.description} />
         <section className="np-section">
           <div className="np-wrap">
             <form className="np-search" role="search">
               <label htmlFor="content-search" className="np-sr">
-                Search {labels[section].toLowerCase()}
+                {t.search} {label}
               </label>
               <Icon name="search" size={20} />
-              {cat && <input type="hidden" name="cat" value={cat} />}
               <input
                 id="content-search"
                 name="q"
                 defaultValue={q}
                 maxLength={150}
-                placeholder={"Search " + labels[section].toLowerCase() + "…"}
+                placeholder={t.search_placeholder}
               />
               {q && (
                 <Link className="np-search__clear" href={"/" + section}>
-                  Clear
+                  {t.clear}
                 </Link>
               )}
-              <button className="np-btn np-btn--primary np-btn--sm">Search</button>
+              <button className="np-btn np-btn--primary np-btn--sm">{t.search}</button>
             </form>
             {items.length === 0 ? (
               <div className="np-empty">
                 <span className="np-icon-chip">
                   <Icon name={q ? "search" : "sparkle"} size={24} />
                 </span>
-                <h2>{q ? "No matching results." : "More is on the way."}</h2>
+                <h2>{q ? t.no_results : t.more_on_way}</h2>
                 <p>
                   {q
-                    ? "Try a different search term."
+                    ? t.try_different
                     : section === "careers"
-                      ? "There are no open positions right now. Please check back soon, or send us your profile through the contact page."
-                      : "New content will appear here soon."}
+                      ? t.no_positions
+                      : t.content_soon}
                 </p>
                 {section === "careers" && !q && (
                   <Link className="np-btn np-btn--primary" href="/contact">
-                    Contact us <Icon name="arrow" size={18} />
+                    {t.contact_us} <Icon name="arrow" size={18} />
                   </Link>
                 )}
               </div>
@@ -223,7 +213,11 @@ export default async function SectionPage({
             ) : section === "therapies" ? (
               <TherapyExplorer items={items} />
             ) : section === "news" ? (
-              <StoryCards items={items} />
+              <StoryCards
+                items={items}
+                readLabel={t.read_story}
+                fallbackCategory={t.perspective}
+              />
             ) : (
               <div className="np-jobs">
                 {items.map((x) => (
@@ -234,7 +228,7 @@ export default async function SectionPage({
                     data-reveal
                   >
                     <div>
-                      <span className="np-tag">{x.category || "Opportunity"}</span>
+                      <span className="np-tag">{x.category || t.opportunity}</span>
                       <h2>{x.title}</h2>
                       <p>
                         {[x.location, x.employmentType]
@@ -254,11 +248,16 @@ export default async function SectionPage({
       </main>
     );
   }
-  const page = await getItem("pages", section);
+  const page = await siteItem("pages", section);
   if (!page) notFound();
   return (
     <main id="main">
-      <Banner label={page.category || "Our world"} title={page.title} text={page.summary} />
+      <Banner
+        label={page.category || t.our_world}
+        home={t.home}
+        title={page.title}
+        text={page.summary}
+      />
       <section className="np-section">
         <div className={"np-wrap np-article" + (page.imageUrl ? " np-article--media" : "")}>
           {page.imageUrl && (
@@ -271,7 +270,7 @@ export default async function SectionPage({
               <p key={i}>{text}</p>
             ))}
             <Link className="np-btn np-btn--primary" href="/contact">
-              Talk to our team <Icon name="arrow" size={18} />
+              {t.talk_team} <Icon name="arrow" size={18} />
             </Link>
           </div>
         </div>

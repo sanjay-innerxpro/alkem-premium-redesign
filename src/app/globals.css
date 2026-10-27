@@ -88,7 +88,7 @@ html:has(.np) {
   position: absolute;
   width: 1px;
   height: 1px;
-  overflow: hidden;
+  overflow: clip;
   clip-path: inset(50%);
   white-space: nowrap;
 }
@@ -464,7 +464,7 @@ html:has(.np) {
 .np-aurora {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  overflow: clip;
   pointer-events: none;
 }
 .np-aurora span {
@@ -519,7 +519,7 @@ html:has(.np) {
   padding: 150px 0 56px;
   color: #fff;
   background: radial-gradient(120% 90% at 70% 0%, #17344d 0%, var(--np-deep) 62%);
-  overflow: hidden;
+  overflow: clip;
 }
 .np-hero__inner {
   position: relative;
@@ -759,7 +759,7 @@ html:has(.np) {
 /* Ticker */
 .np-ticker {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   padding: 16px 0;
   color: var(--np-ink-2);
   background: #edf5f2;
@@ -795,7 +795,7 @@ html:has(.np) {
 }
 .np-dark {
   isolation: isolate;
-  overflow: hidden;
+  overflow: clip;
   color: #fff;
   background: var(--np-navy);
 }
@@ -867,7 +867,7 @@ html:has(.np) {
   position: relative;
   aspect-ratio: 1;
   border-radius: 36px;
-  overflow: hidden;
+  overflow: clip;
   background: linear-gradient(160deg, #e6fbf8 0%, #e0f2fe 55%, #eaf0f6 100%);
   box-shadow: var(--np-shadow);
 }
@@ -954,7 +954,7 @@ html:has(.np) {
   border-radius: var(--np-radius);
   background: #fff;
   border: 1px solid var(--np-line);
-  overflow: hidden;
+  overflow: clip;
   transition:
     transform 0.5s var(--np-ease),
     box-shadow 0.5s var(--np-ease),
@@ -1030,7 +1030,7 @@ html:has(.np) {
   margin: 24px 0 0;
   height: 140px;
   border-radius: 18px;
-  overflow: hidden;
+  overflow: clip;
 }
 .np-bento__media img {
   width: 100%;
@@ -1088,7 +1088,7 @@ html:has(.np) {
   position: relative;
   aspect-ratio: 1.45;
   border-radius: 36px;
-  overflow: hidden;
+  overflow: clip;
   background: radial-gradient(circle at 50% 40%, rgba(45, 212, 191, 0.16), rgba(255, 255, 255, 0.02) 70%);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
@@ -1229,7 +1229,7 @@ html:has(.np) {
   color: var(--np-ink);
   background: linear-gradient(150deg, #eef6f3 0%, #eef2f7 100%);
   border: 1px solid var(--np-line);
-  overflow: hidden;
+  overflow: clip;
   animation: np-fade 0.6s var(--np-ease);
 }
 .np-therapy__glow {
@@ -1304,7 +1304,7 @@ html:has(.np) {
   padding: clamp(24px, 3.5vw, 40px);
   border-radius: 32px;
   color: #fff;
-  overflow: hidden;
+  overflow: clip;
   transition:
     transform 0.6s var(--np-ease),
     box-shadow 0.6s var(--np-ease);
@@ -1364,7 +1364,7 @@ html:has(.np) {
   padding: clamp(28px, 4vw, 52px);
   border-radius: 40px;
   background: linear-gradient(135deg, #ecfdf9 0%, #e0f2fe 50%, #eaf0f6 100%);
-  overflow: hidden;
+  overflow: clip;
 }
 .np-careers__copy .np-lead {
   margin: 20px 0 32px;
@@ -1432,7 +1432,7 @@ html:has(.np) {
   border-radius: var(--np-radius);
   background: #fff;
   border: 1px solid var(--np-line);
-  overflow: hidden;
+  overflow: clip;
   transition:
     transform 0.5s var(--np-ease),
     box-shadow 0.5s;
@@ -1443,7 +1443,7 @@ html:has(.np) {
 }
 .np-story__media {
   aspect-ratio: 16 / 10;
-  overflow: hidden;
+  overflow: clip;
   background: linear-gradient(135deg, #e6fbf8, #eaf0f6);
 }
 .np-story__media img {
@@ -1485,7 +1485,7 @@ html:has(.np) {
   color: #fff;
   text-align: center;
   background: var(--np-navy);
-  overflow: hidden;
+  overflow: clip;
 }
 .np-cta .np-aurora {
   z-index: -1;
@@ -1516,7 +1516,7 @@ html:has(.np) {
   padding: 56px 0 24px;
   color: #c3d0de;
   background: var(--np-deep);
-  overflow: hidden;
+  overflow: clip;
 }
 .np-footer__glow {
   position: absolute;
@@ -1624,7 +1624,7 @@ html:has(.np) {
   padding: 150px 0 clamp(36px, 4.5vw, 60px);
   color: #fff;
   background: radial-gradient(120% 100% at 80% 0%, #17344d 0%, var(--np-deep) 65%);
-  overflow: hidden;
+  overflow: clip;
 }
 .np-banner__inner {
   position: relative;
@@ -1700,7 +1700,7 @@ html:has(.np) {
   top: 110px;
   aspect-ratio: 1;
   border-radius: 36px;
-  overflow: hidden;
+  overflow: clip;
   background: linear-gradient(160deg, #e6fbf8 0%, #e0f2fe 55%, #eaf0f6 100%);
   box-shadow: var(--np-shadow);
 }
@@ -1993,7 +1993,7 @@ a.np-channel:hover {
   left: -10000px;
   width: 1px;
   height: 1px;
-  overflow: hidden;
+  overflow: clip;
 }
 
 /* Standalone (404 / error) */
@@ -2006,7 +2006,7 @@ a.np-channel:hover {
   color: #fff;
   text-align: center;
   background: var(--np-deep);
-  overflow: hidden;
+  overflow: clip;
 }
 .np-standalone__inner {
   display: grid;
@@ -2040,7 +2040,7 @@ a.np-channel:hover {
 
 /* Top bar */
 .np-topbar {
-  overflow: hidden;
+  overflow: clip;
   max-height: 40px;
   color: #b6c6d8;
   background: rgba(3, 10, 20, 0.55);
@@ -2141,7 +2141,7 @@ a.np-channel:hover {
   border-radius: 22px;
   border: 1px solid var(--np-line);
   background: #fff;
-  overflow: hidden;
+  overflow: clip;
   transition:
     transform 0.4s var(--np-ease),
     box-shadow 0.4s,
@@ -2300,7 +2300,7 @@ a.np-channel:hover {
   gap: 1px;
   margin: 0;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: clip;
   border: 1px solid var(--np-line);
   background: var(--np-line);
 }
@@ -2345,7 +2345,7 @@ a.np-channel:hover {
     height: 38px;
   }
   .np-topbar__label--always {
-    overflow: hidden;
+    overflow: clip;
     text-overflow: ellipsis;
   }
   .np-social a {
@@ -2764,6 +2764,173 @@ a.np-channel:hover {
   }
   .np-more .np-btn {
     width: 100%;
+  }
+}
+
+/* Language switcher */
+.np-lang {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+.np-lang button {
+  min-width: 34px;
+  height: 24px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 999px;
+  color: #c3d0dc;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.np-lang button[lang="ur"] {
+  font-family: var(--font-urdu), sans-serif;
+  font-size: 13px;
+}
+.np-lang button[lang="hi"] {
+  font-family: var(--font-deva), sans-serif;
+}
+.np-lang button:hover {
+  color: #fff;
+}
+.np-lang button[aria-pressed="true"] {
+  color: #0f2335;
+  background: #fff;
+}
+.np-lang--menu {
+  background: var(--np-surface);
+  box-shadow: inset 0 0 0 1px var(--np-line);
+}
+.np-lang--menu button {
+  height: 32px;
+  min-width: 44px;
+  color: var(--np-ink-2);
+  font-size: 13px;
+}
+.np-lang--menu button[aria-pressed="true"] {
+  color: #fff;
+  background: #0f766e;
+}
+.np-mobile__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Hindi and Urdu typography. Devanagari and Arabic script need normal
+   tracking (Urdu letters must join) and more generous line heights. */
+.np[lang="hi"] {
+  --np-sans: var(--font-sans), var(--font-deva), "Segoe UI", sans-serif;
+  --np-serif: var(--font-deva), var(--font-sans), sans-serif;
+}
+.np[lang="ur"] {
+  --np-sans: var(--font-sans), var(--font-urdu), "Segoe UI", sans-serif;
+  --np-serif: var(--font-urdu), var(--font-sans), sans-serif;
+}
+.np[lang="hi"],
+.np[lang="hi"] *,
+.np[lang="ur"],
+.np[lang="ur"] * {
+  letter-spacing: 0 !important;
+}
+.np[lang="hi"] em,
+.np[lang="ur"] em {
+  font-style: normal;
+  font-weight: 700;
+}
+.np[lang="hi"] :is(h1, h2, h3, .np-h2, .np-h3) {
+  line-height: 1.35;
+}
+.np[lang="ur"] :is(h1, h2, h3, .np-h2, .np-h3) {
+  line-height: 1.6;
+}
+.np[lang="hi"] .np-hero__title,
+.np[lang="ur"] .np-hero__title {
+  font-size: clamp(36px, 5.2vw, 72px);
+}
+.np[lang="ur"] .np-hero__title {
+  line-height: 1.55;
+}
+.np[lang="hi"] .np-hero__title {
+  line-height: 1.25;
+}
+.np[lang="ur"] {
+  line-height: 1.95;
+}
+.np[lang="hi"] {
+  line-height: 1.8;
+}
+.np[lang="hi"] .np-footer__word,
+.np[lang="ur"] .np-footer__word {
+  line-height: 1;
+}
+
+/* Right-to-left layout for Urdu */
+.np[dir="rtl"] .np-i-arrow {
+  scale: -1 1;
+}
+.np[dir="rtl"] .np-ticker {
+  direction: ltr;
+}
+.np[dir="rtl"] .np-bento__arrow {
+  right: auto;
+  left: 26px;
+}
+.np[dir="rtl"] .np-bento__body {
+  padding-right: 0;
+  padding-left: 48px;
+}
+.np[dir="rtl"] .np-product__form {
+  left: auto;
+  right: 12px;
+}
+.np[dir="rtl"] .np-therapy__icon {
+  right: auto;
+  left: clamp(28px, 6vw, 80px);
+}
+.np[dir="rtl"] .np-about__badge {
+  right: auto;
+  left: -24px;
+}
+.np[dir="rtl"] .np-mobile {
+  transform-origin: top left;
+}
+.np[dir="rtl"] .np-steps__num {
+  right: auto;
+  left: 24px;
+}
+.np[dir="rtl"] .np-duo__leaf {
+  right: auto;
+  left: 32px;
+}
+.np[dir="rtl"] .np-pillars li:hover {
+  transform: translateX(-6px);
+}
+.np[dir="rtl"] .np-therapy__tabs button:hover {
+  transform: translateX(-4px);
+}
+@media (max-width: 860px) {
+  .np[dir="rtl"] .np-about__badge {
+    left: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .np-topbar .np-social,
+  .np-topbar .np-topbar__label {
+    display: none;
+  }
+  .np[dir="rtl"] .np-about__badge {
+    left: auto;
   }
 }
 

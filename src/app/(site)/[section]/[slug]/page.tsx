@@ -1,39 +1,45 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getItem } from "@/lib/content";
+import { getDict, siteItem } from "@/lib/i18n-server";
+import type { Dict } from "@/lib/i18n";
 import { collections, type Collection } from "@/lib/types";
 import { Visual } from "@/components/visual";
 import { ContactForm } from "@/components/contact-form";
 import { Banner } from "@/components/banner";
 import { Icon, iconFor } from "@/components/icons";
 type Props = { params: Promise<{ section: string; slug: string }> };
-const labels: Record<string, string> = {
-  products: "Products",
-  offerings: "Offerings",
-  therapies: "Therapy areas",
-  news: "News & insights",
-  careers: "Careers",
+const labelKeys: Record<string, keyof Dict> = {
+  products: "lbl_products",
+  offerings: "lbl_offerings",
+  therapies: "lbl_therapies",
+  news: "lbl_news",
+  careers: "lbl_careers",
 };
 export async function generateMetadata({ params }: Props) {
   const { section, slug } = await params;
   if (!collections.includes(section as Collection) || section === "pages")
     return {};
-  const x = await getItem(section as Collection, slug);
+  const x = await siteItem(section as Collection, slug);
   return x ? { title: x.title, description: x.summary } : {};
 }
 export default async function Detail({ params }: Props) {
   const { section, slug } = await params;
   if (!collections.includes(section as Collection) || section === "pages")
     notFound();
-  const x = await getItem(section as Collection, slug);
+  const [x, t] = await Promise.all([
+    siteItem(section as Collection, slug),
+    getDict(),
+  ]);
   if (!x) notFound();
+  const label = t[labelKeys[section]];
   return (
     <main id="main">
       <Banner
-        label={x.category || labels[section]}
+        label={x.category || label}
+        home={t.home}
         title={x.title}
         text={x.summary}
-        crumbs={[["/" + section, labels[section]]]}
+        crumbs={[["/" + section, label]]}
       >
         {section === "careers" && (x.location || x.employmentType) && (
           <p className="np-banner__meta">
@@ -57,10 +63,10 @@ export default async function Detail({ params }: Props) {
             {section === "products" && (
               <dl className="np-specs">
                 {[
-                  ["Composition", x.composition],
-                  ["Dosage form", x.dosageForm],
-                  ["Pack size", x.packSize],
-                  ["Therapy area", x.category],
+                  [t.composition, x.composition],
+                  [t.dosage_form, x.dosageForm],
+                  [t.pack_size, x.packSize],
+                  [t.therapy_area, x.category],
                 ]
                   .filter(([, v]) => v)
                   .map(([k, v]) => (
@@ -78,15 +84,15 @@ export default async function Detail({ params }: Props) {
             </div>
             {section === "products" && (
               <section className="np-card np-apply">
-                <h2 className="np-h3">Enquire about this product</h2>
-                <p>For availability, pricing or trade enquiries, send us a message.</p>
-                <ContactForm subject={"Product enquiry: " + x.title} />
+                <h2 className="np-h3">{t.enquire_product}</h2>
+                <p>{t.enquire_text}</p>
+                <ContactForm subject={t.product_enquiry + x.title} />
               </section>
             )}
             {section === "careers" && (
               <section className="np-card np-apply">
-                <h2 className="np-h3">Interested in this role?</h2>
-                <p>Send us a note with a link to your professional profile.</p>
+                <h2 className="np-h3">{t.interested_role}</h2>
+                <p>{t.role_text}</p>
                 <ContactForm jobId={x.id} jobTitle={x.title} />
               </section>
             )}
@@ -96,14 +102,14 @@ export default async function Detail({ params }: Props) {
               <span className="np-icon-chip np-icon-chip--glass">
                 <Icon name="sparkle" size={22} />
               </span>
-              <h2>Have a question?</h2>
-              <p>Our team is happy to help with product, partnership or career enquiries.</p>
+              <h2>{t.have_question}</h2>
+              <p>{t.question_text}</p>
               <Link className="np-btn np-btn--light" href="/contact">
-                Contact us <Icon name="arrow" size={18} />
+                {t.contact_us} <Icon name="arrow" size={18} />
               </Link>
             </div>
             <Link className="np-link" href={"/" + section}>
-              <Icon name="arrow" size={18} className="np-flip" /> All {labels[section].toLowerCase()}
+              <Icon name="arrow" size={18} className="np-flip" /> {t.all_prefix} {label}
             </Link>
           </aside>
         </div>

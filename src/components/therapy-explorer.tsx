@@ -3,17 +3,19 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import type { Content } from "@/lib/types";
 import { Icon, iconFor } from "./icons";
+import { useI18n } from "./i18n-provider";
 export function TherapyExplorer({ items }: { items: Content[] }) {
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const { t } = useI18n();
   if (!items.length)
     return (
-      <p className="np-empty">Therapeutic areas will be available soon.</p>
+      <p className="np-empty">{t.therapies_soon}</p>
     );
   const selected = items[active] || items[0];
   return (
     <div className="np-therapy" data-reveal>
-      <div role="tablist" aria-label="Therapy areas" className="np-therapy__tabs">
+      <div role="tablist" aria-label={t.lbl_therapies} className="np-therapy__tabs">
         {items.map((x, i) => (
           <button
             key={x.id}
@@ -58,7 +60,7 @@ export function TherapyExplorer({ items }: { items: Content[] }) {
       >
         <div className="np-therapy__glow" aria-hidden="true" />
         <div className="np-therapy__meta">
-          <span>{selected.category || "Therapeutic focus"}</span>
+          <span>{selected.category || t.therapeutic_focus}</span>
           <span>
             {String(active + 1).padStart(2, "0")} /{" "}
             {String(items.length).padStart(2, "0")}
@@ -70,7 +72,7 @@ export function TherapyExplorer({ items }: { items: Content[] }) {
         <h3>{selected.title}</h3>
         <p>{selected.summary}</p>
         <Link className="np-btn np-btn--primary" href={"/therapies/" + selected.slug}>
-          Explore {selected.title} <Icon name="arrow" size={18} />
+          {t.explore} {selected.title} <Icon name="arrow" size={18} />
         </Link>
       </div>
     </div>

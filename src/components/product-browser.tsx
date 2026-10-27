@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { Content } from "@/lib/types";
 import { ProductCards } from "./cards";
 import { Icon } from "./icons";
+import { useI18n } from "./i18n-provider";
 // Instant client-side search over the published products. The URL keeps
 // ?q= and ?cat= in sync so a filtered view can be shared or bookmarked.
 export function ProductBrowser({
@@ -18,17 +19,21 @@ export function ProductBrowser({
   const [cat, setCat] = useState(initialCat);
   const [form, setForm] = useState("");
   const input = useRef<HTMLInputElement>(null);
-  const areas = useMemo(
-    () => [...new Set(items.map((x) => x.category).filter(Boolean))],
-    [items],
-  );
+  const { t } = useI18n();
+  // Filter and link by the untranslated category; show the translated label.
+  const keyOf = (x: Content) => x.categoryKey ?? x.category;
+  const areas = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const x of items) if (keyOf(x)) map.set(keyOf(x), x.category);
+    return [...map];
+  }, [items]);
   const forms = useMemo(
     () => [...new Set(items.map((x) => x.dosageForm).filter(Boolean))],
     [items],
   );
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
   const results = items.filter((x) => {
-    if (cat && x.category !== cat) return false;
+    if (cat && keyOf(x) !== cat) return false;
     if (form && x.dosageForm !== form) return false;
     const hay = [x.title, x.composition, x.category, x.dosageForm, x.packSize]
       .join(" ")
@@ -61,14 +66,14 @@ export function ProductBrowser({
         <div className="np-glass-search__field">
           <Icon name="search" size={22} />
           <label htmlFor="product-search" className="np-sr">
-            Search products
+            {t.search_products}
           </label>
           <input
             id="product-search"
             ref={input}
             value={q}
             onChange={(e) => setQ(e.target.value.slice(0, 150))}
-            placeholder="Search by name, composition or therapy area…"
+            placeholder={t.pb_placeholder}
             autoComplete="off"
             enterKeyHint="search"
           />
@@ -80,7 +85,7 @@ export function ProductBrowser({
                 setQ("");
                 input.current?.focus();
               }}
-              aria-label="Clear search"
+              aria-label={t.clear_search}
             >
               ×
             </button>
@@ -89,26 +94,26 @@ export function ProductBrowser({
           )}
         </div>
         <div className="np-glass-search__filters">
-          <div className="np-seg" aria-label="Therapy area">
-            {["", ...areas].map((a) => (
+          <div className="np-seg" aria-label={t.therapy_area}>
+            {[["", t.all_areas], ...areas].map(([key, name]) => (
               <button
                 type="button"
-                key={a || "all"}
-                aria-pressed={a === cat}
-                onClick={() => setCat(a)}
+                key={key || "all"}
+                aria-pressed={key === cat}
+                onClick={() => setCat(key)}
               >
-                {a || "All areas"}
+                {name}
                 <span>
-                  {a ? items.filter((x) => x.category === a).length : items.length}
+                  {key ? items.filter((x) => keyOf(x) === key).length : items.length}
                 </span>
               </button>
             ))}
           </div>
           {forms.length > 1 && (
             <label className="np-select">
-              <span className="np-sr">Dosage form</span>
+              <span className="np-sr">{t.dosage_form}</span>
               <select value={form} onChange={(e) => setForm(e.target.value)}>
-                <option value="">All forms</option>
+                <option value="">{t.all_forms}</option>
                 {forms.map((f) => (
                   <option key={f}>{f}</option>
                 ))}
@@ -120,9 +125,19 @@ export function ProductBrowser({
       <div className="np-browse__bar" aria-live="polite">
         <span>
           <strong>{results.length}</strong>{" "}
-          {results.length === 1 ? "product" : "products"}
-          {cat && <> in {cat}</>}
-          {q.trim() && <> matching “{q.trim()}”</>}
+          {results.length === 1 ? t.product_one : t.product_many}
+          {cat && (
+            <>
+              {" "}
+              {t.in_word} {areas.find(([key]) => key === cat)?.[1] ?? cat}
+            </>
+          )}
+          {q.trim() && (
+            <>
+              {" "}
+              {t.matching} “{q.trim()}”
+            </>
+          )}
         </span>
         {filtered && (
           <button
@@ -133,7 +148,7 @@ export function ProductBrowser({
               setForm("");
             }}
           >
-            Reset filters
+            {t.reset_filters}
           </button>
         )}
       </div>
@@ -144,8 +159,8 @@ export function ProductBrowser({
           <span className="np-icon-chip">
             <Icon name="search" size={24} />
           </span>
-          <h2>No products found.</h2>
-          <p>Try another name or composition, or clear the filters.</p>
+          <h2>{t.no_products}</h2>
+          <p>{t.no_products_text}</p>
         </div>
       )}
     </div>

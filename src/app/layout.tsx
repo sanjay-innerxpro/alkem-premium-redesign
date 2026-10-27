@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
+import {
+  Instrument_Serif,
+  Noto_Naskh_Arabic,
+  Noto_Sans_Devanagari,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 import "./globals.css";
 // next/font self-hosts these at build time, so the CSP's font-src 'self' still holds.
 const sans = Plus_Jakarta_Sans({
@@ -13,6 +18,21 @@ const serif = Instrument_Serif({
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
+});
+// Script fonts for Hindi and Urdu; not preloaded, so English visitors never download them.
+const devanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-deva",
+  display: "swap",
+  preload: false,
+});
+const urdu = Noto_Naskh_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-urdu",
+  display: "swap",
+  preload: false,
 });
 export const metadata: Metadata = {
   title: {
@@ -30,7 +50,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={sans.variable + " " + serif.variable}>
+    <html
+      lang="en"
+      className={[sans, serif, devanagari, urdu].map((f) => f.variable).join(" ")}
+    >
       <body>{children}</body>
     </html>
   );

@@ -21,6 +21,8 @@ export type Content = {
   composition: string;
   dosageForm: string;
   packSize: string;
+  /** Untranslated category, used for filtering and URLs when a language is active. */
+  categoryKey?: string;
   published: boolean;
   sortOrder: number;
   updatedAt?: string;

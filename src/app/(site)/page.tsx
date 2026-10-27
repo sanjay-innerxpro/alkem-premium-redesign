@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getContent, getSettings } from "@/lib/content";
+import { getDict, siteContent, siteSettings } from "@/lib/i18n-server";
 import { Visual } from "@/components/visual";
 import {
   Eyebrow,
@@ -11,30 +11,34 @@ import {
 import { TherapyExplorer } from "@/components/therapy-explorer";
 import { Icon } from "@/components/icons";
 export async function generateMetadata() {
-  const s = await getSettings();
+  const s = await siteSettings();
   return { title: { absolute: s.seoTitle }, description: s.seoDescription };
 }
 const pillars = [
-  ["shield", "Quality without compromise", "Every batch checked against strict quality standards."],
-  ["users", "Patients at the centre", "Medicines shaped around real needs and real lives."],
-  ["award", "Integrity in everything", "Ethical practice and transparency with every partner."],
-];
+  ["shield", "p1"],
+  ["users", "p2"],
+  ["award", "p3"],
+] as const;
 const steps = [
-  ["flask", "Research", "Understanding patient needs and the science behind them."],
-  ["dna", "Develop", "Formulating safe, effective and stable medicines."],
-  ["factory", "Manufacture", "Producing at scale under rigorous quality control."],
-  ["truck", "Deliver", "Reaching pharmacies, hospitals and doctors reliably."],
-];
+  ["flask", "s1"],
+  ["dna", "s2"],
+  ["factory", "s3"],
+  ["truck", "s4"],
+] as const;
 export default async function Home() {
-  const [s, items] = await Promise.all([getSettings(), getContent()]);
+  const [s, items, t] = await Promise.all([
+    siteSettings(),
+    siteContent(),
+    getDict(),
+  ]);
   const sec = s.sections;
   const group = (name: string) => items.filter((x) => x.collection === name);
   const therapies = group("therapies");
   const ticker = [
     ...therapies.map((x) => x.title),
-    "Quality assured",
-    "Affordable care",
-    "Trusted by professionals",
+    t.quality_assured,
+    t.affordable_care,
+    t.trusted_pros,
   ];
   return (
     <main id="main">
@@ -61,18 +65,18 @@ export default async function Home() {
                 {s.heroCta} <Icon name="arrow" size={18} />
               </Link>
               <Link className="np-btn np-btn--ghost np-btn--lg" href="/products">
-                Explore products
+                {t.explore_products}
               </Link>
             </div>
             <dl className="np-hero__facts">
               {s.established && (
                 <div>
-                  <dt>Established</dt>
+                  <dt>{t.established}</dt>
                   <dd>{s.established}</dd>
                 </div>
               )}
               <div>
-                <dt>Our purpose</dt>
+                <dt>{t.our_purpose}</dt>
                 <dd>{s.purpose}</dd>
               </div>
             </dl>
@@ -111,8 +115,8 @@ export default async function Home() {
                 <Icon name="shield" size={20} />
               </span>
               <div>
-                <strong>Quality assured</strong>
-                <span>Tested at every stage</span>
+                <strong>{t.quality_assured}</strong>
+                <span>{t.tested_every_stage}</span>
               </div>
             </div>
             {s.metrics[1] && (
@@ -129,9 +133,9 @@ export default async function Home() {
       </section>
       <div className="np-ticker" aria-hidden="true">
         <div className="np-ticker__track">
-          {[...ticker, ...ticker].map((t, i) => (
+          {[...ticker, ...ticker].map((word, i) => (
             <span key={i}>
-              {t}
+              {word}
               <Icon name="sparkle" size={18} />
             </span>
           ))}
@@ -163,7 +167,9 @@ export default async function Home() {
                 <Icon name="sparkle" size={22} />
               </span>
               <div>
-                <strong>{s.established ? "Since " + s.established : "Built on care"}</strong>
+                <strong>
+                  {s.established ? t.since + " " + s.established : t.built_on_care}
+                </strong>
                 <span>{s.purpose}</span>
               </div>
             </div>
@@ -173,20 +179,20 @@ export default async function Home() {
             <h2 className="np-h2">{sec.about.title}</h2>
             <p className="np-lead">{sec.about.description}</p>
             <ul className="np-pillars">
-              {pillars.map(([icon, title, text]) => (
-                <li key={title}>
+              {pillars.map(([icon, key]) => (
+                <li key={key}>
                   <span className="np-icon-chip">
                     <Icon name={icon} size={22} />
                   </span>
                   <div>
-                    <strong>{title}</strong>
-                    <span>{text}</span>
+                    <strong>{t[(key + "_t") as "p1_t"]}</strong>
+                    <span>{t[(key + "_d") as "p1_d"]}</span>
                   </div>
                 </li>
               ))}
             </ul>
             <Link className="np-link" href="/about">
-              Discover our story <Icon name="arrow" size={18} />
+              {t.discover_story} <Icon name="arrow" size={18} />
             </Link>
           </div>
         </div>
@@ -194,27 +200,27 @@ export default async function Home() {
       {group("products").length > 0 && (
         <section className="np-section np-section--tint">
           <div className="np-wrap">
-            <SectionHead section={sec.products} href="/products" />
+            <SectionHead section={sec.products} href="/products" more={t.explore_all} />
             <ProductCards items={group("products").slice(0, 8)} />
             <div className="np-more">
               <form action="/products" className="np-quick-search" role="search">
                 <Icon name="search" size={18} />
                 <label htmlFor="home-product-search" className="np-sr">
-                  Search products
+                  {t.search_products}
                 </label>
                 <input
                   id="home-product-search"
                   name="q"
                   maxLength={150}
-                  placeholder="Find a product or composition…"
+                  placeholder={t.find_product}
                   autoComplete="off"
                 />
-                <button aria-label="Search products">
+                <button aria-label={t.search_products}>
                   <Icon name="arrow" size={16} />
                 </button>
               </form>
               <Link className="np-btn np-btn--primary" href="/products">
-                View all {group("products").length} products{" "}
+                {t.view_all_products} ({group("products").length}){" "}
                 <Icon name="arrow" size={18} />
               </Link>
             </div>
@@ -223,7 +229,7 @@ export default async function Home() {
       )}
       <section className="np-section">
         <div className="np-wrap">
-          <SectionHead section={sec.offerings} href="/offerings" />
+          <SectionHead section={sec.offerings} href="/offerings" more={t.explore_all} />
           <OfferingCards items={group("offerings").slice(0, 4)} />
         </div>
       </section>
@@ -239,7 +245,7 @@ export default async function Home() {
               <h2 className="np-h2">{sec.innovation.title}</h2>
               <p className="np-lead">{sec.innovation.description}</p>
               <Link className="np-btn np-btn--light" href="/innovation">
-                Explore innovation <Icon name="arrow" size={18} />
+                {t.explore_innovation} <Icon name="arrow" size={18} />
               </Link>
             </div>
             <div className="np-innovate__visual" data-reveal>
@@ -251,9 +257,9 @@ export default async function Home() {
             </div>
           </div>
           <ol className="np-steps">
-            {steps.map(([icon, title, text], i) => (
+            {steps.map(([icon, key], i) => (
               <li
-                key={title}
+                key={key}
                 data-reveal
                 style={{ "--d": i * 100 + "ms" } as React.CSSProperties}
               >
@@ -261,8 +267,8 @@ export default async function Home() {
                 <span className="np-icon-chip np-icon-chip--glass">
                   <Icon name={icon} size={22} />
                 </span>
-                <strong>{title}</strong>
-                <span>{text}</span>
+                <strong>{t[(key + "_t") as "s1_t"]}</strong>
+                <span>{t[(key + "_d") as "s1_d"]}</span>
               </li>
             ))}
           </ol>
@@ -270,7 +276,7 @@ export default async function Home() {
       </section>
       <section className="np-section">
         <div className="np-wrap">
-          <SectionHead section={sec.therapies} href="/therapies" />
+          <SectionHead section={sec.therapies} href="/therapies" more={t.explore_all} />
           <TherapyExplorer items={therapies} />
         </div>
       </section>
@@ -288,7 +294,7 @@ export default async function Home() {
             <h2>{sec.impact.title}</h2>
             <p>{sec.impact.description}</p>
             <span className="np-link np-link--light">
-              Our impact <Icon name="arrow" size={18} />
+              {t.our_impact} <Icon name="arrow" size={18} />
             </span>
           </Link>
           <Link
@@ -304,7 +310,7 @@ export default async function Home() {
             <h2>{sec.sustainability.title}</h2>
             <p>{sec.sustainability.description}</p>
             <span className="np-link np-link--light">
-              Sustainability <Icon name="arrow" size={18} />
+              {t.sustainability} <Icon name="arrow" size={18} />
             </span>
           </Link>
         </div>
@@ -317,7 +323,7 @@ export default async function Home() {
               <h2 className="np-h2">{sec.careers.title}</h2>
               <p className="np-lead">{sec.careers.description}</p>
               <Link className="np-btn np-btn--primary" href="/careers">
-                Explore careers <Icon name="arrow" size={18} />
+                {t.explore_careers} <Icon name="arrow" size={18} />
               </Link>
             </div>
             <div className="np-careers__art" aria-hidden="true">
@@ -331,9 +337,9 @@ export default async function Home() {
                 <Icon name="sparkle" size={24} />
               </span>
               <strong>
-                Grow with
+                {t.grow_with}
                 <br />
-                <em>purpose.</em>
+                <em>{t.purpose_word}</em>
               </strong>
             </div>
           </div>
@@ -342,8 +348,12 @@ export default async function Home() {
       {group("news").length > 0 && (
         <section className="np-section np-section--tint">
           <div className="np-wrap">
-            <SectionHead section={sec.news} href="/news" />
-            <StoryCards items={group("news").slice(0, 3)} />
+            <SectionHead section={sec.news} href="/news" more={t.explore_all} />
+            <StoryCards
+              items={group("news").slice(0, 3)}
+              readLabel={t.read_story}
+              fallbackCategory={t.perspective}
+            />
           </div>
         </section>
       )}
@@ -359,14 +369,14 @@ export default async function Home() {
             <p>{sec.contact.description}</p>
             <div className="np-cta__actions">
               <Link className="np-btn np-btn--light np-btn--lg" href="/contact">
-                Get in touch <Icon name="arrow" size={18} />
+                {t.get_in_touch} <Icon name="arrow" size={18} />
               </Link>
               {s.contactPhone && (
                 <a
                   className="np-btn np-btn--ghost np-btn--lg"
                   href={"tel:" + s.contactPhone.replace(/\s/g, "")}
                 >
-                  <Icon name="phone" size={18} /> {s.contactPhone}
+                  <Icon name="phone" size={18} /> <bdi>{s.contactPhone}</bdi>
                 </a>
               )}
             </div>

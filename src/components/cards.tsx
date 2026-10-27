@@ -20,10 +20,12 @@ export function SectionHead({
   section,
   href,
   light,
+  more = "Explore all",
 }: {
   section: Section;
   href?: string;
   light?: boolean;
+  more?: string;
 }) {
   return (
     <div className={"np-head" + (light ? " np-head--light" : "")} data-reveal>
@@ -35,7 +37,7 @@ export function SectionHead({
         <p>{section.description}</p>
         {href && (
           <Link className="np-link" href={href}>
-            Explore all <Icon name="arrow" size={18} />
+            {more} <Icon name="arrow" size={18} />
           </Link>
         )}
       </div>
@@ -126,7 +128,15 @@ export function ProductCards({
     </div>
   );
 }
-export function StoryCards({ items }: { items: Content[] }) {
+export function StoryCards({
+  items,
+  readLabel = "Read story",
+  fallbackCategory = "Perspective",
+}: {
+  items: Content[];
+  readLabel?: string;
+  fallbackCategory?: string;
+}) {
   return (
     <div className="np-stories">
       {items.map((x, i) => (
@@ -141,11 +151,11 @@ export function StoryCards({ items }: { items: Content[] }) {
             <Visual src={x.imageUrl} alt="" />
           </div>
           <div className="np-story__body">
-            <span className="np-tag">{x.category || "Perspective"}</span>
+            <span className="np-tag">{x.category || fallbackCategory}</span>
             <h3>{x.title}</h3>
             <p>{x.summary}</p>
             <span className="np-link">
-              Read story <Icon name="arrow" size={18} />
+              {readLabel} <Icon name="arrow" size={18} />
             </span>
           </div>
         </Link>

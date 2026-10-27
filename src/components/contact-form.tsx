@@ -1,6 +1,7 @@
 "use client";
 import { useState, type FormEvent } from "react";
 import { Icon } from "./icons";
+import { useI18n } from "./i18n-provider";
 export function ContactForm({
   jobId,
   jobTitle,
@@ -13,6 +14,7 @@ export function ContactForm({
   const [status, setStatus] = useState("");
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
+  const { t } = useI18n();
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
@@ -29,10 +31,10 @@ export function ContactForm({
       if (!res.ok) throw new Error(data.error);
       setDone(true);
       form.reset();
-      setStatus("Thank you — your message has reached our team. We’ll be in touch soon.");
+      setStatus(t.f_success);
     } catch (e) {
       setStatus(
-        e instanceof Error ? e.message : "Unable to send. Please try again.",
+        e instanceof Error && e.message ? e.message : t.f_failed,
       );
     } finally {
       setPending(false);
@@ -42,18 +44,18 @@ export function ContactForm({
     <form className="np-form" onSubmit={submit}>
       <div className="np-form__row">
         <label>
-          Your name
+          {t.f_name}
           <input
             name="name"
             autoComplete="name"
             minLength={2}
             maxLength={100}
             required
-            placeholder="Full name"
+            placeholder={t.f_name_ph}
           />
         </label>
         <label>
-          Email address
+          {t.f_email}
           <input
             name="email"
             type="email"
@@ -65,18 +67,18 @@ export function ContactForm({
         </label>
       </div>
       <label>
-        Subject
+        {t.f_subject}
         <input
           name="subject"
-          defaultValue={jobTitle ? "Career enquiry: " + jobTitle : subject || ""}
+          defaultValue={jobTitle ? t.career_enquiry + jobTitle : subject || ""}
           required
           minLength={2}
           maxLength={180}
-          placeholder="How can we help?"
+          placeholder={t.f_subject_ph}
         />
       </label>
       <label>
-        {jobTitle ? "Tell us about your experience" : "Your message"}
+        {jobTitle ? t.f_experience : t.f_message}
         <textarea
           name="message"
           rows={5}
@@ -84,9 +86,7 @@ export function ContactForm({
           minLength={10}
           maxLength={5000}
           placeholder={
-            jobTitle
-              ? "Share your experience and a link to your professional profile."
-              : "Tell us a little more…"
+            jobTitle ? t.f_experience_ph : t.f_message_ph
           }
         />
       </label>
@@ -97,11 +97,10 @@ export function ContactForm({
         </label>
       </div>
       <p className="np-form__note">
-        Please don’t include personal health information or sensitive documents.
-        For medical advice, consult a qualified healthcare professional.
+        {t.f_note}
       </p>
       <button className="np-btn np-btn--primary" disabled={pending || done}>
-        {pending ? "Sending…" : done ? "Message sent" : "Send message"}
+        {pending ? t.f_sending : done ? t.f_sent : t.f_send}
         <Icon name="arrow" size={18} />
       </button>
       <p

@@ -4,13 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Brand } from "./brand";
 import { Icon, SocialLinks } from "./icons";
-const links = [
-  ["/about", "About", "sparkle"],
-  ["/products", "Products", "pill"],
-  ["/therapies", "Therapies", "heart"],
-  ["/offerings", "Offerings", "award"],
-  ["/innovation", "Innovation", "flask"],
-  ["/careers", "Careers", "users"],
+import { LangSwitch, useI18n } from "./i18n-provider";
+import type { Dict } from "@/lib/i18n";
+const links: [string, keyof Dict, string][] = [
+  ["/about", "nav_about", "sparkle"],
+  ["/products", "nav_products", "pill"],
+  ["/therapies", "nav_therapies", "heart"],
+  ["/offerings", "nav_offerings", "award"],
+  ["/innovation", "nav_innovation", "flask"],
+  ["/careers", "nav_careers", "users"],
 ];
 export function Header({
   name,
@@ -30,10 +32,12 @@ export function Header({
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const pathname = usePathname();
+  const { t, lang } = useI18n();
   const button = useRef<HTMLButtonElement>(null);
+  // Close the menu after navigating or once a newly chosen language has loaded.
   useEffect(() => {
     setOpen(false);
-  }, [pathname]);
+  }, [pathname, lang]);
   // Keep the page from scrolling behind the open menu.
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -58,7 +62,7 @@ export function Header({
   return (
     <>
       <a className="np-skip" href="#main">
-        Skip to content
+        {t.skip}
       </a>
       <header
         className={
@@ -72,13 +76,13 @@ export function Header({
             <div className="np-topbar__group">
               {phone || email ? (
                 <>
-                  <span className="np-topbar__label">Connect with us</span>
+                  <span className="np-topbar__label">{t.connect_with_us}</span>
                   {phone && (
                     <a href={"tel:" + phone.replace(/\s/g, "")} aria-label={"Call " + phone}>
                       <span className="np-topbar__icon">
                         <Icon name="phone" size={13} />
                       </span>
-                      <span className="np-topbar__text">{phone}</span>
+                      <bdi className="np-topbar__text">{phone}</bdi>
                     </a>
                   )}
                   {email && (
@@ -86,7 +90,7 @@ export function Header({
                       <span className="np-topbar__icon">
                         <Icon name="mail" size={13} />
                       </span>
-                      <span className="np-topbar__text">{email}</span>
+                      <bdi className="np-topbar__text">{email}</bdi>
                     </a>
                   )}
                 </>
@@ -96,30 +100,33 @@ export function Header({
                 </span>
               )}
             </div>
-            {hasSocial && (
-              <div className="np-topbar__group">
-                <span className="np-topbar__label">Follow us on</span>
-                <SocialLinks links={social} />
-              </div>
-            )}
+            <div className="np-topbar__group">
+              {hasSocial && (
+                <>
+                  <span className="np-topbar__label">{t.follow_us}</span>
+                  <SocialLinks links={social} />
+                </>
+              )}
+              <LangSwitch />
+            </div>
           </div>
         </div>
         <div className="np-wrap np-header__bar">
           <Brand name={name} tagline={tagline} />
           <nav className="np-nav" aria-label="Primary navigation">
-            {links.map(([href, label]) => (
+            {links.map(([href, key]) => (
               <Link
                 key={href}
                 href={href}
                 aria-current={pathname.startsWith(href) ? "page" : undefined}
               >
-                {label}
+                {t[key]}
               </Link>
             ))}
           </nav>
           <div className="np-header__actions">
             <Link className="np-btn np-btn--primary np-btn--sm" href="/contact">
-              Contact us <Icon name="arrow" size={16} />
+              {t.contact_us} <Icon name="arrow" size={16} />
             </Link>
             <button
               ref={button}
@@ -127,7 +134,7 @@ export function Header({
               onClick={() => setOpen(!open)}
               aria-expanded={open}
               aria-controls="np-mobile-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t.close_menu : t.open_menu}
             >
               <span />
               <span />
@@ -141,7 +148,7 @@ export function Header({
           aria-label="Mobile navigation"
         >
           <div className="np-mobile__grid">
-            {links.map(([href, label, icon], i) => (
+            {links.map(([href, key, icon], i) => (
               <Link
                 key={href}
                 href={href}
@@ -152,7 +159,7 @@ export function Header({
                 <span className="np-mobile__icon">
                   <Icon name={icon} size={18} />
                 </span>
-                {label}
+                {t[key]}
               </Link>
             ))}
           </div>
@@ -162,25 +169,28 @@ export function Header({
               href="/contact"
               onClick={() => setOpen(false)}
             >
-              Contact us <Icon name="arrow" size={16} />
+              {t.contact_us} <Icon name="arrow" size={16} />
             </Link>
             {(phone || email) && (
               <div className="np-mobile__contact">
                 {phone && (
                   <a href={"tel:" + phone.replace(/\s/g, "")}>
-                    <Icon name="phone" size={15} /> {phone}
+                    <Icon name="phone" size={15} /> <bdi>{phone}</bdi>
                   </a>
                 )}
                 {email && (
                   <a href={"mailto:" + email}>
-                    <Icon name="mail" size={15} /> {email}
+                    <Icon name="mail" size={15} /> <bdi>{email}</bdi>
                   </a>
                 )}
               </div>
             )}
-            {hasSocial && (
-              <SocialLinks links={social} className="np-social np-social--menu" />
-            )}
+            <div className="np-mobile__row">
+              {hasSocial && (
+                <SocialLinks links={social} className="np-social np-social--menu" />
+              )}
+              <LangSwitch className="np-lang--menu" />
+            </div>
           </div>
         </nav>
       </header>

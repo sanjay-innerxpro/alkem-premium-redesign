@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { Mark } from "@/components/brand";
-export default function NotFound() {
+import { getLang } from "@/lib/i18n-server";
+import { dictionaries, dirOf } from "@/lib/i18n";
+export default async function NotFound() {
+  const lang = await getLang();
+  const t = dictionaries[lang];
   return (
-    <main id="main" className="np np-standalone">
+    <main id="main" className="np np-standalone" lang={lang} dir={dirOf(lang)}>
       <div className="np-aurora" aria-hidden="true">
         <span />
         <span />
@@ -12,14 +16,14 @@ export default function NotFound() {
         <Mark size={52} />
         <span className="np-pill">
           <i />
-          404 · Page not found
+          {t.nf_label}
         </span>
         <h1>
-          Let’s find you a <em className="np-gradient-text">new direction.</em>
+          {t.nf_title_a} <em className="np-gradient-text">{t.nf_title_b}</em>
         </h1>
-        <p>This page may have moved or is no longer available.</p>
+        <p>{t.nf_text}</p>
         <Link className="np-btn np-btn--light np-btn--lg" href="/">
-          Back to home
+          {t.back_home}
         </Link>
       </div>
     </main>

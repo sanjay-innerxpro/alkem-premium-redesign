@@ -4,12 +4,14 @@ export function Banner({
   title,
   text,
   crumbs = [],
+  home = "Home",
   children,
 }: {
   label: string;
   title: string;
   text?: string;
   crumbs?: [string, string][];
+  home?: string;
   children?: React.ReactNode;
 }) {
   return (
@@ -22,7 +24,7 @@ export function Banner({
       <div className="np-hero__grid" aria-hidden="true" />
       <div className="np-wrap np-banner__inner">
         <nav className="np-crumbs" aria-label="Breadcrumb">
-          <Link href="/">Home</Link>
+          <Link href="/">{home}</Link>
           {crumbs.map(([href, name]) => (
             <span key={href}>
               <i>/</i>

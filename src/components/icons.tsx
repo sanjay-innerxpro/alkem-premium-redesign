@@ -125,7 +125,7 @@ export function Icon({
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className={className}
+      className={name === "arrow" ? ("np-i-arrow " + (className ?? "")).trim() : className}
     >
       {paths[name] || paths.sparkle}
     </svg>
