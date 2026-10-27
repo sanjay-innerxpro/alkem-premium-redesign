@@ -1,0 +1,40 @@
+name: Next.js and MySQL checks
+on:
+  pull_request:
+  push:
+    branches: ["feature/nextjs-mysql-cms"]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: ci-only-disposable-password
+          MYSQL_DATABASE: alkem_test
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -pci-only-disposable-password --silent"
+          --health-interval=5s --health-timeout=5s --health-retries=30
+    env:
+      DATABASE_URL: mysql://root:ci-only-disposable-password@127.0.0.1:3306/alkem_test
+      APP_URL: http://127.0.0.1:4317
+      DEMO_MODE: "false"
+      COOKIE_SECURE: "false"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run db:migrate
+      - run: npm run db:seed
+      - run: npm run db:seed
+      - run: npm test
+      - run: npm run build
+      - run: npm run typecheck
+      - run: npm run test:integration
