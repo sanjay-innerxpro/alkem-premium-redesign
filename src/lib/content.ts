@@ -9,13 +9,25 @@ export async function getSettings(): Promise<Settings> {
   );
   if (!rows.length)
     throw new Error("Database is not seeded. Run npm run db:seed.");
-  return typeof rows[0].data === "string"
-    ? JSON.parse(rows[0].data)
-    : rows[0].data;
+  const data: Partial<Settings> =
+    typeof rows[0].data === "string" ? JSON.parse(rows[0].data) : rows[0].data;
+  // Settings saved before a field existed fall back to its default, so new
+  // fields never need a data migration.
+  return {
+    ...defaultSettings,
+    ...data,
+    social: { ...defaultSettings.social, ...data.social },
+    sections: { ...defaultSettings.sections, ...data.sections },
+  };
 }
 function normalize(row: RowDataPacket): Content {
   const data = typeof row.data === "string" ? JSON.parse(row.data) : row.data;
   return {
+    location: "",
+    employmentType: "",
+    composition: "",
+    dosageForm: "",
+    packSize: "",
     ...data,
     id: row.id,
     collection: row.collection,

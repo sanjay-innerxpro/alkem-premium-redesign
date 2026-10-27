@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { requireAdmin } from "@/lib/auth";
 import { StudioNav } from "@/components/admin/nav";
+import { Mark } from "@/components/brand";
+import { Icon } from "@/components/icons";
 export const dynamic = "force-dynamic";
 export const metadata = {
   title: "NexPharm Content Studio",
@@ -16,36 +18,36 @@ export default async function StudioLayout({
   return (
     <div className="studio">
       <aside className="studio-sidebar">
-        <Link href="/admin" className="studio-logo">
-          <span>◇</span>
-          <div>
-            <strong>NEXPHARM</strong>
-            <small>CONTENT STUDIO</small>
-          </div>
-        </Link>
-        <span className="sidebar-label">WORKSPACE</span>
+        <div className="studio-sidebar__top">
+          <Link href="/admin" className="studio-logo">
+            <Mark size={36} />
+            <div>
+              <strong>NexPharm</strong>
+              <small>Content Studio</small>
+            </div>
+          </Link>
+          <form action="/api/auth/logout" method="post" className="studio-signout-mobile">
+            <button aria-label="Sign out">Sign out</button>
+          </form>
+        </div>
+        <span className="sidebar-label">Workspace</span>
         <Suspense>
           <StudioNav />
         </Suspense>
         <div className="sidebar-bottom">
           <Link href="/" target="_blank">
-            Visit website ↗
+            <Icon name="globe" size={16} /> Visit website
           </Link>
-          <span className="admin-email">{admin.email}</span>
+          <div className="sidebar-user">
+            <span className="avatar">{admin.email[0].toUpperCase()}</span>
+            <span className="admin-email">{admin.email}</span>
+          </div>
           <form action="/api/auth/logout" method="post">
-            <button>Sign out ↗</button>
+            <button>Sign out</button>
           </form>
         </div>
       </aside>
       <div className="studio-body">
-        <header className="studio-topbar">
-          <span>YOUR DIGITAL WORKSPACE</span>
-          <div>
-            <span className="status-dot" />
-            Content studio{" "}
-            <span className="avatar">{admin.email[0].toUpperCase()}</span>
-          </div>
-        </header>
         <main id="main" className="studio-main">
           {children}
         </main>

@@ -26,6 +26,9 @@ export default async function EditPage({
           imageUrl: "",
           location: "",
           employmentType: "",
+          composition: "",
+          dosageForm: "",
+          packSize: "",
           sortOrder: 0,
           published: false,
         }
@@ -43,11 +46,11 @@ export default async function EditPage({
       </Link>
       <div className="studio-page-head">
         <div>
-          <span className="section-kicker">MAKE EVERY WORD COUNT</span>
+          <span className="section-kicker">{collection}</span>
           <h1>
             {id === "new"
-              ? "Create something meaningful."
-              : "A little refinement."}
+              ? "Add new " + (collection === "products" ? "product" : "item")
+              : item.title}
           </h1>
           <p>
             {id === "new"

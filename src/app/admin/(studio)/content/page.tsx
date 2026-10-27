@@ -24,17 +24,17 @@ export default async function ContentList({
     <>
       <div className="studio-page-head">
         <div>
-          <span className="section-kicker">CURATE YOUR WORLD</span>
-          <h1>{collection.charAt(0).toUpperCase() + collection.slice(1)}.</h1>
+          <span className="section-kicker">Content</span>
+          <h1>{collection.charAt(0).toUpperCase() + collection.slice(1)}</h1>
           <p>
-            {items.length} items · Keep your content thoughtful and current.
+            {items.length} items · Drafts are hidden from the website until published.
           </p>
         </div>
         <Link
           className="studio-button"
           href={"/admin/content/new?collection=" + collection}
         >
-          + Create {collection === "careers" ? "role" : "item"}
+          + Add {collection === "careers" ? "role" : collection === "products" ? "product" : "item"}
         </Link>
       </div>
       {search.saved && (

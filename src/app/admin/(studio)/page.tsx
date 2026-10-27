@@ -1,7 +1,17 @@
 import Link from "next/link";
 import { getContent, getEnquiries } from "@/lib/content";
 import { db } from "@/lib/db";
+import { collections } from "@/lib/types";
+import { Icon } from "@/components/icons";
 import type { RowDataPacket } from "mysql2/promise";
+const collectionIcons: Record<string, string> = {
+  pages: "flask",
+  products: "pill",
+  offerings: "award",
+  therapies: "heart",
+  news: "globe",
+  careers: "users",
+};
 export default async function Overview() {
   const [content, enquiries, [activity]] = await Promise.all([
     getContent(undefined, true),
@@ -11,83 +21,83 @@ export default async function Overview() {
     ),
   ]);
   const published = content.filter((x) => x.published).length;
+  const count = (c: string) => content.filter((x) => x.collection === c).length;
   return (
     <>
       <div className="studio-page-head">
         <div>
-          <span className="section-kicker">
-            A LITTLE CLARITY. A LOT OF POSSIBILITY.
-          </span>
-          <h1>Your website, at a glance.</h1>
-          <p>A place for your content to grow.</p>
+          <span className="section-kicker">Overview</span>
+          <h1>Welcome back.</h1>
+          <p>Here’s what’s happening on your website.</p>
         </div>
         <Link className="studio-secondary" href="/" target="_blank">
-          View website ↗
+          <Icon name="globe" size={16} /> View website
         </Link>
       </div>
       <div className="dashboard-stats">
         {[
-          [String(published), "Published items", "↗"],
-          [String(content.length - published), "Drafts in progress", "▤"],
+          [String(count("products")), "Products", "pill", "/admin/content?collection=products"],
+          [String(published), "Published items", "sparkle", "/admin/content?collection=pages"],
           [
             String(enquiries.filter((x) => x.status === "new").length),
             "New enquiries",
-            "✉",
+            "mail",
+            "/admin/enquiries",
           ],
           [
-            String(
-              content.filter((x) => x.collection === "careers" && x.published)
-                .length,
-            ),
-            "Open opportunities",
-            "◇",
+            String(content.filter((x) => x.collection === "careers" && x.published).length),
+            "Open positions",
+            "users",
+            "/admin/content?collection=careers",
           ],
-        ].map(([n, label, icon]) => (
-          <div className="stat-card" key={label}>
-            <span>{icon}</span>
+        ].map(([n, label, icon, href]) => (
+          <Link className="stat-card" key={label} href={href}>
+            <span>
+              <Icon name={icon} size={20} />
+            </span>
             <strong>{n}</strong>
             <small>{label}</small>
-          </div>
+          </Link>
         ))}
       </div>
       <section className="studio-welcome">
         <div>
-          <span className="section-label section-label-light">
-            MAKE IT YOURS
-          </span>
-          <h2>
-            Good stories deserve
-            <br />a thoughtful home.
-          </h2>
+          <span className="section-label section-label-light">Quick start</span>
+          <h2>Keep your website fresh.</h2>
           <p>
-            Keep your pages current, share new perspectives and help visitors
-            find what matters.
+            Add your real products, update contact details and social links,
+            and publish news or job openings.
           </p>
-          <Link className="button button-white" href="/admin/settings">
-            Edit your website <span className="round-arrow">↗</span>
-          </Link>
+          <div className="action-row">
+            <Link className="button button-white" href="/admin/content/new?collection=products">
+              + Add product
+            </Link>
+            <Link className="button button-ghost" href="/admin/settings">
+              Website settings
+            </Link>
+          </div>
         </div>
-        <img src="/science.svg" alt="" />
+        <img src="/illustrations/capsule.svg" alt="" />
       </section>
       <div className="dashboard-grid">
         <section className="studio-card">
           <div className="card-heading">
-            <h2>Content collections</h2>
-            <span>05</span>
+            <h2>Content</h2>
           </div>
-          {["pages", "offerings", "therapies", "news", "careers"].map((c) => (
+          {collections.map((c) => (
             <Link
               key={c}
               className="collection-row"
               href={"/admin/content?collection=" + c}
             >
+              <span className="collection-icon">
+                <Icon name={collectionIcons[c]} size={18} />
+              </span>
               <div>
                 <strong>{c.charAt(0).toUpperCase() + c.slice(1)}</strong>
-                <small>
-                  {content.filter((x) => x.collection === c).length} items
-                </small>
+                <small>{count(c)} items</small>
               </div>
-              <span>↗</span>
+              <Icon name="arrow" size={16} />
             </Link>
           ))}
         </section>
@@ -113,9 +123,11 @@ export default async function Overview() {
             ))
           ) : (
             <div className="empty-state compact">
-              <span>◷</span>
-              <h3>A fresh start.</h3>
-              <p>Your editing activity will appear here.</p>
+              <span>
+                <Icon name="sparkle" size={22} />
+              </span>
+              <h3>No activity yet</h3>
+              <p>Your edits will appear here.</p>
             </div>
           )}
         </section>

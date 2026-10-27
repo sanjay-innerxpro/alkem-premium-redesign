@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Content, Section } from "@/lib/types";
 import { Visual } from "./visual";
-import { Icon, iconFor } from "./icons";
+import { Icon, iconFor, iconForForm } from "./icons";
 export function Eyebrow({
   children,
   light,
@@ -74,6 +74,47 @@ export function OfferingCards({ items }: { items: Content[] }) {
           <span className="np-bento__arrow">
             <Icon name="arrow" size={20} />
           </span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+const tones = ["teal", "sky", "violet", "mint", "rose"];
+export function ProductCards({ items }: { items: Content[] }) {
+  // A stable colour per therapy area keeps the grid varied but consistent.
+  const areas = [...new Set(items.map((x) => x.category))];
+  return (
+    <div className="np-products">
+      {items.map((x, i) => (
+        <Link
+          href={"/products/" + x.slug}
+          key={x.id}
+          className={
+            "np-product np-product--" +
+            tones[Math.max(0, areas.indexOf(x.category)) % tones.length]
+          }
+          data-reveal
+          style={{ "--d": (i % 4) * 60 + "ms" } as React.CSSProperties}
+        >
+          <div className="np-product__media">
+            {x.imageUrl ? (
+              <Visual src={x.imageUrl} alt="" />
+            ) : (
+              <span className="np-product__pack" aria-hidden="true">
+                <Icon name={iconForForm(x.dosageForm)} size={34} />
+              </span>
+            )}
+            {x.dosageForm && <span className="np-product__form">{x.dosageForm}</span>}
+          </div>
+          <div className="np-product__body">
+            {x.category && <span className="np-product__area">{x.category}</span>}
+            <h3>{x.title}</h3>
+            {x.composition && <p>{x.composition}</p>}
+            <div className="np-product__foot">
+              <span>{x.packSize}</span>
+              <Icon name="arrow" size={18} />
+            </div>
+          </div>
         </Link>
       ))}
     </div>

@@ -3,16 +3,30 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Brand } from "./brand";
-import { Icon } from "./icons";
+import { Icon, SocialLinks } from "./icons";
 const links = [
   ["/about", "About"],
-  ["/offerings", "Offerings"],
+  ["/products", "Products"],
   ["/therapies", "Therapies"],
+  ["/offerings", "Offerings"],
   ["/innovation", "Innovation"],
-  ["/impact", "Impact"],
   ["/careers", "Careers"],
 ];
-export function Header({ name, tagline }: { name: string; tagline: string }) {
+export function Header({
+  name,
+  tagline,
+  phone,
+  email,
+  purpose,
+  social,
+}: {
+  name: string;
+  tagline: string;
+  phone: string;
+  email: string;
+  purpose: string;
+  social: Record<string, string>;
+}) {
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const pathname = usePathname();
@@ -36,6 +50,7 @@ export function Header({ name, tagline }: { name: string; tagline: string }) {
       window.removeEventListener("scroll", scroll);
     };
   }, []);
+  const hasSocial = Object.values(social).some(Boolean);
   return (
     <>
       <a className="np-skip" href="#main">
@@ -48,6 +63,43 @@ export function Header({ name, tagline }: { name: string; tagline: string }) {
           (open ? " np-header--open" : "")
         }
       >
+        <div className="np-topbar">
+          <div className="np-wrap np-topbar__inner">
+            <div className="np-topbar__group">
+              {phone || email ? (
+                <>
+                  <span className="np-topbar__label">Connect with us</span>
+                  {phone && (
+                    <a href={"tel:" + phone.replace(/\s/g, "")} aria-label={"Call " + phone}>
+                      <span className="np-topbar__icon">
+                        <Icon name="phone" size={13} />
+                      </span>
+                      <span className="np-topbar__text">{phone}</span>
+                    </a>
+                  )}
+                  {email && (
+                    <a href={"mailto:" + email} aria-label={"Email " + email}>
+                      <span className="np-topbar__icon">
+                        <Icon name="mail" size={13} />
+                      </span>
+                      <span className="np-topbar__text">{email}</span>
+                    </a>
+                  )}
+                </>
+              ) : (
+                <span className="np-topbar__label np-topbar__label--always">
+                  {purpose}
+                </span>
+              )}
+            </div>
+            {hasSocial && (
+              <div className="np-topbar__group">
+                <span className="np-topbar__label">Follow us on</span>
+                <SocialLinks links={social} />
+              </div>
+            )}
+          </div>
+        </div>
         <div className="np-wrap np-header__bar">
           <Brand name={name} tagline={tagline} />
           <nav className="np-nav" aria-label="Primary navigation">
@@ -96,6 +148,7 @@ export function Header({ name, tagline }: { name: string; tagline: string }) {
               <Icon name="arrow" size={22} />
             </Link>
           ))}
+          {hasSocial && <SocialLinks links={social} className="np-social np-social--menu" />}
         </nav>
       </header>
     </>

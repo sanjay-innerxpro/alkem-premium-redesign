@@ -8,6 +8,7 @@ import { Banner } from "@/components/banner";
 import { Icon, iconFor } from "@/components/icons";
 type Props = { params: Promise<{ section: string; slug: string }> };
 const labels: Record<string, string> = {
+  products: "Products",
   offerings: "Offerings",
   therapies: "Therapy areas",
   news: "News & insights",
@@ -46,17 +47,42 @@ export default async function Detail({ params }: Props) {
             {x.imageUrl ? (
               <Visual src={x.imageUrl} alt={x.title} className="np-detail__image" />
             ) : (
-              section !== "careers" && (
+              section !== "careers" &&
+              section !== "products" && (
                 <div className="np-detail__hero" aria-hidden="true">
                   <Icon name={iconFor(x.slug)} size={72} />
                 </div>
               )
+            )}
+            {section === "products" && (
+              <dl className="np-specs">
+                {[
+                  ["Composition", x.composition],
+                  ["Dosage form", x.dosageForm],
+                  ["Pack size", x.packSize],
+                  ["Therapy area", x.category],
+                ]
+                  .filter(([, v]) => v)
+                  .map(([k, v]) => (
+                    <div key={k}>
+                      <dt>{k}</dt>
+                      <dd>{v}</dd>
+                    </div>
+                  ))}
+              </dl>
             )}
             <div className="np-prose">
               {x.body.split(/\n\s*\n/).map((text, i) => (
                 <p key={i}>{text}</p>
               ))}
             </div>
+            {section === "products" && (
+              <section className="np-card np-apply">
+                <h2 className="np-h3">Enquire about this product</h2>
+                <p>For availability, pricing or trade enquiries, send us a message.</p>
+                <ContactForm subject={"Product enquiry: " + x.title} />
+              </section>
+            )}
             {section === "careers" && (
               <section className="np-card np-apply">
                 <h2 className="np-h3">Interested in this role?</h2>

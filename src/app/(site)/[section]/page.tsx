@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getContent, getSettings, getItem } from "@/lib/content";
 import { collections, type Collection } from "@/lib/types";
-import { OfferingCards, StoryCards } from "@/components/cards";
+import { OfferingCards, ProductCards, StoryCards } from "@/components/cards";
 import { TherapyExplorer } from "@/components/therapy-explorer";
 import { Visual } from "@/components/visual";
 import { ContactForm } from "@/components/contact-form";
@@ -20,6 +20,7 @@ export async function generateMetadata({
   };
 }
 const labels: Record<string, string> = {
+  products: "Products",
   offerings: "Offerings",
   therapies: "Therapy areas",
   news: "News & insights",
@@ -30,7 +31,7 @@ export default async function SectionPage({
   searchParams,
 }: {
   params: Promise<{ section: string }>;
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; cat?: string }>;
 }) {
   const { section } = await params;
   const s = await getSettings();
@@ -142,15 +143,28 @@ export default async function SectionPage({
     );
   if (collections.includes(section as Collection) && section !== "pages") {
     const collection = section as Collection;
-    const q = ((await searchParams).q || "").trim().slice(0, 150);
+    const params = await searchParams;
+    const q = (params.q || "").trim().slice(0, 150);
+    const cat = (params.cat || "").slice(0, 100);
     const all = await getContent(collection);
-    const items = all.filter((x) =>
-      (x.title + " " + x.summary + " " + x.location)
-        .toLowerCase()
-        .includes(q.toLowerCase()),
+    const items = all.filter(
+      (x) =>
+        (!cat || x.category === cat) &&
+        (x.title + " " + x.summary + " " + x.location + " " + x.composition)
+          .toLowerCase()
+          .includes(q.toLowerCase()),
     );
+    const areas =
+      section === "products"
+        ? [...new Set(all.map((x) => x.category).filter(Boolean))]
+        : [];
+    const filterHref = (c: string) =>
+      "/products?" +
+      new URLSearchParams({ ...(q && { q }), ...(c && { cat: c }) }).toString();
     const head =
-      s.sections[section as "offerings" | "therapies" | "news" | "careers"];
+      s.sections[
+        section as "products" | "offerings" | "therapies" | "news" | "careers"
+      ];
     return (
       <main id="main">
         <Banner label={labels[section]} title={head.title} text={head.description} />
@@ -161,6 +175,7 @@ export default async function SectionPage({
                 Search {labels[section].toLowerCase()}
               </label>
               <Icon name="search" size={20} />
+              {cat && <input type="hidden" name="cat" value={cat} />}
               <input
                 id="content-search"
                 name="q"
@@ -175,6 +190,22 @@ export default async function SectionPage({
               )}
               <button className="np-btn np-btn--primary np-btn--sm">Search</button>
             </form>
+            {areas.length > 1 && (
+              <nav className="np-chips" aria-label="Filter by therapy area">
+                {["", ...areas].map((c) => (
+                  <Link
+                    key={c || "all"}
+                    href={filterHref(c)}
+                    aria-current={c === cat ? "true" : undefined}
+                  >
+                    {c || "All products"}
+                    <span>
+                      {c ? all.filter((x) => x.category === c).length : all.length}
+                    </span>
+                  </Link>
+                ))}
+              </nav>
+            )}
             {items.length === 0 ? (
               <div className="np-empty">
                 <span className="np-icon-chip">
@@ -194,6 +225,8 @@ export default async function SectionPage({
                   </Link>
                 )}
               </div>
+            ) : section === "products" ? (
+              <ProductCards items={items} />
             ) : section === "offerings" ? (
               <OfferingCards items={items} />
             ) : section === "therapies" ? (

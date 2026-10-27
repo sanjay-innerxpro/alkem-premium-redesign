@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { currentAdmin } from "@/lib/auth";
 import { LoginForm } from "@/components/admin/login-form";
+import { Mark } from "@/components/brand";
 import { isDemo } from "@/lib/db";
 import Link from "next/link";
 export const dynamic = "force-dynamic";
@@ -12,37 +13,39 @@ export default async function Login() {
   if (await currentAdmin()) redirect("/admin");
   return (
     <main className="login-page">
-      <section className="login-art">
-        <Link className="login-brand" href="/">
-          ◇ NEXPHARM
+      <section className="login-art" aria-hidden="true">
+        <Link className="login-brand" href="/" tabIndex={-1}>
+          <Mark size={40} />
+          <span>
+            <strong>NexPharm</strong>
+            <small>Healthcare Private Limited</small>
+          </span>
         </Link>
         <div>
           <span className="section-label section-label-light">
-            THE CONTENT STUDIO
+            Content Studio
           </span>
           <h1>
-            A thoughtful space
+            Manage your website,
             <br />
-            for meaningful
-            <br />
-            <em>stories.</em>
+            <em>beautifully.</em>
           </h1>
-          <p>Shape the next chapter of your digital experience.</p>
+          <p>Products, pages, careers and enquiries — all in one place.</p>
         </div>
-        <span>NEXPHARM HEALTHCARE PRIVATE LIMITED</span>
+        <img src="/illustrations/capsule.svg" alt="" className="login-capsule" />
       </section>
       <section className="login-content">
         <Link href="/" className="back-link">
           ← Back to website
         </Link>
-        <div>
-          <span className="section-kicker">WELCOME BACK</span>
-          <h2>
-            Your next chapter
-            <br />
-            starts here.
-          </h2>
-          <p>Sign in to manage your website.</p>
+        <div className="login-card">
+          <Link className="login-brand login-brand--mobile" href="/">
+            <Mark size={36} />
+            <strong>NexPharm</strong>
+          </Link>
+          <span className="section-kicker">Welcome back</span>
+          <h2>Sign in to your workspace</h2>
+          <p>Use your administrator email and password.</p>
           {isDemo() ? (
             <div className="notice">
               This is a read-only preview. Connect MySQL and create your own
@@ -56,7 +59,6 @@ export default async function Login() {
             operator.
           </p>
         </div>
-        <span className="studio-muted">Science. Care. Possibility.</span>
       </section>
     </main>
   );

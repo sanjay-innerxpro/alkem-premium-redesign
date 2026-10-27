@@ -1,15 +1,17 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { Icon } from "@/components/icons";
 const links = [
-  ["/admin", "Overview", "◫"],
-  ["/admin/settings", "Website settings", "⚙"],
-  ["/admin/content?collection=pages", "Pages", "▤"],
-  ["/admin/content?collection=offerings", "Offerings", "◇"],
-  ["/admin/content?collection=therapies", "Therapies", "✳"],
-  ["/admin/content?collection=news", "News & stories", "▧"],
-  ["/admin/content?collection=careers", "Careers", "↗"],
-  ["/admin/enquiries", "Enquiries", "✉"],
+  ["/admin", "Overview", "sparkle"],
+  ["/admin/settings", "Website settings", "shield"],
+  ["/admin/content?collection=pages", "Pages", "flask"],
+  ["/admin/content?collection=products", "Products", "pill"],
+  ["/admin/content?collection=offerings", "Offerings", "award"],
+  ["/admin/content?collection=therapies", "Therapies", "heart"],
+  ["/admin/content?collection=news", "News & stories", "globe"],
+  ["/admin/content?collection=careers", "Careers", "users"],
+  ["/admin/enquiries", "Enquiries", "mail"],
 ];
 export function StudioNav() {
   const path = usePathname();
@@ -19,7 +21,7 @@ export function StudioNav() {
       {links.map(([href, label, icon]) => {
         const active = href.includes("?")
           ? path.startsWith("/admin/content") &&
-            search.get("collection") === href.split("=")[1]
+            (search.get("collection") || "pages") === href.split("=")[1]
           : path === href;
         return (
           <Link
@@ -28,7 +30,7 @@ export function StudioNav() {
             className={active ? "active" : ""}
             aria-current={active ? "page" : undefined}
           >
-            <span>{icon}</span>
+            <Icon name={icon} size={18} />
             {label}
           </Link>
         );

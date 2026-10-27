@@ -6,8 +6,8 @@ export default async function Enquiries() {
     <>
       <div className="studio-page-head">
         <div>
-          <span className="section-kicker">CONVERSATIONS THAT MATTER</span>
-          <h1>Your inbox.</h1>
+          <span className="section-kicker">Inbox</span>
+          <h1>Enquiries</h1>
           <p>
             Review and manage website and career enquiries. Showing the latest
             500 messages.
@@ -17,7 +17,7 @@ export default async function Enquiries() {
       {!items.length ? (
         <section className="studio-card empty-state">
           <span>✉</span>
-          <h2>A little quiet, for now.</h2>
+          <h2>No enquiries yet</h2>
           <p>New website enquiries will appear here.</p>
         </section>
       ) : (

@@ -26,6 +26,7 @@ export const defaultSettings: Settings = {
   contactEmail: "",
   contactPhone: "",
   contactAddress: "",
+  social: { linkedin: "", instagram: "", facebook: "", x: "", youtube: "" },
   metrics: [
     { value: "5+", label: "Therapeutic areas" },
     { value: "100+", label: "Quality formulations" },
@@ -38,6 +39,11 @@ export const defaultSettings: Settings = {
       "Science with a human heart.",
       "NexPharm Healthcare Private Limited was founded on a simple belief: everyone deserves access to medicines they can trust. We combine pharmaceutical expertise with uncompromising quality to make that belief real.",
       "/illustrations/lab.svg",
+    ),
+    products: section(
+      "Our products",
+      "Medicines healthcare professionals trust.",
+      "Browse our portfolio by therapy area. Each product is made to stringent quality standards and supplied to licensed healthcare professionals and pharmacies.",
     ),
     offerings: section(
       "What we do",
@@ -105,8 +111,22 @@ const item = (
   imageUrl,
   location: "",
   employmentType: "",
+  composition: "",
+  dosageForm: "",
+  packSize: "",
   published: true,
 });
+// Sample portfolio using generic medicine names; replace with the real product list.
+const products: [string, string, string, string, string][] = [
+  ["Atorvastatin Tablets IP 10 mg", "Cardiology", "Atorvastatin Calcium IP eq. to Atorvastatin 10 mg", "Tablet", "10 × 10 tablets"],
+  ["Telmisartan Tablets IP 40 mg", "Cardiology", "Telmisartan IP 40 mg", "Tablet", "10 × 10 tablets"],
+  ["Pantoprazole Gastro-resistant Tablets IP 40 mg", "Gastroenterology", "Pantoprazole Sodium IP eq. to Pantoprazole 40 mg", "Tablet", "10 × 10 tablets"],
+  ["Ondansetron Oral Solution 2 mg/5 ml", "Gastroenterology", "Ondansetron Hydrochloride IP eq. to Ondansetron 2 mg per 5 ml", "Syrup", "30 ml bottle"],
+  ["Clobetasol Propionate Cream IP 0.05%", "Dermatology", "Clobetasol Propionate IP 0.05% w/w", "Cream", "15 g tube"],
+  ["Ketoconazole Cream IP 2%", "Dermatology", "Ketoconazole IP 2% w/w", "Cream", "30 g tube"],
+  ["Pregabalin Capsules IP 75 mg", "Neurology", "Pregabalin IP 75 mg", "Capsule", "10 × 15 capsules"],
+  ["Metformin Hydrochloride SR Tablets IP 500 mg", "Diabetology", "Metformin Hydrochloride IP 500 mg (sustained release)", "Tablet", "10 × 10 tablets"],
+];
 const therapies: [string, string, string][] = [
   [
     "Cardiology",
@@ -218,6 +238,24 @@ export const defaultContent: Content[] = [
     3,
     "Supply",
   ),
+  ...products.map(([title, category, composition, dosageForm, packSize], i) => ({
+    ...item(
+      "product-" + i,
+      "products",
+      title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, ""),
+      title,
+      composition + " · " + dosageForm,
+      "Prescription medicine. To be sold by retail on the prescription of a registered medical practitioner only.\n\nFor product information, availability or trade enquiries, please contact our team using the form below.",
+      i,
+      category,
+    ),
+    composition,
+    dosageForm,
+    packSize,
+  })),
   ...therapies.map(([name, summary, body], i) =>
     item(
       "therapy-" + i,

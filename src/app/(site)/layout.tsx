@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Header } from "@/components/header";
 import { Brand } from "@/components/brand";
-import { Icon } from "@/components/icons";
+import { Icon, SocialLinks } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { getSettings } from "@/lib/content";
 import { isDemo } from "@/lib/db";
@@ -14,7 +14,14 @@ export default async function SiteLayout({
   const s = await getSettings();
   return (
     <div className="np">
-      <Header name={s.brand} tagline={s.tagline} />
+      <Header
+        name={s.brand}
+        tagline={s.tagline}
+        phone={s.contactPhone}
+        email={s.contactEmail}
+        purpose={s.purpose}
+        social={s.social}
+      />
       {isDemo() && (
         <div className="np-preview">
           Design preview · Changes and enquiries are disabled until MySQL is
@@ -49,6 +56,7 @@ export default async function SiteLayout({
                   </span>
                 )}
               </div>
+              <SocialLinks links={s.social} className="np-social np-social--footer" />
             </div>
             <div className="np-footer__cols">
               <div>
@@ -60,6 +68,7 @@ export default async function SiteLayout({
               </div>
               <div>
                 <h3>Healthcare</h3>
+                <Link href="/products">Products</Link>
                 <Link href="/offerings">Offerings</Link>
                 <Link href="/therapies">Therapy areas</Link>
                 <Link href="/news">News &amp; insights</Link>

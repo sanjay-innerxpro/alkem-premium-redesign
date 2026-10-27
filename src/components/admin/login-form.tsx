@@ -52,7 +52,7 @@ export function LoginForm() {
         {error}
       </p>
       <button className="studio-button" disabled={busy}>
-        {busy ? "Signing in…" : "Sign in to your workspace ↗"}
+        {busy ? "Signing in…" : "Sign in"}
       </button>
     </form>
   );

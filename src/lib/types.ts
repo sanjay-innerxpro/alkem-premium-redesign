@@ -1,5 +1,6 @@
 export const collections = [
   "pages",
+  "products",
   "offerings",
   "therapies",
   "news",
@@ -17,10 +18,21 @@ export type Content = {
   category: string;
   location: string;
   employmentType: string;
+  composition: string;
+  dosageForm: string;
+  packSize: string;
   published: boolean;
   sortOrder: number;
   updatedAt?: string;
 };
+export const socialNetworks = [
+  "linkedin",
+  "instagram",
+  "facebook",
+  "x",
+  "youtube",
+] as const;
+export type SocialNetwork = (typeof socialNetworks)[number];
 export type Section = {
   eyebrow: string;
   title: string;
@@ -44,9 +56,11 @@ export type Settings = {
   contactEmail: string;
   contactPhone: string;
   contactAddress: string;
+  social: Record<SocialNetwork, string>;
   metrics: { value: string; label: string }[];
   sections: Record<
     | "about"
+    | "products"
     | "offerings"
     | "innovation"
     | "therapies"

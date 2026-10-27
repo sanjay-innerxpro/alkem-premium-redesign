@@ -7,8 +7,28 @@ import {
   saveSettings,
   updateEnquiry,
 } from "@/app/admin/actions";
+import { socialNetworks } from "@/lib/types";
 import type { Content, Settings, Enquiry } from "@/lib/types";
 const initial = {};
+const dosageForms = [
+  "Tablet",
+  "Capsule",
+  "Syrup",
+  "Suspension",
+  "Injection",
+  "Cream",
+  "Ointment",
+  "Gel",
+  "Drops",
+  "Sachet",
+];
+const socialLabels: Record<string, string> = {
+  linkedin: "LinkedIn",
+  instagram: "Instagram",
+  facebook: "Facebook",
+  x: "X (Twitter)",
+  youtube: "YouTube",
+};
 export function Field({
   label,
   name,
@@ -102,15 +122,60 @@ export function Editor({ item }: { item: Content }) {
               <h2>Details & publishing</h2>
             </div>
             <Field
-              label="Category / eyebrow"
+              label={
+                item.collection === "products"
+                  ? "Therapy area"
+                  : "Category / eyebrow"
+              }
               name="category"
               value={item.category}
+              hint={
+                item.collection === "products"
+                  ? "Used for the filter on the products page, e.g. Cardiology."
+                  : undefined
+              }
             />
+            {item.collection === "products" ? (
+              <>
+                <Field
+                  label="Composition"
+                  name="composition"
+                  value={item.composition}
+                  area
+                />
+                <div className="form-row">
+                  <label className="field">
+                    Dosage form
+                    <select name="dosageForm" defaultValue={item.dosageForm}>
+                      <option value="">Select form</option>
+                      {dosageForms.map((x) => (
+                        <option key={x}>{x}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <Field
+                    label="Pack size"
+                    name="packSize"
+                    value={item.packSize}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <input name="composition" type="hidden" value="" />
+                <input name="dosageForm" type="hidden" value="" />
+                <input name="packSize" type="hidden" value="" />
+              </>
+            )}
             <Field
-              label="Image URL"
+              label={
+                item.collection === "products"
+                  ? "Product image URL (optional)"
+                  : "Image URL"
+              }
               name="imageUrl"
               value={item.imageUrl}
-              hint="HTTPS image URL or /science.svg, /laboratory.svg, /world.svg"
+              hint="HTTPS image URL or a site path such as /illustrations/lab.svg"
             />
             <Field
               label="Display order"
@@ -307,7 +372,28 @@ export function SettingsForm({ settings: s }: { settings: Settings }) {
           ["contactAddress", "Public address", true],
         ])}
         <p className="studio-muted">
-          Leave blank to hide. Only publish verified contact details.
+          Leave blank to hide. Phone and email also appear in the top bar.
+        </p>
+      </section>
+      <section className="studio-card">
+        <div className="card-heading">
+          <span>06</span>
+          <h2>Social links</h2>
+        </div>
+        <div className="form-row">
+          {socialNetworks.map((k) => (
+            <Field
+              key={k}
+              label={socialLabels[k]}
+              name={"social." + k}
+              value={s.social[k]}
+              type="url"
+            />
+          ))}
+        </div>
+        <p className="studio-muted">
+          Paste full https:// links to your profiles. Icons show in the top bar
+          and footer; leave blank to hide a network.
         </p>
       </section>
       <div className="sticky-save">

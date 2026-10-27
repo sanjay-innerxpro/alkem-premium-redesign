@@ -4,9 +4,11 @@ import { Icon } from "./icons";
 export function ContactForm({
   jobId,
   jobTitle,
+  subject,
 }: {
   jobId?: string;
   jobTitle?: string;
+  subject?: string;
 }) {
   const [status, setStatus] = useState("");
   const [pending, setPending] = useState(false);
@@ -66,7 +68,7 @@ export function ContactForm({
         Subject
         <input
           name="subject"
-          defaultValue={jobTitle ? "Career enquiry: " + jobTitle : ""}
+          defaultValue={jobTitle ? "Career enquiry: " + jobTitle : subject || ""}
           required
           minLength={2}
           maxLength={180}

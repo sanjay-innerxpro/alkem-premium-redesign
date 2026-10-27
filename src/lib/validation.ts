@@ -12,6 +12,14 @@ export const safeImage = z
     "Use an HTTPS URL or a local /image.svg path.",
   );
 const text = (max: number) => z.string().trim().max(max);
+const socialUrl = z.union([
+  z.literal(""),
+  z
+    .string()
+    .trim()
+    .max(300)
+    .regex(/^https:\/\/\S+$/, "Use a full https:// link."),
+]);
 export const contentSchema = z
   .object({
     id: text(64),
@@ -38,6 +46,9 @@ export const contentSchema = z
       "Contract",
       "Internship",
     ]),
+    composition: text(300).default(""),
+    dosageForm: text(60).default(""),
+    packSize: text(60).default(""),
     published: z.boolean(),
     sortOrder: z.coerce.number().int().min(0).max(9999),
   })
@@ -47,6 +58,7 @@ export const contentSchema = z
       ![
         "admin",
         "api",
+        "products",
         "offerings",
         "therapies",
         "news",
@@ -83,11 +95,19 @@ export const settingsSchema = z.object({
   contactEmail: z.union([z.literal(""), z.email()]),
   contactPhone: text(40).regex(/^[+0-9 ()-]*$/),
   contactAddress: text(500),
+  social: z.object({
+    linkedin: socialUrl,
+    instagram: socialUrl,
+    facebook: socialUrl,
+    x: socialUrl,
+    youtube: socialUrl,
+  }),
   metrics: z
     .array(z.object({ value: text(30).min(1), label: text(100).min(1) }))
     .length(4),
   sections: z.object({
     about: section,
+    products: section,
     offerings: section,
     innovation: section,
     therapies: section,

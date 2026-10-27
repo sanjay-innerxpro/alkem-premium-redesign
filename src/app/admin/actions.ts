@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
 import { db, writable } from "@/lib/db";
 import { contentSchema, settingsSchema } from "@/lib/validation";
-import { collections } from "@/lib/types";
+import { collections, socialNetworks } from "@/lib/types";
 import type { ResultSetHeader } from "mysql2/promise";
 export type ActionState = { error?: string; success?: string };
 async function audit(
@@ -134,9 +134,13 @@ export async function saveSettings(
     value: form.get("metrics." + i + ".value"),
     label: form.get("metrics." + i + ".label"),
   }));
+  data.social = Object.fromEntries(
+    socialNetworks.map((k) => [k, form.get("social." + k) ?? ""]),
+  );
   data.sections = Object.fromEntries(
     [
       "about",
+      "products",
       "offerings",
       "innovation",
       "therapies",

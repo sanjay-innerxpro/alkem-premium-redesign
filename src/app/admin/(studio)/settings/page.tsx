@@ -6,8 +6,8 @@ export default async function Settings() {
     <>
       <div className="studio-page-head">
         <div>
-          <span className="section-kicker">THE BIG PICTURE</span>
-          <h1>Website settings.</h1>
+          <span className="section-kicker">Settings</span>
+          <h1>Website settings</h1>
           <p>Your identity, homepage and first impression.</p>
         </div>
       </div>

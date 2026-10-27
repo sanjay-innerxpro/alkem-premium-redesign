@@ -4,6 +4,7 @@ import { Visual } from "@/components/visual";
 import {
   Eyebrow,
   OfferingCards,
+  ProductCards,
   SectionHead,
   StoryCards,
 } from "@/components/cards";
@@ -59,8 +60,8 @@ export default async function Home() {
               <Link className="np-btn np-btn--primary np-btn--lg" href="/about">
                 {s.heroCta} <Icon name="arrow" size={18} />
               </Link>
-              <Link className="np-btn np-btn--ghost np-btn--lg" href="/offerings">
-                Our offerings
+              <Link className="np-btn np-btn--ghost np-btn--lg" href="/products">
+                Explore products
               </Link>
             </div>
             <dl className="np-hero__facts">
@@ -190,7 +191,21 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className="np-section np-section--tint">
+      {group("products").length > 0 && (
+        <section className="np-section np-section--tint">
+          <div className="np-wrap">
+            <SectionHead section={sec.products} href="/products" />
+            <ProductCards items={group("products").slice(0, 8)} />
+            <div className="np-more">
+              <Link className="np-btn np-btn--primary" href="/products">
+                View all {group("products").length} products{" "}
+                <Icon name="arrow" size={18} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+      <section className="np-section">
         <div className="np-wrap">
           <SectionHead section={sec.offerings} href="/offerings" />
           <OfferingCards items={group("offerings").slice(0, 4)} />
