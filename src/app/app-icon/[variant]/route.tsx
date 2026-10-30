@@ -8,11 +8,18 @@ import { initialOf } from "@/components/brand";
 //   icon        rounded square, transparent corners (favicon, web app)
 //   full        full-bleed square with a safe margin (maskable, Apple, Play Store icon)
 //   foreground  glyph only, inside Android's adaptive-icon safe zone
+//   background  gradient only (adaptive-icon background layer)
 //   feature     1024x500 Play Store feature graphic
 export const dynamic = "force-dynamic";
 const GRADIENT =
   "linear-gradient(135deg, #22B3A0 0%, #1F9BB5 55%, #2F7FA3 100%)";
-const variants = ["icon", "full", "foreground", "feature"] as const;
+const variants = [
+  "icon",
+  "full",
+  "foreground",
+  "background",
+  "feature",
+] as const;
 type Variant = (typeof variants)[number];
 // Plus Jakarta Sans Bold (SIL Open Font License), the site's heading font.
 const font = readFile(
@@ -132,7 +139,9 @@ export async function GET(
     );
   }
 
-  const scale = { icon: 1, full: 0.8, foreground: 0.66 }[variant];
+  const scale = { icon: 1, full: 0.8, foreground: 0.66, background: 0 }[
+    variant
+  ];
   return new ImageResponse(
     <div
       style={{
@@ -144,7 +153,7 @@ export async function GET(
         borderRadius: variant === "icon" ? size * 0.3 : 0,
       }}
     >
-      <Glyph letter={letter} size={size} scale={scale} />
+      {scale > 0 && <Glyph letter={letter} size={size} scale={scale} />}
     </div>,
     { width: size, height: size, ...options },
   );

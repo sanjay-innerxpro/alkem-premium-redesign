@@ -117,7 +117,8 @@ const en = {
   pack_size: "Pack size",
   therapy_area: "Therapy area",
   enquire_product: "Enquire about this product",
-  enquire_text: "For availability, pricing or trade enquiries, send us a message.",
+  enquire_text:
+    "For availability, pricing or trade enquiries, send us a message.",
   have_question: "Have a question?",
   question_text:
     "Our team is happy to help with product, partnership or career enquiries.",
@@ -163,6 +164,10 @@ const en = {
   nf_title_b: "new direction.",
   nf_text: "This page may have moved or is no longer available.",
   back_home: "Back to home",
+  // Mobile app (mobile/)
+  app_offline: "You’re offline — showing saved content.",
+  app_retry: "Try again",
+  app_unavailable: "Couldn’t load content. Check your connection.",
 };
 export type Dict = typeof en;
 
@@ -272,7 +277,8 @@ const hi: Dict = {
   pack_size: "पैक आकार",
   therapy_area: "चिकित्सा क्षेत्र",
   enquire_product: "इस उत्पाद के बारे में पूछताछ करें",
-  enquire_text: "उपलब्धता, मूल्य या व्यापार संबंधी पूछताछ के लिए हमें संदेश भेजें।",
+  enquire_text:
+    "उपलब्धता, मूल्य या व्यापार संबंधी पूछताछ के लिए हमें संदेश भेजें।",
   have_question: "कोई प्रश्न है?",
   question_text:
     "उत्पाद, साझेदारी या करियर संबंधी पूछताछ में हमारी टीम आपकी मदद करेगी।",
@@ -295,7 +301,8 @@ const hi: Dict = {
   f_send: "संदेश भेजें",
   f_sending: "भेजा जा रहा है…",
   f_sent: "संदेश भेज दिया गया",
-  f_success: "धन्यवाद — आपका संदेश हमारी टीम तक पहुँच गया है। हम जल्द संपर्क करेंगे।",
+  f_success:
+    "धन्यवाद — आपका संदेश हमारी टीम तक पहुँच गया है। हम जल्द संपर्क करेंगे।",
   f_failed: "संदेश नहीं भेजा जा सका। कृपया दोबारा प्रयास करें।",
   pb_placeholder: "नाम, संरचना या चिकित्सा क्षेत्र से खोजें…",
   all_areas: "सभी क्षेत्र",
@@ -316,6 +323,10 @@ const hi: Dict = {
   nf_title_b: "सही राह दिखाएँ।",
   nf_text: "यह पृष्ठ हट गया है या अब उपलब्ध नहीं है।",
   back_home: "होम पर लौटें",
+  // Mobile app (mobile/)
+  app_offline: "आप ऑफ़लाइन हैं — सहेजी गई सामग्री दिखाई जा रही है।",
+  app_retry: "फिर से कोशिश करें",
+  app_unavailable: "सामग्री लोड नहीं हो सकी। अपना कनेक्शन जाँचें।",
 };
 
 const ur: Dict = {
@@ -401,7 +412,8 @@ const ur: Dict = {
   write_to_us: "ہمیں لکھیں",
   form_respond: "فارم بھریں، ہماری ٹیم جواب دے گی۔",
   privacy_title: "آپ کی معلومات کے بارے میں وضاحت۔",
-  privacy_intro: "آپ جو کچھ ہمارے ساتھ شیئر کرتے ہیں، ہم اسے کیسے سنبھالتے ہیں۔",
+  privacy_intro:
+    "آپ جو کچھ ہمارے ساتھ شیئر کرتے ہیں، ہم اسے کیسے سنبھالتے ہیں۔",
   privacy_1:
     "جب آپ اس ویب سائٹ کے ذریعے ہم سے رابطہ کرتے ہیں تو ہم آپ کا نام، ای میل پتا، موضوع اور پیغام محفوظ کرتے ہیں تاکہ ہماری ٹیم جواب دے سکے۔ صرف مجاز عملہ ان ریکارڈز کو پڑھ اور حذف کر سکتا ہے۔ پیغامات کسی تیسرے فریق کے ساتھ شیئر نہیں کیے جاتے اور نہ ہی مارکیٹنگ فہرستوں میں بھیجے جاتے ہیں۔",
   privacy_2:
@@ -447,7 +459,8 @@ const ur: Dict = {
   f_send: "پیغام بھیجیں",
   f_sending: "بھیجا جا رہا ہے…",
   f_sent: "پیغام بھیج دیا گیا",
-  f_success: "شکریہ — آپ کا پیغام ہماری ٹیم تک پہنچ گیا ہے۔ ہم جلد رابطہ کریں گے۔",
+  f_success:
+    "شکریہ — آپ کا پیغام ہماری ٹیم تک پہنچ گیا ہے۔ ہم جلد رابطہ کریں گے۔",
   f_failed: "پیغام نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔",
   pb_placeholder: "نام، اجزا یا علاجی شعبے سے تلاش کریں…",
   all_areas: "تمام شعبے",
@@ -468,6 +481,10 @@ const ur: Dict = {
   nf_title_b: "صحیح راستہ دکھائیں۔",
   nf_text: "یہ صفحہ منتقل ہو گیا ہے یا اب دستیاب نہیں ہے۔",
   back_home: "ہوم پر واپس جائیں",
+  // Mobile app (mobile/)
+  app_offline: "آپ آف لائن ہیں — محفوظ شدہ مواد دکھایا جا رہا ہے۔",
+  app_retry: "دوبارہ کوشش کریں",
+  app_unavailable: "مواد لوڈ نہیں ہو سکا۔ اپنا کنکشن چیک کریں۔",
 };
 
 export const dictionaries: Record<Lang, Dict> = { en, hi, ur };

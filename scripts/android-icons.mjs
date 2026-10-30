@@ -1,7 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-// Copies the brand icons the website draws (/app-icon/...) into the Android project, so the
-// launcher icon, splash logo and Play Store graphics match the current Brand name.
+// Copies the brand icons the website draws (/app-icon/...) into both Android apps (android/
+// and the Expo app in mobile/), so launcher icons, splash logos and Play Store graphics
+// match the current Brand name.
 // Usage, with the site running: npm run android:icons [-- http://localhost:3000]
 const site = (
   process.argv[2] ||
@@ -10,9 +11,16 @@ const site = (
 ).replace(/\/$/, "");
 const root = join(import.meta.dirname, "..", "android");
 const res = join(root, "app/src/main/res");
+const mobile = join(import.meta.dirname, "..", "mobile", "assets");
 const files = [
   [join(root, "store/play-icon-512.png"), "full", 512],
   [join(root, "store/feature-graphic-1024x500.png"), "feature", 512],
+  [join(mobile, "icon.png"), "full", 1024],
+  [join(mobile, "android-icon-foreground.png"), "foreground", 1024],
+  [join(mobile, "android-icon-background.png"), "background", 1024],
+  [join(mobile, "android-icon-monochrome.png"), "foreground", 1024],
+  [join(mobile, "splash-icon.png"), "icon", 512],
+  [join(mobile, "favicon.png"), "icon", 48],
 ];
 const densities = { mdpi: 1, hdpi: 1.5, xhdpi: 2, xxhdpi: 3, xxxhdpi: 4 };
 for (const [d, k] of Object.entries(densities))
