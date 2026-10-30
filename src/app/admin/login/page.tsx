@@ -4,6 +4,7 @@ import { LoginForm } from "@/components/admin/login-form";
 import { Mark } from "@/components/brand";
 import { Icon } from "@/components/icons";
 import { isDemo } from "@/lib/db";
+import { getSettings } from "@/lib/content";
 import Link from "next/link";
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -17,6 +18,7 @@ const features = [
 ];
 export default async function Login() {
   if (await currentAdmin()) redirect("/admin");
+  const s = await getSettings();
   return (
     <main className="login-page">
       <div className="login-bg" aria-hidden="true">
@@ -26,9 +28,9 @@ export default async function Login() {
       </div>
       <header className="login-top">
         <Link className="login-brand" href="/">
-          <Mark size={36} />
+          <Mark name={s.brand} size={36} />
           <span>
-            <strong>NexPharm</strong>
+            <strong>{s.brand}</strong>
             <small>Content Studio</small>
           </span>
         </Link>
@@ -42,7 +44,7 @@ export default async function Login() {
             <i /> Secure workspace
           </span>
           <h1>
-            Welcome back to <em>NexPharm.</em>
+            Welcome back to <em>{s.brand}.</em>
           </h1>
           <p>
             Everything that powers your website — in one calm, focused place.
@@ -80,7 +82,7 @@ export default async function Login() {
         </section>
       </div>
       <footer className="login-foot">
-        © {new Date().getFullYear()} NexPharm Healthcare Private Limited
+        © {new Date().getFullYear()} {s.brand} {s.tagline}
       </footer>
     </main>
   );

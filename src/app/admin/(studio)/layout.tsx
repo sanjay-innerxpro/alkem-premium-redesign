@@ -4,29 +4,37 @@ import { requireAdmin } from "@/lib/auth";
 import { StudioNav } from "@/components/admin/nav";
 import { Mark } from "@/components/brand";
 import { Icon } from "@/components/icons";
+import { getSettings } from "@/lib/content";
 export const dynamic = "force-dynamic";
-export const metadata = {
-  title: "NexPharm Content Studio",
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata() {
+  const s = await getSettings();
+  return {
+    title: `${s.brand} Content Studio`,
+    robots: { index: false, follow: false },
+  };
+}
 export default async function StudioLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const admin = await requireAdmin();
+  const [admin, s] = await Promise.all([requireAdmin(), getSettings()]);
   return (
     <div className="studio">
       <aside className="studio-sidebar">
         <div className="studio-sidebar__top">
           <Link href="/admin" className="studio-logo">
-            <Mark size={36} />
+            <Mark name={s.brand} size={36} />
             <div>
-              <strong>NexPharm</strong>
+              <strong>{s.brand}</strong>
               <small>Content Studio</small>
             </div>
           </Link>
-          <form action="/api/auth/logout" method="post" className="studio-signout-mobile">
+          <form
+            action="/api/auth/logout"
+            method="post"
+            className="studio-signout-mobile"
+          >
             <button aria-label="Sign out">Sign out</button>
           </form>
         </div>
@@ -52,7 +60,7 @@ export default async function StudioLayout({
           {children}
         </main>
         <footer className="studio-footer">
-          NexPharm Healthcare Private Limited · Content Studio
+          {s.brand} {s.tagline} · Content Studio
         </footer>
       </div>
     </div>

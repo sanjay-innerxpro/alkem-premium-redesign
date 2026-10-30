@@ -9,6 +9,7 @@ import {
 } from "../src/lib/validation";
 import { defaultContent, defaultSettings } from "../src/lib/defaults";
 import { sameOrigin, digest } from "../src/lib/security";
+import { fromLegacyCopy, withBrand } from "../src/lib/content";
 
 test("passwords are salted, verifiable and reject incorrect credentials", async () => {
   const a = await hashPassword("correct-password-123");
@@ -92,4 +93,17 @@ test("state-changing APIs reject absent and foreign Origins", () => {
 test("session and rate keys use deterministic SHA-256 digests", () => {
   assert.equal(digest("token").length, 64);
   assert.notEqual(digest("token"), digest("other"));
+});
+test("unedited seed copy naming the old company reads as {brand} copy; edited text is kept", () => {
+  assert.equal(fromLegacyCopy("Discover NexPharm"), "Discover {brand}");
+  assert.equal(
+    fromLegacyCopy(
+      "NexPharm Healthcare Private Limited — Quality Medicines for Healthier Lives",
+    ),
+    "{brand} — Quality Medicines for Healthier Lives",
+  );
+  assert.equal(fromLegacyCopy("Visit NexPharm today"), "Visit NexPharm today");
+  assert.deepEqual(withBrand({ a: ["Discover {brand}"] }, "Acme"), {
+    a: ["Discover Acme"],
+  });
 });

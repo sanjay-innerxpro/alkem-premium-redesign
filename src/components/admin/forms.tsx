@@ -277,6 +277,11 @@ export function SettingsForm({ settings: s }: { settings: Settings }) {
             ["tagline", "Brand tagline"],
           ])}
         </div>
+        <p className="form-note">
+          The logo and icons follow the brand name; the Android app picks it up
+          on its next build. Write {"{brand}"} in any text or page to show the
+          current brand name there.
+        </p>
         {fields([
           ["seoTitle", "Homepage SEO title"],
           ["seoDescription", "Search description", true],

@@ -4,7 +4,7 @@ import { randomBytes } from "node:crypto";
 import { db, isDemo } from "./db";
 import { digest } from "./security";
 import type { RowDataPacket } from "mysql2/promise";
-export const SESSION_COOKIE = "nexpharm_session";
+export const SESSION_COOKIE = "studio_session";
 export async function currentAdmin() {
   if (isDemo()) return null;
   const token = (await cookies()).get(SESSION_COOKIE)?.value;

@@ -6,6 +6,8 @@ import {
   Plus_Jakarta_Sans,
 } from "next/font/google";
 import "./globals.css";
+import { ServiceWorker } from "@/components/service-worker";
+import { getSettingsOrDefault, withBrand } from "@/lib/content";
 // next/font self-hosts these at build time, so the CSP's font-src 'self' still holds.
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -34,15 +36,18 @@ const urdu = Noto_Naskh_Arabic({
   display: "swap",
   preload: false,
 });
-export const metadata: Metadata = {
-  title: {
-    default: "NexPharm Healthcare Private Limited",
-    template: "%s | NexPharm Healthcare",
-  },
-  description:
-    "NexPharm Healthcare Private Limited develops and delivers quality, affordable medicines across key therapeutic areas.",
-  icons: { icon: "/illustrations/mark.svg" },
-};
+// Titles and icons follow the brand in Website settings.
+export async function generateMetadata(): Promise<Metadata> {
+  const s = await getSettingsOrDefault();
+  return {
+    title: { default: `${s.brand} ${s.tagline}`, template: `%s | ${s.brand}` },
+    description: withBrand(s.seoDescription, s.brand),
+    icons: {
+      icon: { url: "/app-icon/icon?size=64", type: "image/png" },
+      apple: "/app-icon/full?size=180",
+    },
+  };
+}
 export const viewport: Viewport = { themeColor: "#071526" };
 export default function RootLayout({
   children,
@@ -54,7 +59,10 @@ export default function RootLayout({
       lang="en"
       className={[sans, serif, devanagari, urdu].map((f) => f.variable).join(" ")}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <ServiceWorker />
+      </body>
     </html>
   );
 }

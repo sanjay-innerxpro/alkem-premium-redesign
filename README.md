@@ -77,6 +77,10 @@ Integration tests use disposable records and delete them afterward. Run them aga
 
 Local implementation verification: production build, TypeScript and all seven no-database tests passed. Real MySQL integration and authenticated CMS testing require a MySQL instance; the implementation environment had no running server. GitHub write access was denied during handoff, so this source is supplied as a ZIP. The included CI workflow has not run remotely. Do not interpret its presence as a passing CI result.
 
+## Android app (Google Play)
+
+`android/` contains a Trusted Web Activity app that opens this website full-screen, so CMS changes appear in the app without an app update. The site is installable (`/manifest.webmanifest`), shows a branded offline page (`public/sw.js`, production only) and serves `/.well-known/assetlinks.json` once `ANDROID_PACKAGE_NAME` and `ANDROID_SHA256_FINGERPRINTS` are set. The brand name in Website settings drives the logo, favicon and app icons (`/app-icon/...`), and any text containing `{brand}` shows the current name. Build, signing and Play Store steps: [android/README.md](android/README.md).
+
 ## Deployment — next stage
 
 A server-rendered Next.js + MySQL application needs a Node.js-capable host/container and a MySQL service. GitHub Pages cannot execute this backend. The Dockerfile provides a production application image; this task does not deploy it.

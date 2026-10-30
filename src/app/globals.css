@@ -1,4 +1,4 @@
-/* NexPharm public site. Every rule is scoped to .np / np-* so the admin studio
+/* Public site. Every rule is scoped to .np / np-* so the admin studio
    (admin/admin.css) never inherits it, and vice versa. */
 :root {
   --np-ink: #1b2a3a;
@@ -110,14 +110,24 @@ html:has(.np) {
 .np-skip:focus {
   top: 12px;
 }
+/* Floating pill, so it never sits under the fixed header; taps pass through it. */
 .np-preview {
-  position: relative;
-  z-index: 5;
-  padding: 10px 16px;
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  z-index: 60;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 8px 16px;
+  border-radius: 999px;
   text-align: center;
-  font-size: 13px;
+  font-size: 12.5px;
+  line-height: 1.4;
   color: #0f5f73;
-  background: #e0f7fa;
+  background: rgba(224, 247, 250, 0.94);
+  box-shadow: var(--np-shadow);
+  pointer-events: none;
 }
 
 /* Type */

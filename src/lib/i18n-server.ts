@@ -1,5 +1,6 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
-import { getContent, getSettings } from "./content";
+import { getContent, getSettings, withBrand } from "./content";
 import { dictionaries, isLang, LANG_COOKIE, type Lang } from "./i18n";
 import { localizeContent, localizeSettings } from "./i18n-content";
 import type { Collection } from "./types";
@@ -12,13 +13,18 @@ export async function getLang(): Promise<Lang> {
 export async function getDict() {
   return dictionaries[await getLang()];
 }
+const settingsOnce = cache(getSettings);
 export async function siteSettings() {
-  const [s, lang] = await Promise.all([getSettings(), getLang()]);
-  return localizeSettings(s, lang);
+  const [s, lang] = await Promise.all([settingsOnce(), getLang()]);
+  return withBrand(localizeSettings(s, lang), s.brand);
 }
 export async function siteContent(collection?: Collection) {
-  const [items, lang] = await Promise.all([getContent(collection), getLang()]);
-  return localizeContent(items, lang);
+  const [items, lang, s] = await Promise.all([
+    getContent(collection),
+    getLang(),
+    settingsOnce(),
+  ]);
+  return withBrand(localizeContent(items, lang), s.brand);
 }
 export async function siteItem(collection: Collection, slug: string) {
   return (await siteContent(collection)).find((x) => x.slug === slug);

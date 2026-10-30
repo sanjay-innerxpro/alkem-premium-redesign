@@ -11,7 +11,8 @@
     "db:seed": "node --env-file-if-exists=.env.local --import tsx scripts/seed.mjs",
     "admin:create": "node --env-file-if-exists=.env.local --import tsx scripts/create-admin.mjs",
     "test": "node --import tsx --test tests/*.test.ts",
-    "test:integration": "node --env-file-if-exists=.env.local --import tsx --test tests/*.integration.ts"
+    "test:integration": "node --env-file-if-exists=.env.local --import tsx --test tests/*.integration.ts",
+    "android:icons": "node --env-file-if-exists=.env.local scripts/android-icons.mjs"
   },
   "dependencies": {
     "mysql2": "^3.15.0",

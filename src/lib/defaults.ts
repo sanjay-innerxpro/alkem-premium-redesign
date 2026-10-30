@@ -6,25 +6,25 @@ const section = (
   imageUrl = "",
 ): Section => ({ eyebrow, title, description, imageUrl });
 export const defaultSettings: Settings = {
-  brand: "NexPharm",
-  tagline: "Healthcare Private Limited",
+  brand: "Demo Pharma",
+  tagline: "Healthcare Demo",
   seoTitle:
-    "NexPharm Healthcare Private Limited — Quality Medicines for Healthier Lives",
+    "{brand} — Quality Medicines for Healthier Lives",
   seoDescription:
-    "NexPharm Healthcare Private Limited develops and delivers quality, affordable medicines across cardiology, gastroenterology, dermatology, neurology and diabetology.",
+    "{brand} develops and delivers quality, affordable medicines across cardiology, gastroenterology, dermatology, neurology and diabetology.",
   heroEyebrow: "Quality medicines · Trusted care",
   heroTitle: "Advancing healthcare,",
   heroAccent: "one life at a time.",
   heroDescription:
-    "NexPharm Healthcare brings quality, affordable medicines to patients and healthcare professionals — built on science, made with care and delivered with integrity.",
-  heroCta: "Discover NexPharm",
+    "{brand} brings quality, affordable medicines to patients and healthcare professionals — built on science, made with care and delivered with integrity.",
+  heroCta: "Discover {brand}",
   heroImage: "/illustrations/capsule.svg",
   established: "",
   purpose: "Healthier lives, everywhere",
   footerText:
     "Quality, affordable medicines for healthier lives — built on science, made with care and delivered with integrity.",
   // Placeholder contact details and social links; replace them in Website settings.
-  contactEmail: "info@nexpharm.smartsoch.store",
+  contactEmail: "info@example.com",
   contactPhone: "+91 00000 00000",
   contactAddress: "",
   social: {
@@ -44,7 +44,7 @@ export const defaultSettings: Settings = {
     about: section(
       "Who we are",
       "Science with a human heart.",
-      "NexPharm Healthcare Private Limited was founded on a simple belief: everyone deserves access to medicines they can trust. We combine pharmaceutical expertise with uncompromising quality to make that belief real.",
+      "{brand} was founded on a simple belief: everyone deserves access to medicines they can trust. We combine pharmaceutical expertise with uncompromising quality to make that belief real.",
       "/illustrations/lab.svg",
     ),
     products: section(
@@ -66,7 +66,7 @@ export const defaultSettings: Settings = {
     therapies: section(
       "Therapeutic areas",
       "Focused expertise for life’s many needs.",
-      "Explore the therapy areas where NexPharm brings focused, dependable medicines to healthcare professionals and their patients.",
+      "Explore the therapy areas where {brand} brings focused, dependable medicines to healthcare professionals and their patients.",
     ),
     impact: section(
       "Our reach",
@@ -80,13 +80,13 @@ export const defaultSettings: Settings = {
       "We care for communities and the environment as much as we care for patients.",
     ),
     careers: section(
-      "Life at NexPharm",
+      "Life at {brand}",
       "Build a career that cares.",
       "Join a team of curious, driven people who believe that better healthcare starts with better work — every single day.",
     ),
     news: section(
       "News & insights",
-      "The latest from NexPharm.",
+      "The latest from {brand}.",
       "Updates, milestones and perspectives from across our company.",
     ),
     contact: section(
@@ -168,7 +168,7 @@ export const defaultContent: Content[] = [
     "about",
     "Science with a human heart.",
     defaultSettings.sections.about.description,
-    "NexPharm Healthcare Private Limited is a pharmaceutical company dedicated to making quality medicines accessible and affordable. We work closely with healthcare professionals, distributors and partners to bring dependable treatments to the patients who need them.\n\nOur approach is simple: put patients first, never compromise on quality, and act with integrity in everything we do. These values guide how we develop our products, how we choose our partners and how we serve the healthcare community.\n\nAs we grow, our commitment stays the same — healthier lives, everywhere.",
+    "{brand} is a pharmaceutical company dedicated to making quality medicines accessible and affordable. We work closely with healthcare professionals, distributors and partners to bring dependable treatments to the patients who need them.\n\nOur approach is simple: put patients first, never compromise on quality, and act with integrity in everything we do. These values guide how we develop our products, how we choose our partners and how we serve the healthcare community.\n\nAs we grow, our commitment stays the same — healthier lives, everywhere.",
     0,
     "Our story",
     "/illustrations/lab.svg",
@@ -241,7 +241,7 @@ export const defaultContent: Content[] = [
     "distribution-and-access",
     "Distribution & access",
     "A reliable supply network connecting medicines to the people who need them.",
-    "Our distribution partners help ensure that pharmacies, hospitals and clinics have consistent access to NexPharm medicines.",
+    "Our distribution partners help ensure that pharmacies, hospitals and clinics have consistent access to {brand} medicines.",
     3,
     "Supply",
   ),

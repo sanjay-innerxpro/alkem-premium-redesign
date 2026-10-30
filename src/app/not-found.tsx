@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Mark } from "@/components/brand";
 import { getLang } from "@/lib/i18n-server";
+import { getSettingsOrDefault } from "@/lib/content";
 import { dictionaries, dirOf } from "@/lib/i18n";
 export default async function NotFound() {
-  const lang = await getLang();
+  const [lang, s] = await Promise.all([getLang(), getSettingsOrDefault()]);
   const t = dictionaries[lang];
   return (
     <main id="main" className="np np-standalone" lang={lang} dir={dirOf(lang)}>
@@ -13,7 +14,7 @@ export default async function NotFound() {
         <span />
       </div>
       <div className="np-standalone__inner">
-        <Mark size={52} />
+        <Mark name={s.brand} size={52} />
         <span className="np-pill">
           <i />
           {t.nf_label}
