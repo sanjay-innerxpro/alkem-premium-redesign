@@ -9,6 +9,11 @@ export function sameOrigin(request: Request) {
     .origin;
   return origin === allowed;
 }
+// Enquiry forms: browsers always send Origin on a POST, so a foreign Origin is a cross-site
+// request and is refused. Native clients (the mobile app) send none and are allowed;
+// rate limits still apply to them.
+export const acceptsEnquiryOrigin = (request: Request) =>
+  request.headers.get("origin") === null || sameOrigin(request);
 export function clientKey(request: Request) {
   // Untrusted client headers must never defeat rate limiting. Shared bucket by default.
   return process.env.TRUST_PROXY === "true"

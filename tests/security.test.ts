@@ -8,7 +8,7 @@ import {
   settingsSchema,
 } from "../src/lib/validation";
 import { defaultContent, defaultSettings } from "../src/lib/defaults";
-import { sameOrigin, digest } from "../src/lib/security";
+import { sameOrigin, digest, acceptsEnquiryOrigin } from "../src/lib/security";
 import { fromLegacyCopy, withBrand } from "../src/lib/content";
 
 test("passwords are salted, verifiable and reject incorrect credentials", async () => {
@@ -106,4 +106,22 @@ test("unedited seed copy naming the old company reads as {brand} copy; edited te
   assert.deepEqual(withBrand({ a: ["Discover {brand}"] }, "Acme"), {
     a: ["Discover Acme"],
   });
+});
+test("enquiries accept same-origin browsers and native apps but refuse other sites", () => {
+  process.env.APP_URL = "https://example.test";
+  const req = (headers: Record<string, string>) =>
+    new Request("https://example.test/api/enquiries", {
+      method: "POST",
+      headers,
+    });
+  assert.equal(acceptsEnquiryOrigin(req({})), true);
+  assert.equal(
+    acceptsEnquiryOrigin(req({ origin: "https://example.test" })),
+    true,
+  );
+  assert.equal(
+    acceptsEnquiryOrigin(req({ origin: "https://evil.test" })),
+    false,
+  );
+  assert.equal(acceptsEnquiryOrigin(req({ origin: "null" })), false);
 });

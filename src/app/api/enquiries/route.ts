@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "node:crypto";
 import { db, isDemo } from "@/lib/db";
 import { enquirySchema } from "@/lib/validation";
-import { sameOrigin, clientKey, rateLimit } from "@/lib/security";
+import { acceptsEnquiryOrigin, clientKey, rateLimit } from "@/lib/security";
 import { getItem, getContent } from "@/lib/content";
 export async function POST(request: Request) {
-  if (!sameOrigin(request))
+  if (!acceptsEnquiryOrigin(request))
     return NextResponse.json({ error: "Invalid origin." }, { status: 403 });
   if (isDemo())
     return NextResponse.json(
