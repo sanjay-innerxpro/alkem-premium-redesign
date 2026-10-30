@@ -29,6 +29,8 @@ export default async function EditPage({
           composition: "",
           dosageForm: "",
           packSize: "",
+          price: "",
+          moq: "",
           sortOrder: 0,
           published: false,
         }

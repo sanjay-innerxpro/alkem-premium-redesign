@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDict, siteItem } from "@/lib/i18n-server";
+import { getDict, siteItem, siteSettings } from "@/lib/i18n-server";
 import type { Dict } from "@/lib/i18n";
 import { collections, type Collection } from "@/lib/types";
 import { Visual } from "@/components/visual";
@@ -26,9 +26,10 @@ export default async function Detail({ params }: Props) {
   const { section, slug } = await params;
   if (!collections.includes(section as Collection) || section === "pages")
     notFound();
-  const [x, t] = await Promise.all([
+  const [x, t, s] = await Promise.all([
     siteItem(section as Collection, slug),
     getDict(),
+    siteSettings(),
   ]);
   if (!x) notFound();
   const label = t[labelKeys[section]];
@@ -51,7 +52,11 @@ export default async function Detail({ params }: Props) {
         <div className="np-wrap np-detail">
           <article className="np-detail__main" data-reveal>
             {x.imageUrl ? (
-              <Visual src={x.imageUrl} alt={x.title} className="np-detail__image" />
+              <Visual
+                src={x.imageUrl}
+                alt={x.title}
+                className="np-detail__image"
+              />
             ) : (
               section !== "careers" &&
               section !== "products" && (
@@ -66,6 +71,8 @@ export default async function Detail({ params }: Props) {
                   [t.composition, x.composition],
                   [t.dosage_form, x.dosageForm],
                   [t.pack_size, x.packSize],
+                  [t.price, x.price],
+                  [t.moq, x.moq],
                   [t.therapy_area, x.category],
                 ]
                   .filter(([, v]) => v)
@@ -82,6 +89,9 @@ export default async function Detail({ params }: Props) {
                 <p key={i}>{text}</p>
               ))}
             </div>
+            {section === "products" && s.productsNote && (
+              <p className="np-note">{s.productsNote}</p>
+            )}
             {section === "products" && (
               <section className="np-card np-apply">
                 <h2 className="np-h3">{t.enquire_product}</h2>
@@ -109,7 +119,8 @@ export default async function Detail({ params }: Props) {
               </Link>
             </div>
             <Link className="np-link" href={"/" + section}>
-              <Icon name="arrow" size={18} className="np-flip" /> {t.all_prefix} {label}
+              <Icon name="arrow" size={18} className="np-flip" /> {t.all_prefix}{" "}
+              {label}
             </Link>
           </aside>
         </div>

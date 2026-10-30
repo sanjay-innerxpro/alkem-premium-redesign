@@ -24,7 +24,7 @@ export default async function StudioLayout({
       <aside className="studio-sidebar">
         <div className="studio-sidebar__top">
           <Link href="/admin" className="studio-logo">
-            <Mark name={s.brand} size={36} />
+            <Mark name={s.brand} logo={s.logoUrl} size={36} />
             <div>
               <strong>{s.brand}</strong>
               <small>Content Studio</small>

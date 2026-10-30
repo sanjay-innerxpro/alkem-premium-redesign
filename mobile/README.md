@@ -39,4 +39,4 @@ cd android
 ./gradlew bundleRelease                   # Play Store bundle: app/build/outputs/bundle/release/
 ```
 
-Local release builds are signed with the debug key unless you configure your upload key. For the Play Store, use the same upload key and `com.demopharma.app` ID as the web-wrapper app in `../android/`. This app then ships as its next version: `versionCode` is set one higher automatically.
+Local release builds are signed with the debug key unless you configure your upload key. For the Play Store, use the same upload key and `com.nexpharm.healthcare` ID as the web-wrapper app in `../android/`. This app then ships as its next version: `versionCode` is set one higher automatically.

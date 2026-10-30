@@ -17,6 +17,7 @@ const links: [string, keyof Dict, string][] = [
 export function Header({
   name,
   tagline,
+  logo,
   phone,
   email,
   purpose,
@@ -24,6 +25,7 @@ export function Header({
 }: {
   name: string;
   tagline: string;
+  logo: string;
   phone: string;
   email: string;
   purpose: string;
@@ -78,7 +80,10 @@ export function Header({
                 <>
                   <span className="np-topbar__label">{t.connect_with_us}</span>
                   {phone && (
-                    <a href={"tel:" + phone.replace(/\s/g, "")} aria-label={"Call " + phone}>
+                    <a
+                      href={"tel:" + phone.replace(/\s/g, "")}
+                      aria-label={"Call " + phone}
+                    >
                       <span className="np-topbar__icon">
                         <Icon name="phone" size={13} />
                       </span>
@@ -112,7 +117,7 @@ export function Header({
           </div>
         </div>
         <div className="np-wrap np-header__bar">
-          <Brand name={name} tagline={tagline} />
+          <Brand name={name} tagline={tagline} logo={logo} />
           <nav className="np-nav" aria-label="Primary navigation">
             {links.map(([href, key]) => (
               <Link
@@ -187,7 +192,10 @@ export function Header({
             )}
             <div className="np-mobile__row">
               {hasSocial && (
-                <SocialLinks links={social} className="np-social np-social--menu" />
+                <SocialLinks
+                  links={social}
+                  className="np-social np-social--menu"
+                />
               )}
               <LangSelect className="np-langdd--menu" />
             </div>

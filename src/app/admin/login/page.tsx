@@ -28,7 +28,7 @@ export default async function Login() {
       </div>
       <header className="login-top">
         <Link className="login-brand" href="/">
-          <Mark name={s.brand} size={36} />
+          <Mark name={s.brand} logo={s.logoUrl} size={36} />
           <span>
             <strong>{s.brand}</strong>
             <small>Content Studio</small>

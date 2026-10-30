@@ -49,6 +49,8 @@ export const contentSchema = z
     composition: text(300).default(""),
     dosageForm: text(60).default(""),
     packSize: text(60).default(""),
+    price: text(60).default(""),
+    moq: text(60).default(""),
     published: z.boolean(),
     sortOrder: z.coerce.number().int().min(0).max(9999),
   })
@@ -81,6 +83,8 @@ const section = z.object({
 export const settingsSchema = z.object({
   brand: text(40).min(1),
   tagline: text(120),
+  logoUrl: safeImage,
+  productsNote: text(300),
   seoTitle: text(180).min(1),
   seoDescription: text(320),
   heroEyebrow: text(150),

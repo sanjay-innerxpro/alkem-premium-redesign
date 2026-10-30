@@ -5,7 +5,9 @@ import { defaultContent, defaultSettings } from "./defaults";
 import type { Lang } from "./i18n";
 import type { Content, Settings } from "./types";
 
-type Fields = Partial<Record<"title" | "summary" | "body" | "category", string>>;
+type Fields = Partial<
+  Record<"title" | "summary" | "body" | "category", string>
+>;
 type Pack = {
   settings: Record<string, string>;
   content: Record<string, Fields>;
@@ -17,14 +19,15 @@ type Pack = {
 
 const hi: Pack = {
   settings: {
-    tagline: "हेल्थकेयर डेमो",
+    tagline: "हेल्थकेयर प्राइवेट लिमिटेड",
+    productsNote: "नोट: कृपया GST और MOQ सहित कोटेशन का अनुरोध करें।",
     heroEyebrow: "गुणवत्तापूर्ण दवाएँ · भरोसेमंद देखभाल",
     heroTitle: "स्वास्थ्य सेवा को आगे बढ़ाते हुए,",
     heroAccent: "हर एक जीवन के साथ।",
     heroDescription:
       "{brand} मरीज़ों और स्वास्थ्य पेशेवरों तक गुणवत्तापूर्ण और किफ़ायती दवाएँ पहुँचाता है — विज्ञान पर आधारित, देखभाल से निर्मित और ईमानदारी से उपलब्ध।",
     heroCta: "{brand} को जानें",
-    purpose: "हर जगह, स्वस्थ जीवन",
+    purpose: "हर खुराक में उत्कृष्टता",
     footerText:
       "स्वस्थ जीवन के लिए गुणवत्तापूर्ण, किफ़ायती दवाएँ — विज्ञान पर आधारित, देखभाल से निर्मित और ईमानदारी से उपलब्ध।",
     "metrics.0.label": "चिकित्सा क्षेत्र",
@@ -48,7 +51,8 @@ const hi: Pack = {
     "sections.innovation.description":
       "अनुसंधान, विकास और गुणवत्तापूर्ण विनिर्माण मिलकर वैज्ञानिक समझ को ऐसी दवाओं में बदलते हैं जो वास्तव में बदलाव लाती हैं।",
     "sections.therapies.eyebrow": "चिकित्सा क्षेत्र",
-    "sections.therapies.title": "जीवन की अनेक ज़रूरतों के लिए केंद्रित विशेषज्ञता।",
+    "sections.therapies.title":
+      "जीवन की अनेक ज़रूरतों के लिए केंद्रित विशेषज्ञता।",
     "sections.therapies.description":
       "उन चिकित्सा क्षेत्रों को जानें जहाँ {brand} स्वास्थ्य पेशेवरों और उनके मरीज़ों के लिए भरोसेमंद दवाएँ लाता है।",
     "sections.impact.eyebrow": "हमारी पहुँच",
@@ -65,7 +69,8 @@ const hi: Pack = {
       "जिज्ञासु और लगनशील लोगों की उस टीम से जुड़ें जो मानती है कि बेहतर स्वास्थ्य सेवा बेहतर काम से शुरू होती है — हर दिन।",
     "sections.news.eyebrow": "समाचार और विचार",
     "sections.news.title": "{brand} से ताज़ा जानकारी।",
-    "sections.news.description": "हमारी कंपनी से अपडेट, उपलब्धियाँ और दृष्टिकोण।",
+    "sections.news.description":
+      "हमारी कंपनी से अपडेट, उपलब्धियाँ और दृष्टिकोण।",
     "sections.contact.eyebrow": "संपर्क करें",
     "sections.contact.title": "आइए, साथ मिलकर एक स्वस्थ कल बनाएँ।",
     "sections.contact.description":
@@ -90,7 +95,8 @@ const hi: Pack = {
     },
     "offer-rx": {
       title: "प्रिस्क्रिप्शन दवाएँ",
-      summary: "आवश्यक चिकित्सा क्षेत्रों में भरोसेमंद दवाओं का बढ़ता पोर्टफ़ोलियो।",
+      summary:
+        "आवश्यक चिकित्सा क्षेत्रों में भरोसेमंद दवाओं का बढ़ता पोर्टफ़ोलियो।",
       category: "उत्पाद",
       body: "हमारा प्रिस्क्रिप्शन पोर्टफ़ोलियो प्रमुख चिकित्सा क्षेत्रों में फैला है, जो स्वास्थ्य पेशेवरों को उनके मरीज़ों के लिए भरोसेमंद विकल्प देता है।\n\nयह वेबसाइट केवल सामान्य जानकारी प्रदान करती है और न तो चिकित्सीय सलाह देती है, न ही दवाएँ बेचती है। उपचार संबंधी निर्णयों के लिए कृपया किसी योग्य स्वास्थ्य पेशेवर से परामर्श करें।",
     },
@@ -108,7 +114,8 @@ const hi: Pack = {
     },
     "offer-distribution": {
       title: "वितरण और पहुँच",
-      summary: "एक भरोसेमंद आपूर्ति नेटवर्क जो दवाओं को ज़रूरतमंद लोगों तक पहुँचाता है।",
+      summary:
+        "एक भरोसेमंद आपूर्ति नेटवर्क जो दवाओं को ज़रूरतमंद लोगों तक पहुँचाता है।",
       category: "आपूर्ति",
       body: "हमारे वितरण साझेदार यह सुनिश्चित करने में मदद करते हैं कि फ़ार्मेसियों, अस्पतालों और क्लीनिकों को {brand} की दवाएँ लगातार उपलब्ध रहें।",
     },
@@ -149,6 +156,9 @@ const hi: Pack = {
     Dermatology: "डर्मेटोलॉजी",
     Neurology: "न्यूरोलॉजी",
     Diabetology: "डायबेटोलॉजी",
+    "Pain & Fever": "दर्द और बुखार",
+    "Anti-infectives": "संक्रमण-रोधी",
+    Nutrition: "पोषण",
   },
   forms: {
     Tablet: "टैबलेट",
@@ -167,6 +177,10 @@ const hi: Pack = {
     capsules: "कैप्सूल",
     tube: "ट्यूब",
     bottle: "बोतल",
+    bottles: "बोतलें",
+    box: "बॉक्स",
+    boxes: "बॉक्स",
+    per: "प्रति",
   },
   productBody:
     "प्रिस्क्रिप्शन दवा। केवल पंजीकृत चिकित्सक के प्रिस्क्रिप्शन पर खुदरा बिक्री के लिए।\n\nउत्पाद जानकारी, उपलब्धता या व्यापार संबंधी पूछताछ के लिए, कृपया नीचे दिए गए फ़ॉर्म के माध्यम से हमारी टीम से संपर्क करें।",
@@ -174,14 +188,15 @@ const hi: Pack = {
 
 const ur: Pack = {
   settings: {
-    tagline: "ہیلتھ کیئر ڈیمو",
+    tagline: "ہیلتھ کیئر پرائیویٹ لمیٹڈ",
+    productsNote: "نوٹ: براہِ کرم GST اور MOQ سمیت کوٹیشن طلب کریں۔",
     heroEyebrow: "معیاری ادویات · قابلِ اعتماد نگہداشت",
     heroTitle: "صحت کی دیکھ بھال کو آگے بڑھاتے ہوئے،",
     heroAccent: "ہر ایک زندگی کے ساتھ۔",
     heroDescription:
       "{brand} مریضوں اور طبی ماہرین تک معیاری اور سستی ادویات پہنچاتا ہے — سائنس کی بنیاد پر، توجہ سے تیار کردہ اور دیانت داری سے فراہم کردہ۔",
     heroCta: "{brand} کو جانیں",
-    purpose: "ہر جگہ، صحت مند زندگی",
+    purpose: "ہر خوراک میں عمدگی",
     footerText:
       "صحت مند زندگی کے لیے معیاری اور سستی ادویات — سائنس کی بنیاد پر، توجہ سے تیار کردہ اور دیانت داری سے فراہم کردہ۔",
     "metrics.0.label": "علاجی شعبے",
@@ -222,7 +237,8 @@ const ur: Pack = {
       "متجسس اور پُرعزم لوگوں کی اس ٹیم میں شامل ہوں جو یقین رکھتی ہے کہ بہتر صحت کی دیکھ بھال بہتر کام سے شروع ہوتی ہے — ہر روز۔",
     "sections.news.eyebrow": "خبریں اور بصیرت",
     "sections.news.title": "{brand} کی تازہ ترین خبریں۔",
-    "sections.news.description": "ہماری کمپنی سے اپ ڈیٹس، سنگِ میل اور نقطۂ نظر۔",
+    "sections.news.description":
+      "ہماری کمپنی سے اپ ڈیٹس، سنگِ میل اور نقطۂ نظر۔",
     "sections.contact.eyebrow": "رابطہ کریں",
     "sections.contact.title": "آئیے مل کر ایک صحت مند کل بنائیں۔",
     "sections.contact.description":
@@ -265,7 +281,8 @@ const ur: Pack = {
     },
     "offer-distribution": {
       title: "تقسیم اور رسائی",
-      summary: "ایک قابلِ اعتماد ترسیلی نیٹ ورک جو ادویات کو ضرورت مندوں تک پہنچاتا ہے۔",
+      summary:
+        "ایک قابلِ اعتماد ترسیلی نیٹ ورک جو ادویات کو ضرورت مندوں تک پہنچاتا ہے۔",
       category: "فراہمی",
       body: "ہمارے تقسیمی شراکت دار اس بات کو یقینی بنانے میں مدد کرتے ہیں کہ فارمیسیوں، اسپتالوں اور کلینکس کو {brand} کی ادویات مسلسل دستیاب رہیں۔",
     },
@@ -306,6 +323,9 @@ const ur: Pack = {
     Dermatology: "امراضِ جلد",
     Neurology: "اعصابیات",
     Diabetology: "ذیابیطس",
+    "Pain & Fever": "درد اور بخار",
+    "Anti-infectives": "انسدادِ انفیکشن",
+    Nutrition: "غذائیت",
   },
   forms: {
     Tablet: "گولی",
@@ -324,6 +344,10 @@ const ur: Pack = {
     capsules: "کیپسول",
     tube: "ٹیوب",
     bottle: "بوتل",
+    bottles: "بوتلیں",
+    box: "ڈبہ",
+    boxes: "ڈبے",
+    per: "فی",
   },
   productBody:
     "نسخے والی دوا۔ صرف رجسٹرڈ میڈیکل پریکٹیشنر کے نسخے پر خوردہ فروخت کے لیے۔\n\nپروڈکٹ کی معلومات، دستیابی یا تجارتی استفسارات کے لیے، براہِ کرم نیچے دیے گئے فارم کے ذریعے ہماری ٹیم سے رابطہ کریں۔",
@@ -391,10 +415,15 @@ export function localizeContent(items: Content[], lang: Lang): Content[] {
       if (original && item.body === original.body) x.body = pack.productBody;
       x.category = pack.areas[item.category] ?? item.category;
       x.dosageForm = pack.forms[item.dosageForm] ?? item.dosageForm;
-      x.packSize = item.packSize.replace(
-        /\b(tablets|capsules|tube|bottle)\b/gi,
-        (w) => pack.packWords[w.toLowerCase()] ?? w,
-      );
+      // Pack, price and MOQ text: translate the unit words, keep numbers as written.
+      const units = (text: string) =>
+        text.replace(
+          /\b(tablets|capsules|tube|bottles?|box(?:es)?|per)\b/gi,
+          (w) => pack.packWords[w.toLowerCase()] ?? w,
+        );
+      x.packSize = units(item.packSize);
+      x.price = units(item.price);
+      x.moq = units(item.moq);
     }
     return x;
   });

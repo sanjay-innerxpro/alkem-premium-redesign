@@ -23,7 +23,7 @@ Built with Google's [android-browser-helper](https://github.com/GoogleChrome/and
 
 ## 1. Configure
 
-In `gradle.properties`, set `twa.host` to the live domain (no `https://`, no trailing slash). Check `twa.applicationId` (currently `com.demopharma.app`): **it is permanent once uploaded**, even if the app name changes later, so set your final one before the first upload.
+In `gradle.properties`, set `twa.host` to the live domain (no `https://`, no trailing slash). Check `twa.applicationId` (currently `com.nexpharm.healthcare`): **it is permanent once uploaded**, even if the app name changes later, so set your final one before the first upload.
 
 ## 2. Create the upload key (once)
 
@@ -81,7 +81,7 @@ Android only opens the site full-screen if the website confirms it owns the app.
 2. Set these on the **web server's** environment, then restart the site:
 
    ```dotenv
-   ANDROID_PACKAGE_NAME=com.demopharma.app,com.demopharma.app.test
+   ANDROID_PACKAGE_NAME=com.nexpharm.healthcare,com.nexpharm.healthcare.test
    ANDROID_SHA256_FINGERPRINTS=AA:BB:...:FF,11:22:...:99
    ```
 

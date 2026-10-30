@@ -6,7 +6,8 @@ import { requireAdmin } from "@/lib/auth";
 import { db, writable } from "@/lib/db";
 import { contentSchema, settingsSchema } from "@/lib/validation";
 import { collections, socialNetworks } from "@/lib/types";
-import type { ResultSetHeader } from "mysql2/promise";
+import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
+import { catalogue, isSampleProduct } from "@/lib/catalogue";
 export type ActionState = { error?: string; success?: string };
 async function audit(
   adminId: string,
@@ -89,6 +90,61 @@ export async function saveContent(
   }
   revalidatePath("/", "layout");
   redirect("/admin/content?collection=" + x.collection + "&saved=1");
+}
+// Loads the company product list (lib/catalogue.ts) in one step: removes the remaining
+// sample products and writes the catalogue rows. Products added in the studio are kept.
+export async function loadCatalogue(): Promise<void> {
+  const admin = await requireAdmin();
+  writable();
+  const conn = await db().getConnection();
+  try {
+    await conn.beginTransaction();
+    const [rows] = await conn.query<RowDataPacket[]>(
+      "SELECT id FROM content WHERE collection='products' FOR UPDATE",
+    );
+    const stale = rows
+      .map((r) => r.id as string)
+      .filter(
+        (id) => isSampleProduct(id) && !catalogue.some((c) => c.id === id),
+      );
+    if (stale.length)
+      await conn.query(
+        "DELETE FROM content WHERE collection='products' AND id IN (?)",
+        [stale],
+      );
+    for (const x of catalogue)
+      await conn.execute(
+        "INSERT INTO content(id,collection,slug,title,data,published,sort_order) VALUES (?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE slug=VALUES(slug),title=VALUES(title),data=VALUES(data),published=VALUES(published),sort_order=VALUES(sort_order)",
+        [
+          x.id,
+          x.collection,
+          x.slug,
+          x.title,
+          JSON.stringify(x),
+          x.published,
+          x.sortOrder,
+        ],
+      );
+    // The purpose line changed with the new logo's slogan; only an unedited default moves.
+    await conn.execute(
+      "UPDATE settings SET data=JSON_SET(data,'$.purpose',?) WHERE id=1 AND JSON_UNQUOTE(JSON_EXTRACT(data,'$.purpose'))=?",
+      ["Excellence in every dose", "Healthier lives, everywhere"],
+    );
+    await audit(
+      admin.id,
+      "content.catalogue",
+      "products/" + catalogue.length,
+      conn,
+    );
+    await conn.commit();
+  } catch (e) {
+    await conn.rollback();
+    throw e;
+  } finally {
+    conn.release();
+  }
+  revalidatePath("/", "layout");
+  redirect("/admin/content?collection=products&saved=1");
 }
 export async function deleteContent(
   _state: ActionState,

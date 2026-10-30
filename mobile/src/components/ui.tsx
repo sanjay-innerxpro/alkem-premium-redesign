@@ -59,9 +59,36 @@ export function Accent({ style, ...props }: TextProps) {
 export const initialOf = (name: string) =>
   (Array.from(name.trim())[0] ?? "").toUpperCase();
 
-// The website logo: brand initial on the brand gradient, with the signature dot.
-export function Mark({ name, size = 40 }: { name: string; size?: number }) {
+// The website logo: the logo symbol on a white tile, or the brand initial when none is set.
+export function Mark({
+  name,
+  logo,
+  size = 40,
+}: {
+  name: string;
+  logo?: string;
+  size?: number;
+}) {
   const u = size / 40;
+  if (logo)
+    return (
+      <View
+        style={{
+          width: size,
+          height: size,
+          borderRadius: 12 * u,
+          backgroundColor: colors.white,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          source={absolute(logo)}
+          style={{ width: 30 * u, height: 30 * u }}
+          contentFit="contain"
+        />
+      </View>
+    );
   return (
     <LinearGradient
       colors={gradients.brand}
@@ -283,7 +310,7 @@ export function ItemCard({
   const { rtl } = useSite();
   const meta =
     item.collection === "products"
-      ? [item.dosageForm, item.packSize].filter(Boolean).join(" · ")
+      ? [item.dosageForm, item.packSize, item.price].filter(Boolean).join(" · ")
       : item.collection === "careers"
         ? [item.location, item.employmentType].filter(Boolean).join(" · ")
         : "";
@@ -485,7 +512,7 @@ export function BrandBar({ dark }: { dark?: boolean }) {
           flexShrink: 1,
         }}
       >
-        <Mark name={s.brand} size={38} />
+        <Mark name={s.brand} logo={s.logoUrl} size={38} />
         <View style={{ flexShrink: 1 }}>
           <Text
             style={{
@@ -584,6 +611,28 @@ export function Paragraphs({
             {p}
           </T>
         ))}
+    </View>
+  );
+}
+
+// The products note from Website settings (e.g. quotation terms).
+export function Note({ text }: { text: string }) {
+  return (
+    <View
+      style={{
+        backgroundColor: "#effaf8",
+        borderWidth: 1,
+        borderColor: "#b9e6df",
+        borderRadius: 14,
+        padding: 12,
+      }}
+    >
+      <T
+        weight="semibold"
+        style={{ fontSize: 14, lineHeight: 20, color: "#0f5f57" }}
+      >
+        {text}
+      </T>
     </View>
   );
 }

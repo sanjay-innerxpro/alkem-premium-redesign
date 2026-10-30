@@ -2,14 +2,14 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Pressable, ScrollView, TextInput, View } from "react-native";
 import { ListScreen } from "../../components/list-screen";
-import { T } from "../../components/ui";
+import { Note, T } from "../../components/ui";
 import type { Item } from "../../lib/api";
 import { useLoadedSite } from "../../lib/site";
 import { colors, radius } from "../../lib/theme";
 
 // Searchable catalogue with therapy-area filters, like the website's product browser.
 export default function Products() {
-  const { t, rtl } = useLoadedSite();
+  const { t, s, rtl } = useLoadedSite();
   const [query, setQuery] = useState("");
   const [area, setArea] = useState<string>();
   const filter = (items: Item[]) => {
@@ -67,6 +67,7 @@ export default function Products() {
         ];
         return (
           <View style={{ gap: 12, marginBottom: 4 }}>
+            {s.productsNote ? <Note text={s.productsNote} /> : null}
             <View
               style={{
                 flexDirection: rtl ? "row-reverse" : "row",

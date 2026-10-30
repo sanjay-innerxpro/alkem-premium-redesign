@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDict, siteContent, siteItem, siteSettings } from "@/lib/i18n-server";
+import {
+  getDict,
+  siteContent,
+  siteItem,
+  siteSettings,
+} from "@/lib/i18n-server";
 import { collections, type Collection } from "@/lib/types";
 import type { Dict } from "@/lib/i18n";
 import { OfferingCards, StoryCards } from "@/components/cards";
@@ -28,8 +33,7 @@ export async function generateMetadata({
   const [page, t] = await Promise.all([siteItem("pages", section), getDict()]);
   return {
     title:
-      page?.title ||
-      (labelKeys[section] ? t[labelKeys[section]] : section),
+      page?.title || (labelKeys[section] ? t[labelKeys[section]] : section),
   };
 }
 export default async function SectionPage({
@@ -43,7 +47,12 @@ export default async function SectionPage({
   const [s, t] = await Promise.all([siteSettings(), getDict()]);
   if (section === "contact") {
     const channels = [
-      s.contactEmail && ["mail", t.email_us, s.contactEmail, "mailto:" + s.contactEmail],
+      s.contactEmail && [
+        "mail",
+        t.email_us,
+        s.contactEmail,
+        "mailto:" + s.contactEmail,
+      ],
       s.contactPhone && [
         "phone",
         t.call_us,
@@ -64,7 +73,8 @@ export default async function SectionPage({
           <div className="np-wrap np-contact">
             <aside className="np-contact__info" data-reveal>
               <h2 className="np-h3">
-                {t.start_a} <em className="np-gradient-text">{t.conversation}</em>
+                {t.start_a}{" "}
+                <em className="np-gradient-text">{t.conversation}</em>
               </h2>
               <p className="np-lead">{t.contact_lead}</p>
               <div className="np-channels">
@@ -155,7 +165,12 @@ export default async function SectionPage({
           />
           <section className="np-section np-section--browse">
             <div className="np-wrap">
-              <ProductBrowser items={all} initialQ={q} initialCat={cat} />
+              <ProductBrowser
+                items={all}
+                initialQ={q}
+                initialCat={cat}
+                note={s.productsNote}
+              />
             </div>
           </section>
         </main>
@@ -167,7 +182,12 @@ export default async function SectionPage({
     );
     return (
       <main id="main">
-        <Banner label={label} home={t.home} title={head.title} text={head.description} />
+        <Banner
+          label={label}
+          home={t.home}
+          title={head.title}
+          text={head.description}
+        />
         <section className="np-section">
           <div className="np-wrap">
             <form className="np-search" role="search">
@@ -187,7 +207,9 @@ export default async function SectionPage({
                   {t.clear}
                 </Link>
               )}
-              <button className="np-btn np-btn--primary np-btn--sm">{t.search}</button>
+              <button className="np-btn np-btn--primary np-btn--sm">
+                {t.search}
+              </button>
             </form>
             {items.length === 0 ? (
               <div className="np-empty">
@@ -228,7 +250,9 @@ export default async function SectionPage({
                     data-reveal
                   >
                     <div>
-                      <span className="np-tag">{x.category || t.opportunity}</span>
+                      <span className="np-tag">
+                        {x.category || t.opportunity}
+                      </span>
                       <h2>{x.title}</h2>
                       <p>
                         {[x.location, x.employmentType]
@@ -259,7 +283,11 @@ export default async function SectionPage({
         text={page.summary}
       />
       <section className="np-section">
-        <div className={"np-wrap np-article" + (page.imageUrl ? " np-article--media" : "")}>
+        <div
+          className={
+            "np-wrap np-article" + (page.imageUrl ? " np-article--media" : "")
+          }
+        >
           {page.imageUrl && (
             <div className="np-article__visual" data-reveal>
               <Visual src={page.imageUrl} alt={page.title} />

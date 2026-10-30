@@ -1,8 +1,23 @@
 import Link from "next/link";
-// First letter of the brand name: the logo, favicon and app icons all follow it.
+// The logo symbol (Website settings → Logo) on a white tile; without one, the brand initial.
 export const initialOf = (name: string) =>
   (Array.from(name.trim())[0] ?? "").toUpperCase();
-export function Mark({ name, size = 40 }: { name: string; size?: number }) {
+export function Mark({
+  name,
+  logo = "",
+  size = 40,
+}: {
+  name: string;
+  logo?: string;
+  size?: number;
+}) {
+  if (logo)
+    return (
+      <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true">
+        <rect width="40" height="40" rx="12" fill="#fff" />
+        <image href={logo} x="5" y="5" width="30" height="30" />
+      </svg>
+    );
   return (
     <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true">
       <defs>
@@ -29,10 +44,18 @@ export function Mark({ name, size = 40 }: { name: string; size?: number }) {
     </svg>
   );
 }
-export function Brand({ name, tagline }: { name: string; tagline: string }) {
+export function Brand({
+  name,
+  tagline,
+  logo,
+}: {
+  name: string;
+  tagline: string;
+  logo?: string;
+}) {
   return (
     <Link href="/" className="np-brand" aria-label={name + " home"}>
-      <Mark name={name} />
+      <Mark name={name} logo={logo} />
       <span className="np-brand__copy">
         <strong>{name}</strong>
         <small>{tagline}</small>

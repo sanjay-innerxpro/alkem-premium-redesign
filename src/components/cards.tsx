@@ -112,14 +112,21 @@ export function ProductCards({
                 <Icon name={iconForForm(x.dosageForm)} size={34} />
               </span>
             )}
-            {x.dosageForm && <span className="np-product__form">{x.dosageForm}</span>}
+            {x.dosageForm && (
+              <span className="np-product__form">{x.dosageForm}</span>
+            )}
           </div>
           <div className="np-product__body">
-            {x.category && <span className="np-product__area">{x.category}</span>}
+            {x.category && (
+              <span className="np-product__area">{x.category}</span>
+            )}
             <h3>{x.title}</h3>
             {x.composition && <p>{x.composition}</p>}
             <div className="np-product__foot">
               <span>{x.packSize}</span>
+              {x.price && (
+                <strong className="np-product__price">{x.price}</strong>
+              )}
               <Icon name="arrow" size={18} />
             </div>
           </div>

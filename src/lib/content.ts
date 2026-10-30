@@ -69,6 +69,8 @@ function normalize(row: RowDataPacket): Content {
     composition: "",
     dosageForm: "",
     packSize: "",
+    price: "",
+    moq: "",
     ...mapStrings(data, fromLegacyCopy),
     id: row.id,
     collection: row.collection,

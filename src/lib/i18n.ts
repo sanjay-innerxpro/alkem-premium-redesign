@@ -115,6 +115,8 @@ const en = {
   composition: "Composition",
   dosage_form: "Dosage form",
   pack_size: "Pack size",
+  price: "Price",
+  moq: "Minimum order (MOQ)",
   therapy_area: "Therapy area",
   enquire_product: "Enquire about this product",
   enquire_text:
@@ -276,6 +278,8 @@ const hi: Dict = {
   composition: "संरचना",
   dosage_form: "खुराक का रूप",
   pack_size: "पैक आकार",
+  price: "मूल्य",
+  moq: "न्यूनतम ऑर्डर (MOQ)",
   therapy_area: "चिकित्सा क्षेत्र",
   enquire_product: "इस उत्पाद के बारे में पूछताछ करें",
   enquire_text:
@@ -436,6 +440,8 @@ const ur: Dict = {
   composition: "اجزا",
   dosage_form: "دوا کی شکل",
   pack_size: "پیک کا سائز",
+  price: "قیمت",
+  moq: "کم از کم آرڈر (MOQ)",
   therapy_area: "علاجی شعبہ",
   enquire_product: "اس پروڈکٹ کے بارے میں دریافت کریں",
   enquire_text: "دستیابی، قیمت یا تجارتی استفسار کے لیے ہمیں پیغام بھیجیں۔",

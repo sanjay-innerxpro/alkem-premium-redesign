@@ -6,8 +6,10 @@ const section = (
   imageUrl = "",
 ): Section => ({ eyebrow, title, description, imageUrl });
 export const defaultSettings: Settings = {
-  brand: "Demo Pharma",
-  tagline: "Healthcare Demo",
+  brand: "NexPharm",
+  tagline: "Healthcare Private Limited",
+  logoUrl: "/brand/logo-mark.png",
+  productsNote: "Note: Kindly request a quotation including GST and MOQ.",
   seoTitle:
     "{brand} — Quality Medicines for Healthier Lives",
   seoDescription:
@@ -20,7 +22,7 @@ export const defaultSettings: Settings = {
   heroCta: "Discover {brand}",
   heroImage: "/illustrations/capsule.svg",
   established: "",
-  purpose: "Healthier lives, everywhere",
+  purpose: "Excellence in every dose",
   footerText:
     "Quality, affordable medicines for healthier lives — built on science, made with care and delivered with integrity.",
   // Placeholder contact details and social links; replace them in Website settings.
@@ -121,18 +123,20 @@ const item = (
   composition: "",
   dosageForm: "",
   packSize: "",
+  price: "",
+  moq: "",
   published: true,
 });
 // Sample portfolio using generic medicine names; replace with the real product list.
-const products: [string, string, string, string, string][] = [
-  ["Atorvastatin Tablets IP 10 mg", "Cardiology", "Atorvastatin Calcium IP eq. to Atorvastatin 10 mg", "Tablet", "10 × 10 tablets"],
-  ["Telmisartan Tablets IP 40 mg", "Cardiology", "Telmisartan IP 40 mg", "Tablet", "10 × 10 tablets"],
-  ["Pantoprazole Gastro-resistant Tablets IP 40 mg", "Gastroenterology", "Pantoprazole Sodium IP eq. to Pantoprazole 40 mg", "Tablet", "10 × 10 tablets"],
-  ["Ondansetron Oral Solution 2 mg/5 ml", "Gastroenterology", "Ondansetron Hydrochloride IP eq. to Ondansetron 2 mg per 5 ml", "Syrup", "30 ml bottle"],
-  ["Clobetasol Propionate Cream IP 0.05%", "Dermatology", "Clobetasol Propionate IP 0.05% w/w", "Cream", "15 g tube"],
-  ["Ketoconazole Cream IP 2%", "Dermatology", "Ketoconazole IP 2% w/w", "Cream", "30 g tube"],
-  ["Pregabalin Capsules IP 75 mg", "Neurology", "Pregabalin IP 75 mg", "Capsule", "10 × 15 capsules"],
-  ["Metformin Hydrochloride SR Tablets IP 500 mg", "Diabetology", "Metformin Hydrochloride IP 500 mg (sustained release)", "Tablet", "10 × 10 tablets"],
+// Catalogue from the company's product list: [name, area, composition, form, pack, price, MOQ].
+const products: [string, string, string, string, string, string, string][] = [
+  ["Aceclofenac + Paracetamol + Serratiopeptidase Tablets", "Pain & Fever", "Aceclofenac, Paracetamol and Serratiopeptidase", "Tablet", "10 × 10 Alu-Alu", "₹70 per box", "300 boxes"],
+  ["Cefixime 200 mg + Ofloxacin 200 mg Tablets", "Anti-infectives", "Cefixime 200 mg and Ofloxacin 200 mg", "Tablet", "10 × 10 Alu-Alu", "₹380 per box", "200 boxes"],
+  ["Paracetamol Tablets IP 500 mg", "Pain & Fever", "Paracetamol IP 500 mg", "Tablet", "10 × 10 blister", "₹55 per box", "500 boxes"],
+  ["Pantoprazole Sodium + Domperidone Tablets", "Gastroenterology", "Pantoprazole Sodium and Domperidone", "Tablet", "10 × 10 Alu-Alu", "₹95 per box", "300 boxes"],
+  ["Azithromycin Tablets IP 250 mg", "Anti-infectives", "Azithromycin IP 250 mg", "Tablet", "6 × 10 blister", "₹255 per box", "300 boxes"],
+  ["Multivitamin, Multimineral & Antioxidant Syrup", "Nutrition", "Multivitamins, multiminerals and antioxidants", "Syrup", "200 ml bottle", "₹22 per bottle", "2,000 bottles"],
+  ["Multivitamin Tablets", "Nutrition", "Multivitamins", "Tablet", "", "", ""],
 ];
 const therapies: [string, string, string][] = [
   [
@@ -245,7 +249,7 @@ export const defaultContent: Content[] = [
     3,
     "Supply",
   ),
-  ...products.map(([title, category, composition, dosageForm, packSize], i) => ({
+  ...products.map(([title, category, composition, dosageForm, packSize, price, moq], i) => ({
     ...item(
       "product-" + i,
       "products",
@@ -262,6 +266,8 @@ export const defaultContent: Content[] = [
     composition,
     dosageForm,
     packSize,
+    price,
+    moq,
   })),
   ...therapies.map(([name, summary, body], i) =>
     item(

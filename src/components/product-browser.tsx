@@ -10,10 +10,13 @@ export function ProductBrowser({
   items,
   initialQ = "",
   initialCat = "",
+  note = "",
 }: {
   items: Content[];
   initialQ?: string;
   initialCat?: string;
+  /** Products note from Website settings, shown above the results. */
+  note?: string;
 }) {
   const [q, setQ] = useState(initialQ);
   const [cat, setCat] = useState(initialCat);
@@ -104,7 +107,9 @@ export function ProductBrowser({
               >
                 {name}
                 <span>
-                  {key ? items.filter((x) => keyOf(x) === key).length : items.length}
+                  {key
+                    ? items.filter((x) => keyOf(x) === key).length
+                    : items.length}
                 </span>
               </button>
             ))}
@@ -122,6 +127,7 @@ export function ProductBrowser({
           )}
         </div>
       </div>
+      {note && <p className="np-note np-note--browse">{note}</p>}
       <div className="np-browse__bar" aria-live="polite">
         <span>
           <strong>{results.length}</strong>{" "}

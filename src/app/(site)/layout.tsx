@@ -21,6 +21,7 @@ export default async function SiteLayout({
         <Header
           name={s.brand}
           tagline={s.tagline}
+          logo={s.logoUrl}
           phone={s.contactPhone}
           email={s.contactEmail}
           purpose={s.purpose}
@@ -38,7 +39,7 @@ export default async function SiteLayout({
           <div className="np-wrap">
             <div className="np-footer__top">
               <div className="np-footer__brand">
-                <Brand name={s.brand} tagline={s.tagline} />
+                <Brand name={s.brand} tagline={s.tagline} logo={s.logoUrl} />
                 <p>{s.footerText}</p>
                 <div className="np-footer__contact">
                   {s.contactEmail && (
@@ -60,7 +61,10 @@ export default async function SiteLayout({
                     </span>
                   )}
                 </div>
-                <SocialLinks links={s.social} className="np-social np-social--footer" />
+                <SocialLinks
+                  links={s.social}
+                  className="np-social np-social--footer"
+                />
               </div>
               <div className="np-footer__cols">
                 <div>

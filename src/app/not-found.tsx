@@ -14,7 +14,7 @@ export default async function NotFound() {
         <span />
       </div>
       <div className="np-standalone__inner">
-        <Mark name={s.brand} size={52} />
+        <Mark name={s.brand} logo={s.logoUrl} size={52} />
         <span className="np-pill">
           <i />
           {t.nf_label}

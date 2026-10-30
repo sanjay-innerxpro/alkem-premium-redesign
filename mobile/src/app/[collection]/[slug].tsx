@@ -8,6 +8,7 @@ import {
   Button,
   Eyebrow,
   LoadError,
+  Note,
   Loading,
   OfflineNotice,
   Paragraphs,
@@ -23,7 +24,7 @@ export default function Detail() {
     collection: string;
     slug: string;
   }>();
-  const { t, lang, rtl } = useLoadedSite();
+  const { t, s, lang, rtl } = useLoadedSite();
   const insets = useSafeAreaInsets();
   const {
     data: item,
@@ -79,6 +80,8 @@ export default function Detail() {
           [t.composition, item.composition],
           [t.dosage_form, item.dosageForm],
           [t.pack_size, item.packSize],
+          [t.price, item.price],
+          [t.moq, item.moq],
           [t.therapy_area, item.category],
         ]
       : item.collection === "careers"
@@ -236,6 +239,9 @@ export default function Detail() {
               ))}
           </View>
         )}
+        {item.collection === "products" && s.productsNote ? (
+          <Note text={s.productsNote} />
+        ) : null}
         {item.body ? <Paragraphs text={item.body} /> : null}
         <LinearGradient
           colors={gradients.deep}

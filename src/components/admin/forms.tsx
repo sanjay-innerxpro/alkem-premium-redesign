@@ -159,12 +159,26 @@ export function Editor({ item }: { item: Content }) {
                     value={item.packSize}
                   />
                 </div>
+                <div className="form-row">
+                  <Field
+                    label="Price (shown publicly, e.g. ₹70 per box)"
+                    name="price"
+                    value={item.price}
+                  />
+                  <Field
+                    label="Minimum order (MOQ, e.g. 300 boxes)"
+                    name="moq"
+                    value={item.moq}
+                  />
+                </div>
               </>
             ) : (
               <>
                 <input name="composition" type="hidden" value="" />
                 <input name="dosageForm" type="hidden" value="" />
                 <input name="packSize" type="hidden" value="" />
+                <input name="price" type="hidden" value="" />
+                <input name="moq" type="hidden" value="" />
               </>
             )}
             <Field
@@ -277,6 +291,10 @@ export function SettingsForm({ settings: s }: { settings: Settings }) {
             ["tagline", "Brand tagline"],
           ])}
         </div>
+        {fields([
+          ["logoUrl", "Logo image URL (symbol, shown on a white tile)"],
+          ["productsNote", "Products note (catalogue and product pages)", true],
+        ])}
         <p className="form-note">
           The logo and icons follow the brand name; the Android app picks it up
           on its next build. Write {"{brand}"} in any text or page to show the

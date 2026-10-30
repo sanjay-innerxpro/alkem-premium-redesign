@@ -32,6 +32,11 @@ for (const [d, k] of Object.entries(densities))
       108 * k,
     ],
     [join(res, `drawable-${d}/splash.png`), "icon", 128 * k],
+    [
+      join(res, `mipmap-${d}/ic_launcher_background.png`),
+      "background",
+      108 * k,
+    ],
   );
 for (const [path, variant, size] of files) {
   const r = await fetch(`${site}/app-icon/${variant}?size=${size}`);
