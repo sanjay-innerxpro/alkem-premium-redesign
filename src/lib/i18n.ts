@@ -168,6 +168,7 @@ const en = {
   app_offline: "You’re offline — showing saved content.",
   app_retry: "Try again",
   app_unavailable: "Couldn’t load content. Check your connection.",
+  app_news_tab: "News",
 };
 export type Dict = typeof en;
 
@@ -327,6 +328,7 @@ const hi: Dict = {
   app_offline: "आप ऑफ़लाइन हैं — सहेजी गई सामग्री दिखाई जा रही है।",
   app_retry: "फिर से कोशिश करें",
   app_unavailable: "सामग्री लोड नहीं हो सकी। अपना कनेक्शन जाँचें।",
+  app_news_tab: "समाचार",
 };
 
 const ur: Dict = {
@@ -485,6 +487,7 @@ const ur: Dict = {
   app_offline: "آپ آف لائن ہیں — محفوظ شدہ مواد دکھایا جا رہا ہے۔",
   app_retry: "دوبارہ کوشش کریں",
   app_unavailable: "مواد لوڈ نہیں ہو سکا۔ اپنا کنکشن چیک کریں۔",
+  app_news_tab: "خبریں",
 };
 
 export const dictionaries: Record<Lang, Dict> = { en, hi, ur };
