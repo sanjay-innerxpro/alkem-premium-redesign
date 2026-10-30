@@ -2,8 +2,6 @@ import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { collections, type Collection } from "@/lib/types";
 import { notFound } from "next/navigation";
-import { catalogue, catalogueMissing } from "@/lib/catalogue";
-import { loadCatalogue } from "@/app/admin/actions";
 export default async function ContentList({
   searchParams,
 }: {
@@ -54,20 +52,6 @@ export default async function ContentList({
         <p role="status" className="success-message">
           Content deleted.
         </p>
-      )}
-      {collection === "products" && catalogueMissing(items) && (
-        <section className="studio-card">
-          <h2>Product list available</h2>
-          <p>
-            Load the company product list ({catalogue.length} products with
-            price, pack size and MOQ). It replaces the sample products and
-            overwrites earlier copies of these {catalogue.length}; products you
-            added yourself are kept.
-          </p>
-          <form action={loadCatalogue}>
-            <button className="studio-button">Load product list</button>
-          </form>
-        </section>
       )}
       <section className="studio-card">
         <form className="studio-search">
