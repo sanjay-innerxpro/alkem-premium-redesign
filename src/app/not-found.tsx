@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mark } from "@/components/brand";
+import { Logo, Mark } from "@/components/brand";
 import { getLang } from "@/lib/i18n-server";
 import { getSettingsOrDefault } from "@/lib/content";
 import { dictionaries, dirOf } from "@/lib/i18n";
@@ -14,7 +14,11 @@ export default async function NotFound() {
         <span />
       </div>
       <div className="np-standalone__inner">
-        <Mark name={s.brand} logo={s.logoUrl} size={52} />
+        {s.wordmarkUrl ? (
+          <Logo src={s.wordmarkUrl} alt={s.brand} height={64} />
+        ) : (
+          <Mark name={s.brand} logo={s.logoUrl} size={52} />
+        )}
         <span className="np-pill">
           <i />
           {t.nf_label}

@@ -50,6 +50,9 @@ export type Settings = {
   tagline: string;
   /** Logo symbol shown on a white tile; empty uses the brand initial. */
   logoUrl: string;
+  /** Full logo (symbol and name) on a white card in the header, footer and studio; empty
+   *  shows the symbol with the brand name typed beside it. */
+  wordmarkUrl: string;
   /** Shown with the product catalogue and on every product. */
   productsNote: string;
   seoTitle: string;

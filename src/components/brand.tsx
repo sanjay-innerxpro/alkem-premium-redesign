@@ -50,16 +50,41 @@ export const splitWordmark = (name: string): [string, string] => {
   const m = /^(\p{Lu}[^\p{Lu}\s]+)(\p{Lu}.*)$/u.exec(name.trim());
   return m ? [m[1], m[2]] : [name, ""];
 };
+// The full logo artwork on a white card, so its navy text stays legible on dark headers.
+export function Logo({
+  src,
+  alt,
+  height = 44,
+}: {
+  src: string;
+  alt: string;
+  height?: number;
+}) {
+  return (
+    <span className="np-logo" style={{ height }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt={alt} fetchPriority="high" decoding="async" />
+    </span>
+  );
+}
 export function Brand({
   name,
   tagline,
   logo,
+  wordmark,
 }: {
   name: string;
   tagline: string;
   logo?: string;
+  wordmark?: string;
 }) {
   const [head, tail] = splitWordmark(name);
+  if (wordmark)
+    return (
+      <Link href="/" className="np-brand" aria-label={name + " home"}>
+        <Logo src={wordmark} alt={name + " " + tagline} height={58} />
+      </Link>
+    );
   return (
     <Link href="/" className="np-brand" aria-label={name + " home"}>
       <Mark name={name} logo={logo} />

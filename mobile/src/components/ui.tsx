@@ -512,33 +512,54 @@ export function BrandBar({ dark }: { dark?: boolean }) {
           flexShrink: 1,
         }}
       >
-        <Mark name={s.brand} logo={s.logoUrl} size={38} />
-        <View style={{ flexShrink: 1 }}>
-          <Text
+        {s.wordmarkUrl ? (
+          <View
             style={{
-              color: ink,
-              fontFamily: "PlusJakartaSans_800ExtraBold",
-              fontSize: 18,
-              lineHeight: 22,
+              height: 44,
+              paddingHorizontal: 10,
+              paddingVertical: 5,
+              borderRadius: 12,
+              backgroundColor: colors.white,
             }}
-            numberOfLines={1}
           >
-            {s.brand}
-          </Text>
-          <T
-            weight="bold"
-            style={{
-              color: dark ? colors.mist : colors.muted,
-              fontSize: 10,
-              lineHeight: 14,
-              letterSpacing: 1.2,
-              textTransform: "uppercase",
-            }}
-            numberOfLines={1}
-          >
-            {s.tagline}
-          </T>
-        </View>
+            <Image
+              source={absolute(s.wordmarkUrl)}
+              style={{ height: 34, aspectRatio: 942 / 353 }}
+              contentFit="contain"
+              accessibilityLabel={s.brand}
+            />
+          </View>
+        ) : (
+          <>
+            <Mark name={s.brand} logo={s.logoUrl} size={38} />
+            <View style={{ flexShrink: 1 }}>
+              <Text
+                style={{
+                  color: ink,
+                  fontFamily: "PlusJakartaSans_800ExtraBold",
+                  fontSize: 18,
+                  lineHeight: 22,
+                }}
+                numberOfLines={1}
+              >
+                {s.brand}
+              </Text>
+              <T
+                weight="bold"
+                style={{
+                  color: dark ? colors.mist : colors.muted,
+                  fontSize: 10,
+                  lineHeight: 14,
+                  letterSpacing: 1.2,
+                  textTransform: "uppercase",
+                }}
+                numberOfLines={1}
+              >
+                {s.tagline}
+              </T>
+            </View>
+          </>
+        )}
       </View>
       <View
         style={{

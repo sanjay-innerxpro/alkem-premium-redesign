@@ -49,9 +49,18 @@ async function moveContactEmail(conn: PoolConnection) {
   );
 }
 
+// The company phone replaces the placeholder number; an edited number is kept.
+async function setContactPhone(conn: PoolConnection) {
+  await conn.execute(
+    "UPDATE settings SET data=JSON_SET(data,'$.contactPhone',?) WHERE id=1 AND JSON_UNQUOTE(JSON_EXTRACT(data,'$.contactPhone'))=?",
+    ["+91 99354 03144", "+91 00000 00000"],
+  );
+}
+
 const MIGRATIONS: [string, (conn: PoolConnection) => Promise<void>][] = [
   ["data-001-product-catalogue", writeCatalogue],
   ["data-002-nexpharmhealth-email", moveContactEmail],
+  ["data-003-contact-phone", setContactPhone],
 ];
 
 // Runs at server start (instrumentation.ts). Recorded in schema_migrations with the SQL

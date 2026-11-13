@@ -18,6 +18,7 @@ export function Header({
   name,
   tagline,
   logo,
+  wordmark,
   phone,
   email,
   purpose,
@@ -26,6 +27,7 @@ export function Header({
   name: string;
   tagline: string;
   logo: string;
+  wordmark: string;
   phone: string;
   email: string;
   purpose: string;
@@ -117,7 +119,12 @@ export function Header({
           </div>
         </div>
         <div className="np-wrap np-header__bar">
-          <Brand name={name} tagline={tagline} logo={logo} />
+          <Brand
+            name={name}
+            tagline={tagline}
+            logo={logo}
+            wordmark={wordmark}
+          />
           <nav className="np-nav" aria-label="Primary navigation">
             {links.map(([href, key]) => (
               <Link

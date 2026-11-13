@@ -84,6 +84,7 @@ export const settingsSchema = z.object({
   brand: text(40).min(1),
   tagline: text(120),
   logoUrl: safeImage,
+  wordmarkUrl: safeImage,
   productsNote: text(300),
   seoTitle: text(180).min(1),
   seoDescription: text(320),

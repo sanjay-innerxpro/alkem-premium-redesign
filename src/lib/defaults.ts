@@ -9,6 +9,7 @@ export const defaultSettings: Settings = {
   brand: "NexPharm",
   tagline: "Healthcare Private Limited",
   logoUrl: "/brand/logo-mark.png",
+  wordmarkUrl: "/brand/logo-wordmark.png",
   productsNote: "Note: Kindly request a quotation including GST and MOQ.",
   seoTitle:
     "{brand} — Quality Medicines for Healthier Lives",
@@ -27,7 +28,7 @@ export const defaultSettings: Settings = {
     "Quality, affordable medicines for healthier lives — built on science, made with care and delivered with integrity.",
   // Placeholder contact details and social links; replace them in Website settings.
   contactEmail: "info@example.com",
-  contactPhone: "+91 00000 00000",
+  contactPhone: "+91 99354 03144",
   contactAddress: "",
   social: {
     linkedin: "https://www.linkedin.com/",

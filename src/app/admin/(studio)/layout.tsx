@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { requireAdmin } from "@/lib/auth";
 import { StudioNav } from "@/components/admin/nav";
-import { Mark } from "@/components/brand";
+import { Logo, Mark } from "@/components/brand";
 import { Icon } from "@/components/icons";
 import { getSettings } from "@/lib/content";
 export const dynamic = "force-dynamic";
@@ -24,11 +24,20 @@ export default async function StudioLayout({
       <aside className="studio-sidebar">
         <div className="studio-sidebar__top">
           <Link href="/admin" className="studio-logo">
-            <Mark name={s.brand} logo={s.logoUrl} size={36} />
-            <div>
-              <strong>{s.brand}</strong>
-              <small>Content Studio</small>
-            </div>
+            {s.wordmarkUrl ? (
+              <div>
+                <Logo src={s.wordmarkUrl} alt={s.brand} height={52} />
+                <small>Content Studio</small>
+              </div>
+            ) : (
+              <>
+                <Mark name={s.brand} logo={s.logoUrl} size={36} />
+                <div>
+                  <strong>{s.brand}</strong>
+                  <small>Content Studio</small>
+                </div>
+              </>
+            )}
           </Link>
           <form
             action="/api/auth/logout"

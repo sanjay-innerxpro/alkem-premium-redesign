@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { currentAdmin } from "@/lib/auth";
 import { LoginForm } from "@/components/admin/login-form";
-import { Mark } from "@/components/brand";
+import { Logo, Mark } from "@/components/brand";
 import { Icon } from "@/components/icons";
 import { isDemo } from "@/lib/db";
 import { getSettings } from "@/lib/content";
@@ -28,11 +28,17 @@ export default async function Login() {
       </div>
       <header className="login-top">
         <Link className="login-brand" href="/">
-          <Mark name={s.brand} logo={s.logoUrl} size={36} />
-          <span>
-            <strong>{s.brand}</strong>
-            <small>Content Studio</small>
-          </span>
+          {s.wordmarkUrl ? (
+            <Logo src={s.wordmarkUrl} alt={s.brand} height={52} />
+          ) : (
+            <>
+              <Mark name={s.brand} logo={s.logoUrl} size={36} />
+              <span>
+                <strong>{s.brand}</strong>
+                <small>Content Studio</small>
+              </span>
+            </>
+          )}
         </Link>
         <Link href="/" className="login-back">
           <Icon name="globe" size={16} /> Back to website

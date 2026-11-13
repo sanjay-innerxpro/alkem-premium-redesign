@@ -293,6 +293,7 @@ export function SettingsForm({ settings: s }: { settings: Settings }) {
         </div>
         {fields([
           ["logoUrl", "Logo image URL (symbol, shown on a white tile)"],
+          ["wordmarkUrl", "Full logo image URL (symbol and name, header and footer)"],
           ["productsNote", "Products note (catalogue and product pages)", true],
         ])}
         <p className="form-note">
