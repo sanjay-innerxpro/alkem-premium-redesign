@@ -484,7 +484,7 @@ export function OfflineNotice({ show }: { show: boolean }) {
         marginBottom: 16,
       }}
     >
-      <T style={{ fontSize: 13, color: "#0f5f73", textAlign: "center" }}>
+      <T style={{ fontSize: 13, color: "#2a3f8a", textAlign: "center" }}>
         {t.app_offline}
       </T>
     </View>
@@ -620,16 +620,16 @@ export function Note({ text }: { text: string }) {
   return (
     <View
       style={{
-        backgroundColor: "#effaf8",
+        backgroundColor: "#eff7fc",
         borderWidth: 1,
-        borderColor: "#b9e6df",
+        borderColor: "#c3e3f2",
         borderRadius: 14,
         padding: 12,
       }}
     >
       <T
         weight="semibold"
-        style={{ fontSize: 14, lineHeight: 20, color: "#0f5f57" }}
+        style={{ fontSize: 14, lineHeight: 20, color: "#23256a" }}
       >
         {text}
       </T>

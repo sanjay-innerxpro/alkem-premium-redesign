@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500">
   <defs>
-    <radialGradient id="n1"><stop offset="0" stop-color="#99F6E4"/><stop offset="1" stop-color="#0D9488"/></radialGradient>
+    <radialGradient id="n1"><stop offset="0" stop-color="#B7E6F7"/><stop offset="1" stop-color="#2A78B0"/></radialGradient>
     <radialGradient id="n2"><stop offset="0" stop-color="#D6E4F2"/><stop offset="1" stop-color="#4F7CA8"/></radialGradient>
     <radialGradient id="n3"><stop offset="0" stop-color="#BAE6FD"/><stop offset="1" stop-color="#0284C7"/></radialGradient>
-    <radialGradient id="halo"><stop offset="0" stop-color="#22B3A0" stop-opacity=".35"/><stop offset="1" stop-color="#22B3A0" stop-opacity="0"/></radialGradient>
+    <radialGradient id="halo"><stop offset="0" stop-color="#38A9D0" stop-opacity=".35"/><stop offset="1" stop-color="#38A9D0" stop-opacity="0"/></radialGradient>
   </defs>
   <circle cx="300" cy="250" r="230" fill="url(#halo)"/>
-  <g stroke="#5EEAD4" stroke-opacity=".5" stroke-width="3" fill="none">
+  <g stroke="#7FD3F0" stroke-opacity=".5" stroke-width="3" fill="none">
     <path d="M300 160l78 45v90l-78 45-78-45v-90Z"/>
     <path d="M378 205l90-40M378 295l86 46M222 205l-88-46M222 295l-90 42M300 340v86M300 160V74"/>
     <path d="M468 165l50-60M132 337l-48 54"/>

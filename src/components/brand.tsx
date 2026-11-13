@@ -15,16 +15,16 @@ export function Mark({
     return (
       <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true">
         <rect width="40" height="40" rx="12" fill="#fff" />
-        <image href={logo} x="5" y="5" width="30" height="30" />
+        <image href={logo} x="3" y="3" width="34" height="34" />
       </svg>
     );
   return (
     <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true">
       <defs>
         <linearGradient id="np-mark" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#22B3A0" />
-          <stop offset=".55" stopColor="#1F9BB5" />
-          <stop offset="1" stopColor="#2F7FA3" />
+          <stop offset="0" stopColor="#38A9D0" />
+          <stop offset=".55" stopColor="#3A6DB3" />
+          <stop offset="1" stopColor="#2B2C73" />
         </linearGradient>
       </defs>
       <rect width="40" height="40" rx="12" fill="url(#np-mark)" />
@@ -44,6 +44,12 @@ export function Mark({
     </svg>
   );
 }
+// Two-tone wordmark like the logo: "NexPharm" → "Nex" + "Pharm". Names without a second
+// capital stay one colour.
+export const splitWordmark = (name: string): [string, string] => {
+  const m = /^(\p{Lu}[^\p{Lu}\s]+)(\p{Lu}.*)$/u.exec(name.trim());
+  return m ? [m[1], m[2]] : [name, ""];
+};
 export function Brand({
   name,
   tagline,
@@ -53,11 +59,15 @@ export function Brand({
   tagline: string;
   logo?: string;
 }) {
+  const [head, tail] = splitWordmark(name);
   return (
     <Link href="/" className="np-brand" aria-label={name + " home"}>
       <Mark name={name} logo={logo} />
       <span className="np-brand__copy">
-        <strong>{name}</strong>
+        <strong>
+          {head}
+          {tail && <span className="np-brand__tail">{tail}</span>}
+        </strong>
         <small>{tagline}</small>
       </span>
     </Link>

@@ -13,7 +13,7 @@ import { initialOf } from "@/components/brand";
 //   feature     1024x500 Play Store feature graphic
 export const dynamic = "force-dynamic";
 const GRADIENT =
-  "linear-gradient(135deg, #22B3A0 0%, #1F9BB5 55%, #2F7FA3 100%)";
+  "linear-gradient(135deg, #38A9D0 0%, #3A6DB3 55%, #2B2C73 100%)";
 const variants = [
   "icon",
   "full",
@@ -164,7 +164,7 @@ export async function GET(
           alignItems: "center",
           padding: "0 110px",
           gap: 46,
-          background: "linear-gradient(100deg, #071526 0%, #0d2a3d 100%)",
+          background: "linear-gradient(100deg, #0b0d36 0%, #161b5e 100%)",
           fontFamily: "Jakarta",
         }}
       >
@@ -192,7 +192,7 @@ export async function GET(
           >
             {s.brand}
           </div>
-          <div style={{ color: "#9FE7DC", fontSize: 34, marginTop: 14 }}>
+          <div style={{ color: "#A9DCF2", fontSize: 34, marginTop: 14 }}>
             {s.tagline}
           </div>
         </div>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Matches the website's theme-color and header. -->
-    <color name="brandNavy">#071526</color>
+    <color name="brandNavy">#0b0d36</color>
 </resources>

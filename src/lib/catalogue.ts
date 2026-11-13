@@ -4,7 +4,6 @@ import { defaultContent } from "./defaults";
 // The company product list (defaults.ts) is written to the database once per database by a
 // data migration at server start. After that the database is the only source: products are
 // added, edited and removed in the Content Studio, and the website and app read them from it.
-const VERSION = "data-001-product-catalogue";
 const catalogue = defaultContent.filter((x) => x.collection === "products");
 // Sample products shipped with the first seed (product-0 … product-7).
 const isSampleProduct = (id: string) => /^product-\d+$/.test(id);
@@ -41,30 +40,51 @@ async function writeCatalogue(conn: PoolConnection) {
   );
 }
 
+// The site moved from nexpharm.smartsoch.store to nexpharmhealth.in; only the old address
+// is replaced, never one an editor typed.
+async function moveContactEmail(conn: PoolConnection) {
+  await conn.execute(
+    "UPDATE settings SET data=JSON_SET(data,'$.contactEmail',?) WHERE id=1 AND JSON_UNQUOTE(JSON_EXTRACT(data,'$.contactEmail'))=?",
+    ["info@nexpharmhealth.in", "info@nexpharm.smartsoch.store"],
+  );
+}
+
+const MIGRATIONS: [string, (conn: PoolConnection) => Promise<void>][] = [
+  ["data-001-product-catalogue", writeCatalogue],
+  ["data-002-nexpharmhealth-email", moveContactEmail],
+];
+
 // Runs at server start (instrumentation.ts). Recorded in schema_migrations with the SQL
-// migrations, so it never runs twice; a failure is logged and retried on the next start.
+// migrations, so none runs twice; a failure is logged and retried on the next start.
 export async function runDataMigrations() {
   if (isDemo() || !process.env.DATABASE_URL) return;
+  for (const [version, run] of MIGRATIONS) await runOnce(version, run);
+}
+
+async function runOnce(
+  version: string,
+  run: (conn: PoolConnection) => Promise<void>,
+) {
   const conn = await db().getConnection();
   try {
     await conn.beginTransaction();
     const [done] = await conn.query<RowDataPacket[]>(
       "SELECT version FROM schema_migrations WHERE version=? FOR UPDATE",
-      [VERSION],
+      [version],
     );
     if (done.length) {
       await conn.rollback();
       return;
     }
-    await writeCatalogue(conn);
+    await run(conn);
     await conn.execute("INSERT INTO schema_migrations(version) VALUES (?)", [
-      VERSION,
+      version,
     ]);
     await conn.commit();
-    console.log("Applied " + VERSION);
+    console.log("Applied " + version);
   } catch (e) {
     await conn.rollback().catch(() => {});
-    console.error("Data migration " + VERSION + " failed", e);
+    console.error("Data migration " + version + " failed", e);
   } finally {
     conn.release();
   }

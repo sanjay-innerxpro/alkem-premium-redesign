@@ -1,7 +1,7 @@
 // Colours and type from the website (src/app/globals.css).
 export const colors = {
-  navy: "#071526",
-  deep: "#0f2335",
+  navy: "#0b0d36",
+  deep: "#13164a",
   ink: "#1b2a3a",
   ink2: "#3d4b5c",
   muted: "#637083",
@@ -9,16 +9,16 @@ export const colors = {
   surface: "#f6f4ef",
   background: "#fcfbf8",
   white: "#ffffff",
-  teal: "#14b8a6",
-  tealDark: "#0f766e",
-  mint: "#5eead4",
+  teal: "#38a9d0",
+  tealDark: "#2b2c73",
+  mint: "#7fd3f0",
   mist: "#9fb3c4",
 };
 export const gradients = {
-  brand: ["#22B3A0", "#1F9BB5", "#2F7FA3"] as const,
-  deep: ["#0f766e", "#155e75"] as const,
-  light: ["#7fe0d2", "#a9d6f0"] as const,
-  hero: ["#071526", "#0d2a3d"] as const,
+  brand: ["#38A9D0", "#3A6DB3", "#2B2C73"] as const,
+  deep: ["#2b2c73", "#3a4c9c"] as const,
+  light: ["#8fd2ee", "#a9d6f0"] as const,
+  hero: ["#0b0d36", "#161b5e"] as const,
 };
 export const radius = { card: 22, pill: 999 };
 export const shadow = {
